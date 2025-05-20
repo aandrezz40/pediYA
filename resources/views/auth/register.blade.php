@@ -24,7 +24,7 @@
                     <div>
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li style="color:red">{{ $error }}</li>
+                                <li style="color:blue">{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>

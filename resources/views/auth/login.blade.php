@@ -80,7 +80,7 @@
                         <span class="ms-2 text-sm text-gray-600">Recuérdame</span>
                     </label>
                 </article>
-
+                {{-- holalaaa me gusta mucho mi mujer --}}
                 <input type="submit" value="Iniciar Sesión" class="btn-registro" />
             </form>
 

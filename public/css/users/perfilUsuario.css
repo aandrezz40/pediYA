@@ -1,0 +1,814 @@
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "ADLaM Display", serif;
+    font-weight: 300;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+
+}
+html{
+    height: 100vh;
+}
+body{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+main{
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+}
+
+/*CONTENEDOR DEL ASIDE DE PERFIL*/
+.container-aside{
+    width: 22%;
+    height: 90%;
+}
+.cont-aside-perfil{
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 30%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+}
+.cont-titulo-perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+    border-bottom: 2px solid var(--color-borde-claro);
+}
+.cont-titulo-perfil h2{
+    font-size: 1.2rem;
+    color: var(--color-primario);
+}
+.aside-navBar-perfil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+}
+.aside-navBar-perfil ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+.aside-navBar-perfil ul li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+.aside-navBar-perfil ul li a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 100%;
+    text-decoration: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+.aside-navBar-perfil ul img{
+    width: var(--tamaño-icono3);
+    height: var(--tamaño-icono3);
+}
+.aside-navBar-perfil ul li:hover {
+    background-color: var(--color-sexto);
+    color: white;
+}
+.aside-navBar-perfil ul li:hover a{
+    color: white;
+}
+/*CONTENEDOR DE OPCIONES*/
+.cont-config-opciones{
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 70%;
+    height: 90%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    overflow-y: auto;
+}
+.tituloSecundario{
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.cont-cards-config{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    gap: 20px;
+}
+.card-config{
+    width: 45%;
+    height: 120px;
+    border-radius: 15px;
+    border:  1px solid var(--color-borde-claro);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.cont-titulo-card{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    width: 100%;
+    height: 50%;
+}
+.cont-titulo-card img{
+    width: 30px;
+    height: 25px ;
+}
+.card-config p{
+    height: 50%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--color-text1);
+}
+.card-config:hover{
+    scale: 1.02;
+    border: 1px solid var(--color-primario);
+}
+.card-config:hover h3{
+    color:  var(--color-primario);
+}
+
+/*CONTENEDOR DE FORMULARIO INFORMACION PERSONAL*/
+.cont-form-personal{
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 70%;
+    height: 90%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    overflow-y: auto;
+}
+.cont-titulo-personal{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    height: 20%;
+}
+.titulo-personal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.2em;
+}
+.titulo-personal img{
+    width: 24px;
+    height: 24px ;
+}
+.cont-titulo-personal p{
+    font-size: .8em;
+    color: var(--color-text1);
+}
+.subTitutlo{
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--color-sexto);
+}
+.cont-form-personal form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    place-items: center;
+    place-content: center;
+    width: 100%;
+    height: 80%;
+    gap: 20px;
+    border-top: 1px solid var(--color-borde-claro);
+}
+.cont-inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+}
+.cont-inputs label{
+    font-size: .8em;
+}
+.cont-inputs input{
+    width: 100%;
+    font-size: .8em;
+    padding: 3px;
+    border: 1px solid var(--color-borde-claro);
+    transition: all 0.1s ease-in-out;
+    border-radius: 5px;
+}
+.cont-inputs input:focus{
+    outline: 2px solid var(--color-primario);
+    border: none;
+}
+.cont-inputs:nth-child(3){
+    grid-column: 1/3;
+}
+.cont-form-personal .cont-btn-form{
+    grid-column: 2/3;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    gap: 10px;
+}
+.btn-cancelar{
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    font-size: .8em;
+    font-weight: 100;
+    border: 1px solid var(--color-borde-claro);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn-cancelar:hover{
+    background-color: red;
+    color: white;
+    border: none;
+}
+.btn-guardar{
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--color-sexto);
+    color: white;
+    font-size: .8em;
+    font-weight: 100;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn-guardar:hover{
+    background-color: #09f;
+    color: white;
+}
+/*CONTENEDOR PARA EDITAR SEGURIDAD*/
+.container-form-seguridad{
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 70%;
+    height: 90%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    overflow-y: auto;
+}
+.cont-confirmacion-formulario{
+    width: 100%;
+    background-color: rgb(214, 212, 212);
+    display: none;
+    justify-content: start;
+    align-items: center;
+    padding: 15px;
+    gap: 10px;
+    border-radius: 15px;
+}
+.cont-confirmacion-formulario img{
+    width: var(--tamaño-icono3);
+    height: var(--tamaño-icono3);
+}
+.titulo-confirmacion p{
+    font-size: .8em;
+    color: var(--color-text3);
+
+}
+.container-form-seguridad form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+.cont-inputs-contrasena{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+.cont-inputs-contrasena label{
+    font-size: .8em;
+}
+.cont-inputs-contrasena input{
+    width: 100%;
+    font-size: .9em;
+    padding: 5px;
+    border: 1px solid var(--color-borde-claro);
+    transition: all 0.1s ease;
+    border-radius: 5px;
+    &:focus{
+        outline: 1px solid var(--color-primario);
+        border: none;
+    }
+    &::placeholder{
+        color: var(--color-text1);
+        font-size: .8em;
+    }
+}
+.cont-inputs-contrasena:nth-child(2) p{
+    font-size: .8em;
+    color: var(--color-text3);
+}
+.cont-progreso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+.cont-progreso div{
+    width: 24%;
+    height: 10px;
+    background-color: rgb(206, 202, 202);
+    border-radius: 5px;
+}
+.container-form-seguridad .cont-btn-form{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    gap: 10px;
+}
+/*DISEÑO DEL FORMULARIO PARA EDITAR LA  INFORMACIÓN DE LA TIENDA*/
+.container-info-tienda{
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 70%;
+    height: 90%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    overflow-y: auto;
+}
+.cont-encabezado-tienda{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+}
+.cont-encabezado-tienda section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+.cont-encabezado-tienda img{
+    width: 60px;
+    height: var(--tamaño-icono4);
+}
+.tituloEncabezado{
+    font-size: 1.5em;
+}
+.cont-encabezado-tienda p{
+    font-size: .8em;
+    color: var(--color-text1);
+}
+.mini-nav-tienda{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    width: 100%;
+    height: 20%;
+    margin: 20px 0;
+}
+.mini-nav-tienda ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+.btn-tienda{
+    font-size: .9em;
+    color: var(--color-text1);
+    cursor: pointer;
+}
+.activeInfoTienda{
+    border-bottom: 2px solid var(--color-primario) ;
+    color: var(--color-primario);
+}
+/*CARD VISTA PREVIA DE LA TIENDA*/
+.cont-vista-previa{
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    border-left: 1px solid var(--color-borde-claro);
+    border-right: 1px solid var(--color-borde-claro);
+    border-bottom: 1px solid var(--color-borde-claro);
+    margin-bottom: 20px;
+}
+.encabezado-vista-previa{
+    width: 100%;
+    background-color: var(--color-sexto);
+    padding: 5px 10px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border: none;
+    color: white;
+    font-size: .9em;
+}
+.cont-info-tienda{
+    padding: 10px 30px;
+}
+.cont-img-tienda{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    gap: 20px;
+}
+.cont-img-tienda img{
+    width: 150px;
+    height: 100px;
+    background-size: cover;
+    border-radius: 10px;
+}
+.info-img{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 30px;
+}
+.nombreTienda{
+    font-size: 1.2em;
+}
+.descripcionTienda{
+    font-size: .9em;
+    color: var(--color-text3);
+}
+.cont-datos{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.dato h4{
+    font-size: .7em;
+    color: var(--color-text3);
+}
+
+/*CONTENEDOR FORMULARIO DE DATOS BASICOS*/
+.cont-formulario-basico{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.subTituloTienda{
+    color: var(--color-primario);
+    font-size: 1.2em;
+}
+.formulario-tienda-datos{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 60px 100px 60px auto;
+    gap: 20px;
+    place-content: center;
+}
+.cont-inputs-tienda{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+}
+.cont-inputs-tienda input, .cont-inputs-tienda select, .cont-inputs-tienda textarea{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--color-borde-claro);
+    border-radius: 5px;
+    resize: none;
+    &:focus{
+        outline: 2px solid var(--color-sexto);
+        border: none;
+    }
+}
+.cont-inputs-tienda label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8em;
+}
+.cont-inputs-tienda:nth-child(4){
+    grid-column: 1/4;
+}
+.formulario-tienda-datos .cont-btn-form{
+    grid-column: 3/4;
+    grid-row: 4/5;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    gap: 10px;
+}
+/*CONTENEDOR FORMULARIO DE HORARIOS*/
+.cont-formulario-horarios{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+.formulario-tienda-horarios{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 80px);
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.cont-checkbox{
+    border: 1px solid var(--color-borde-claro);
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.cont-checkbox label{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.checkbox, .checkboxMetodo{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.checkmark {
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.checkmark:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0;
+    bottom: 0px;
+    top: 0;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.checkbox:checked + .checkmark {
+    background-color: #6b21a8;
+}
+
+.checkbox:focus + .checkmark {
+    box-shadow: 0 0 1px #6b21a8;
+}
+
+.checkbox:checked + .checkmark:before {
+    transform: translateX(30px);
+}
+
+.cont-select{
+    width: 100%;
+}
+.cont-select select{
+    width: 46%;
+    border-radius: 5px;
+    padding: 2px;
+}
+.formulario-tienda-horarios .cont-btn-form{
+    grid-column: 3/4;
+    grid-row: 5/4;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    gap: 10px;
+}
+/*CONTENEDOR FORMULARIO DE METODOS DE PAGO*/
+.cont-formulario-pago{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+}
+.parrafoEncabezado2{
+    font-size: .8em;
+    color: var(--color-text3);
+    margin: 10px 0;
+}
+.spanSubtema{
+    margin: 0 10px;
+    background-color: rgb(224, 224, 224);
+    padding: 3px;
+    font-size: .7em;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.formulario-tienda-pago{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+    column-gap: 30px;
+    margin-top: 20px;
+}
+.cont-checkbox-pago{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    border: 1px solid var(--color-borde-claro);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+.cont-checkbox-pago svg{
+    width: 20px;
+    height: 20px;
+}
+
+.cont-checkbox-pago label{
+    cursor: pointer;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.cont-checkbox-pago label p{
+    font-size: .8em;
+    color: var(--color-text3);
+}
+.cont-checkbox-pago:has(.checkboxMetodo:checked) {
+    border: 2px solid var(--color-primario);
+}
+.cont-checkbox-pago label:has(.checkboxMetodo:checked) {
+    color: var(--color-primario);
+}
+.cont-checkbox-pago:has(.checkboxMetodo:checked) svg {
+    fill: var(--color-primario);
+}
+.formulario-tienda-pago .cont-btn-form{
+    grid-column: 3/4;
+    grid-row: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    gap: 10px;
+}
+/*DISEÑO DEL MODAL*/
+#modalCencelar{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    background: white;
+    border-radius: 15px;
+    z-index: 99;
+    border: none;
+    text-align: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    
+}
+#modalCencelar h3{
+    font-size: 1.2rem;
+    color: black;
+}
+.cont-info-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.cont-btn-modal{
+    margin-top: 20px;
+}
+.cont-btn-modal button{
+    padding: 8px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cont-btn-modal button:nth-child(1){
+    background-color: var(--color-sexto);
+    color: white;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+.cont-btn-modal button:nth-child(2){
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    color: black;
+    border: 1px solid black;
+}
+.cont-btn-modal button:nth-child(1):hover{
+    translate: 0 -8px;
+}
+.cont-btn-modal button:nth-child(2):hover{
+    translate: 0 -8px;
+}

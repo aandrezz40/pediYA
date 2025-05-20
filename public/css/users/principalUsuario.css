@@ -1,0 +1,346 @@
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "ADLaM Display", serif;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+
+}
+html{
+    height: 100vh;
+    overflow-x: hidden;
+}
+body{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+main{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.cont-nombre-usuario{
+    width: 80vw;
+    background-color: var(--color-primario);
+    border-radius: 15px;
+    margin-top: 40px;
+    height: 150px;
+    padding: 15px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.cont-nombre-usuario h2{
+    font-size: 3em;
+    color: white;
+    font-weight: 300;
+}
+.cont-nombre-usuario p{
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.596);
+    font-weight: 300;
+}
+.cont-bienvenido{
+    width: 80vw;
+    border: 1px solid var(--color-borde-claro);
+    border-radius: 15px;
+    margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-bienvenido article{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-bienvenido article:nth-child(1){
+    border-right: 1px solid var(--color-borde-claro);
+}
+.cont-bienvenido article:nth-child(1) h2{
+    font-weight: 300;
+    color: var(--color-primario);
+    font-size: 2em;
+}
+.cont-bienvenido article:nth-child(1) p{
+    font-weight: 300;
+    font-size: 1.5em;
+}
+.cont-bienvenido article:nth-child(2) button{
+    width: 50%;
+    height: 30px;
+    border: none;
+    background-color: var(--color-primario);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+.cont-bienvenido article:nth-child(2) button:hover{
+    scale: 1.05;
+    box-shadow: 2px 5px 10px var(--color-terciario);
+}
+/*DISEÑO DE LAS CARD DE LAS TIENDAS*/
+.cont-cards-tiendas{
+    width: 80vw;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 300px));
+    grid-template-rows: repeat(3, 300px);
+    gap: 20px;
+}
+.card-tienda{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    transition: all 0.3s ease-in-out;
+}
+.card-tienda:hover{
+    scale: 1.05;
+    
+}
+
+.card-tienda:hover .cont-img img{
+    filter: brightness(1);
+}
+.cont-img{
+    width: 100%;
+    height: 50%;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+.cont-img img{
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.5);
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+.cont-img p{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--color-terciario);
+    color: white;
+    padding: 8px;
+    font-size: 1em;
+    font-weight: 300;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.estrella-container {
+    position: absolute;
+    display: inline-block;
+    right: 10px;
+    top: 5px;
+    z-index: 2;
+
+}
+.estrella-container input[type="checkbox"] {
+    display: none;
+}
+.estrella {
+    font-size: 24px;
+    color: transparent;
+    cursor: pointer;
+    text-shadow: 0 0 0 gray;
+    transition: color 0.3s;
+}
+.estrella-container input[type="checkbox"]:checked + .estrella {
+    color: gold;
+    text-shadow: none;
+}
+.cont-info-tienda{
+    width: 100%;
+    height: 50%;
+    border: 1px solid var(--color-secundario);
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+.cont-info-tienda p{
+    font-size: 0.8em;
+    font-weight: 300;
+}
+.cont-info-tienda button{
+    background-color: var(--color-terciario);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius:15px;
+    cursor: pointer;
+}
+@media (width >= 370px) and (width <= 720px){
+    .cont-nombre-usuario{
+        width: 80vw;
+        padding: 10px;
+    }
+    .cont-nombre-usuario h2{
+        font-size: 2em;
+        color: white;
+        font-weight: 300;
+    }
+    .cont-nombre-usuario p{
+        font-size: 1em;
+        color: rgba(255, 255, 255, 0.596);
+        font-weight: 300;
+    }
+    .cont-bienvenido{
+        width: 80vw;
+        border: 1px solid var(--color-borde-claro);
+        border-radius: 15px;
+        margin-top: 50px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .cont-bienvenido article{
+        width: 100%;
+        height: 50%;
+    }
+    .cont-bienvenido article:nth-child(1){
+        margin-bottom: 10px;
+        border-right: none;
+        border-bottom: 1px solid var(--color-borde-claro);
+    }
+    .cont-bienvenido article:nth-child(1) h2{
+        font-weight: 300;
+        color: var(--color-primario);
+        font-size: 2em;
+    }
+    .cont-bienvenido article:nth-child(1) p{
+        font-weight: 300;
+        font-size: 1em;
+        text-align: center;
+    }
+    /*DISEÑO DE LAS CARD DE LAS TIENDAS*/
+    .cont-cards-tiendas{
+        width: 90vw;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .cont-img p{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: var(--color-terciario);
+        color: white;
+        padding: 5px;
+        font-size: .8em;
+        font-weight: 300;
+        border-radius: 20px;
+        z-index: 2;
+    }
+    .cont-info-tienda h3{
+        font-size: .9em;
+    }
+    .cont-info-tienda p{
+        font-size: 0.7em;
+        font-weight: 300;
+    }
+    .cont-info-tienda button{
+        font-size: .8em;
+    }
+}
+@media (width >= 720px) and (width <= 1280px){
+    .cont-nombre-usuario h2{
+        font-size: 2.5em;
+        color: white;
+        font-weight: 300;
+    }
+    .cont-nombre-usuario p{
+        font-size: 1em;
+        color: rgba(255, 255, 255, 0.596);
+        font-weight: 300;
+    }
+    .cont-bienvenido article:nth-child(1) h2{
+        font-weight: 300;
+        color: var(--color-primario);
+        font-size: 2em;
+    }
+    .cont-bienvenido article:nth-child(1) p{
+        font-weight: 300;
+        font-size: 1em;
+        text-align: center;
+    }
+    /*DISEÑO DE LAS CARD DE LAS TIENDAS*/
+    .cont-cards-tiendas{
+        width: 90vw;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 300px);
+        gap: 20px;
+    }
+
+    .cont-img p{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: var(--color-terciario);
+        color: white;
+        padding: 5px;
+        font-size: .8em;
+        font-weight: 300;
+        border-radius: 20px;
+        z-index: 2;
+    }
+    .cont-info-tienda h3{
+        font-size: 1em;
+    }
+    .cont-info-tienda p{
+        font-size: 0.7em;
+        font-weight: 300;
+    }
+    .cont-info-tienda button{
+        font-size: .8em;
+    }
+}

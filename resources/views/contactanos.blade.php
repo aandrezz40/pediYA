@@ -17,7 +17,7 @@
     <button type="submit">Enviar solicitud</button>
 </form>
 
-<!-- Mostrar mensaje de éxito -->
+<!-- Mostrar mensaje de éxitoOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 @if (session('success'))
     <p style="color: green; margin-top: 1rem;">{{ session('success') }}</p>
 @endif

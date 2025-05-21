@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +9,9 @@ Route::get('/', function () {
 Route::get('/nosotros', function () {
     return view('sobre_nosotros');
 });
+
+Route::get('/contacto', [ContactoController::class, 'contactanos_form'])->name('contacto');
+Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

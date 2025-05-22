@@ -21,10 +21,10 @@ class ContactoController extends Controller{
 
         $datos = $request->only('nombre', 'categoria', 'correo', 'mensaje');
 
-        $cuerpo = "Nombre: {$datos['nombre']}\n";
-        $cuerpo .= "Correo: {$datos['correo']}\n";
-        $cuerpo .= "Categoría: {$datos['categoria']}\n";
-        $cuerpo .= "Mensaje:\n{$datos['mensaje']}";
+        $cuerpo = "Nombre: {$datos['nombre']}\n\n";
+        $cuerpo .= "Correo: {$datos['correo']}\n\n";
+        $cuerpo .= "Categoría: {$datos['categoria']}\n\n";
+        $cuerpo .= "Mensaje:\n\n{$datos['mensaje']}";
 
         Mail::raw($cuerpo, function ($message) use ($datos) {
             $message->to('aandrezz40@gmail.com')

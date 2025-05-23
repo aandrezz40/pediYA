@@ -4,6 +4,7 @@
     --color-terciario: #3F1650;
     --color-cuarto: #270D32;
     --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
     --color-negro: #000000;
     --color-borde-claro:#999999;
     --color-text1:#757575;
@@ -78,7 +79,6 @@ header{
     border: 1px solid var(--color-borde-claro);
     border-radius: 10px;
     padding: 12px;
-
 }
 .icono-carrito-view{
     width: 62px;
@@ -195,14 +195,12 @@ aside {
     display: flex;
     justify-content: space-around;
     margin-right: 20px;
-
 }
 .link{
     text-decoration: none;
     color: var(--color-negro);
     transition: all 300ms ease-in-out;
     margin-right: 20px;
-
 }
 .link:hover{
     color: var(--color-text2);
@@ -240,7 +238,6 @@ aside {
     pointer-events: none;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
-
 .contenedor-notificaciones-visible{
     visibility: visible;
     opacity: 1;
@@ -255,7 +252,6 @@ aside {
     justify-content: center;
     border-top-right-radius:15px;
     border-top-left-radius:15px;
-
     color: white;
     font-weight: 200;
 }
@@ -328,13 +324,13 @@ aside {
 }
 .cont-buttons{
     width:100%;
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 .cont-buttons img{
-    width: 60px;
+    width: 40px;
     cursor: pointer;
 }
 .icono-carrito{
@@ -350,6 +346,9 @@ aside {
 }
 .num-productos{
     position: relative;
+}
+.num-productos img{
+    width: 60px;
 }
 .num-productos span{
     position: absolute;
@@ -394,11 +393,6 @@ aside {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.nombreTienda span{
-    font-size: 1em;
-    font-weight: 300;
-    color: var(--color-text2);
-}
 .eliminarProducto{
     cursor: pointer;
     width: var(--tamaño-icono3);
@@ -414,7 +408,6 @@ aside {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-
 .cont-productos{
     display: flex;
     flex-direction: column;
@@ -426,7 +419,6 @@ aside {
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 1;
 }
-
 .cont-imagen-producto {
     display: flex;
     flex-direction: column;
@@ -436,10 +428,8 @@ aside {
     max-height: 140px; /* Altura máxima estimada */
     margin: 10px 0 10px 0;
     padding-bottom:10px ;
-    border-bottom: 1px solid var(--color-secundario);
+    border-bottom: 1px solid var(--color-borde-claro);
 }
-
-
 .oculto {
     max-height: 0;
     opacity: 0;
@@ -449,26 +439,30 @@ aside {
 .cont-datos-producto{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
 .cont-datos-producto img{
-    width: 100px;
-    border: 1px solid var(--color-secundario) ;
-    padding: 10px 20px 10px 20px;
+    width: 55px;
+    /* border: 1px solid var(--color-secundario) ; */
+    padding: 0;
+    /* filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.322)); */
 }
 .contDescripcion{
     width: calc(100% - 110px);
+}
+.descripcionProducto{
+    color: var(--color-text3);
 }
 .cont-cantidad{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .precioProducto{
-    color: var(--color-secundario);
+    color: var(--color-terciario);
 }
 .cont-cantidad-producto{
     display: flex;
@@ -477,17 +471,17 @@ aside {
     width: 80px;
     padding: 5px;
     border-radius: 21px;
-    background-color: var(--color-secundario);
+    background-color: #F9EFFF;
 }
 .cont-cantidad-producto button{
     background-color: transparent;
     border: none;
-    color: white;
-    font-size: 1em;
+    color: black;
+    font-size: 1.5em;
     cursor: pointer;
 }
 .cont-cantidad-producto span{
-    color: white;
+    color: var(--color-primario);
     font-size: 1em;
 }
 .cont-confirmar{
@@ -500,15 +494,15 @@ aside {
 .cont-confirmar button{
     width: 110px;
     height: 30px;
-    background-color: var(--color-secundario);
-    color: #000000;
+    background-color: var(--color-sexto);
+    color: white;
     border: none;
     font-size: 1em;
-    border-radius: 21px;
+    border-radius: 10px;
     cursor: pointer;
 }
 .cont-confirmar span{
-    color: var(--color-secundario);
+    color: var(--color-sexto);
     font-size: 1em;
 }
 
@@ -520,7 +514,7 @@ aside {
     margin-top: 20px;    
     font-size: 1em;
     font-weight: 300;
-    border-top: 1px solid var(--color-secundario);
+    border-top: 1px solid var(--color-borde-claro);
 }
 .cont-total p{
     color: var(--color-text1);

@@ -78,7 +78,7 @@
         <article class="cont-cards">
             <article class="card-carrito">
                 <section class="cont-acciones">
-                    <h3 class="nombreTienda"><span>Tienda: </span>Nombre de la empresa</h3>
+                    <h3 class="nombreTienda"><span></span>Nombre de la empresa</h3>
                     <img id="desplegarProducto" class="desplegarProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
                     <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
                 </section>
@@ -131,7 +131,7 @@
             </article>    
             <article class="card-carrito">
                 <section class="cont-acciones">
-                    <h3 class="nombreTienda"><span>Tienda: </span>Nombre de la empresa</h3>
+                    <h3 class="nombreTienda"><span></span>Nombre de la empresa</h3>
                     <img class="desplegarProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto" id="desplegarProducto">
                     <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
                 </section>

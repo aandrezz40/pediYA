@@ -1,5 +1,7 @@
 <?php
 
+// database/migrations/YYYY_MM_DD_HHMMSS_create_users_table.php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,31 +14,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // Nombre completo
-            $table->string('email')->unique();
-            $table->string('numero_telefono')->nullable();
-            $table->string('direccion')->nullable();
-            $table->string('password');
-            $table->string('rol')->default('cliente');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+            $table->id(); // Columna autoincremental, clave primaria única para cada usuario.
+            $table->string('name'); // Nombre completo del usuario.
+            $table->string('email')->unique(); // Correo electrónico del usuario, debe ser único para el inicio de sesión.
+            $table->string('phone_number')->nullable(); // Número de teléfono del usuario, opcional.
+            $table->string('password'); // Contraseña encriptada del usuario para seguridad.
+            $table->enum('role', ['client', 'tendero', 'admin'])->default('client'); // Define el rol del usuario (cliente, tendero, o administrador). 'client' es el rol por defecto.
+            $table->boolean('is_active')->default(true); // Indica si la cuenta del usuario está activa o desactiva (para gestión del administrador).
+            $table->timestamp('email_verified_at')->nullable(); // Marca de tiempo para registrar cuándo se verificó el correo electrónico del usuario (opcional si se implementa verificación).
+            $table->rememberToken(); // Token para la funcionalidad "recordarme" en el inicio de sesión.
+            $table->timestamps(); // `created_at` y `updated_at`: Marcas de tiempo automáticas para cuándo se creó y la última vez que se actualizó el registro.
+            $table->softDeletes(); // `deleted_at`: Columna para implementar "borrado suave", lo que significa que los registros no se eliminan físicamente, solo se marcan como eliminados.
         });
     }
 
@@ -46,7 +34,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };

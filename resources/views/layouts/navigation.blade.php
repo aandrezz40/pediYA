@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">

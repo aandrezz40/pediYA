@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,6 @@ class User extends Authenticatable
         'email',
         'password',
         'numero_telefono',
-        'direccion',
         'rol',
     ];
 
@@ -23,9 +23,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // Esto debe ser una propiedad, no un método
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relación con Address (un usuario tiene muchas direcciones)
+     */
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Address;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,20 +32,28 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'numero_telefono' => ['required', 'string', 'max:20'],
-            'direccion' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', Rules\Password::defaults()],'password' => ['required', \Illuminate\Validation\Rules\Password::min(8)->mixedCase()->symbols()],
-            'rol' => ['required', 'in:cliente,tendero'],
+            'phone_number' => ['required', 'string', 'max:20'],
+            'address_line_1' => ['required', 'string', 'max:255'],
+            'neighborhood' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', Rules\Password::defaults()],
+            'role' => ['required', 'in:cliente,tendero'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'numero_telefono' => $request->numero_telefono,
-            'direccion' => $request->direccion,
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'rol' => $request->rol,
+            'role' => $request->role,
+            'is_active' => true,
+        ]);
+
+        Address::create([
+            'user_id' => $user->id,
+            'address_line_1' => $request->address_line_1,
+            'neighborhood' => $request->neighborhood,
+            'is_default' => true,
         ]);
 
         event(new Registered($user));

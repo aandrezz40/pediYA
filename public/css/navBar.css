@@ -32,6 +32,11 @@ header{
     justify-content: space-between;
 
 }
+.btn_exit{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
 
 .bar-logo, .bar-search, .bar-buttons{
     display: flex;

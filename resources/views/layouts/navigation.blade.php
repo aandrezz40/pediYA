@@ -61,7 +61,12 @@
                     <h3>Contacto</h3>
                 </article>
             </div>
-            <div><img class="logo-nav-bar" src="{{ asset('img/logo-v1.1.png') }}" alt=""></div>
+           <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn_exit">
+                    <img class="logo-nav-bar" src="{{ asset('img/logo-v1.1.png') }}" alt="Cerrar sesión">
+                </button>
+            </form>
         </section>
     </aside>
 <article class="overlay-carrito" id="overlayCarrito">

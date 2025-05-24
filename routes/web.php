@@ -15,15 +15,15 @@ Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.
 
 Route::get('/homeCliente', function () {
     return view('cliente.homeCliente');
-})->middleware(['auth', 'verified'])->name('homeCliente');
+})->middleware(['auth', 'verified', 'role:cliente'])->name('homeCliente');
 
 Route::get('/homeTendero', function () {
     return view('tendero.homeTendero');
-})->middleware(['auth', 'verified'])->name('homeTendero');
+})->middleware(['auth', 'verified', 'role:tendero'])->name('homeTendero');
 
 Route::get('/homeAdmin', function () {
     return view('admin.homeAdmin');
-})->middleware(['auth', 'verified'])->name('homeAdmin');
+})->middleware(['auth', 'verified', 'role:admin'])->name('homeAdmin');
 
 
 

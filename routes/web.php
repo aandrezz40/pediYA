@@ -15,7 +15,7 @@ Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.
 
 Route::get('/homeCliente', function () {
     return view('cliente.homeCliente');
-})->middleware(['auth', 'verified', 'role:cliente'])->name('homeCliente');
+})->middleware(['auth', 'verified'])->name('homeCliente');
 
 Route::get('/homeTendero', function () {
     return view('tendero.homeTendero');

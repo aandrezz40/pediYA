@@ -11,7 +11,6 @@
     </section>
     
     <section class="bar-buttons">
-        <a class="button-ingreso" href="">Ingreso</a>
         <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
     </section>
 </header>
@@ -41,22 +40,26 @@
                 </article>
             </div>
             <div class="cont-icono">
-                <svg class="icono-nav"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
+                <a href="{{ url('/nosotros') }}">
+                    <svg class="icono-nav"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
                     <g>
                         <path d="M28.88,25.75H3.13a1.88,1.88,0,0,1-1.87-1.87V8.13A1.88,1.88,0,0,1,3.13,6.25H28.88a1.88,1.88,0,0,1,1.88,1.88V23.88A1.88,1.88,0,0,1,28.88,25.75ZM3.13,7.75a.38.38,0,0,0-.37.38V23.88a.38.38,0,0,0,.38.38H28.88a.38.38,0,0,0,.38-.37V8.13a.38.38,0,0,0-.37-.37Z"></path>
                         <rect width="10" height="1.5" x="6" y="17" rx=".75" ry=".75"></rect>
                         <rect width="5" height="1.5" x="6" y="13.5" rx=".75" ry=".75"></rect>
                         <path d="M25.45,19.5H21a1.3,1.3,0,0,1-1.3-1.3V13.8A1.3,1.3,0,0,1,21,12.5h4.4a1.3,1.3,0,0,1,1.3,1.3v4.4A1.3,1.3,0,0,1,25.45,19.5ZM21.25,18h4V14h-4Z"></path>
                     </g>
-                </svg>
+                    </svg>
+                </a>
                 <article class="container-links">
                     <h3>Sobre Nosotros</h3>
                 </article>
             </div>
             <div class="cont-icono">
-                <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="contacts">
-                    <path d="M26 0H2a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM2 2h4v28H2V2zm24 28H8V2h18v28zM13.862 10.734a3.028 3.028 1080 1 0 6.056 0 3.028 3.028 1080 1 0-6.056 0zm3.09 4.238c-2.734 0-4.952 2.974-4.952 6.642s9.906 3.668 9.906 0-2.218-6.642-4.954-6.642zM30 2h2v6h-2zm0 8h2v6h-2zm0 8h2v6h-2z"></path>
-                </svg>
+                <a href="{{ url('/contacto') }}">
+                    <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="contacts">
+                        <path d="M26 0H2a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM2 2h4v28H2V2zm24 28H8V2h18v28zM13.862 10.734a3.028 3.028 1080 1 0 6.056 0 3.028 3.028 1080 1 0-6.056 0zm3.09 4.238c-2.734 0-4.952 2.974-4.952 6.642s9.906 3.668 9.906 0-2.218-6.642-4.954-6.642zM30 2h2v6h-2zm0 8h2v6h-2zm0 8h2v6h-2z"></path>
+                    </svg>
+                </a>
                 <article class="container-links">
                     <h3>Contacto</h3>
                 </article>

@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     public function index()
-    {
-        return view('cliente.homeCliente');
+    {   
+        $user = auth()->user();
+
+        $favoriteStores = $user->favoriteStores()->with('user')->get(); 
+        
+        return view('cliente.homeCliente', compact('favoriteStores'));
     }
 }

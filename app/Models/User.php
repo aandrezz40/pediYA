@@ -35,4 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    /**
+     * Relación con tiendas favoritas (muchos a muchos)
+     */
+    public function favoriteStores()
+    {
+        return $this->belongsToMany(Store::class, 'store_favorites')->withTimestamps();
+    }
 }

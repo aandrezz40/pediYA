@@ -60,11 +60,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($request->role == "cliente") {
-            return redirect(route('homeCliente', absolute: false));
-        }elseif ($request->role == "tendero") {
-            return redirect(route('homeTendero', absolute: false));
-        }
+
+            return redirect(route('home', absolute: false));
+
         
 
     }

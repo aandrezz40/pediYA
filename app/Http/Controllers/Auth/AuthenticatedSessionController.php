@@ -30,15 +30,9 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role === 'cliente') {
-            return redirect()->route('homeCliente');
-        } elseif ($user->role === 'tendero') {
-            return redirect()->route('homeTendero');    
-        } elseif ($user->role === 'admin') {
-            return redirect()->route('homeAdmin'); 
-        }else {
-            abort(403, 'Acceso no autorizasssdo.');
-        }
+            return redirect()->route('home'); 
+
+        
 
 
         return redirect()->intended(route('homeCliente', absolute: false));

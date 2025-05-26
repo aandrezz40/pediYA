@@ -1,4 +1,7 @@
 <?php
+use App\Http\Controllers\Roles\AdminController;
+use App\Http\Controllers\Roles\ClienteController;
+use App\Http\Controllers\Roles\TenderoController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,11 +29,27 @@ Route::get('/homeAdmin', function () {
 })->middleware(['auth', 'verified', 'role:admin'])->name('homeAdmin');
 
 
+Route::get('/home', function () {
+    $user = Auth::user();
+
+    return match ($user->role) {
+        'cliente' => redirect()->route('homeCliente'),
+        'tendero' => redirect()->route('homeTendero'),
+        'admin'   => redirect()->route('homeAdmin'),
+        default   => abort(403, 'Acceso no autorizado'),
+    };
+})->middleware(['auth', 'verified'])->name('home');
+
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/homeCliente', [ClienteController::class, 'index'])->name('homeCliente');
+    Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');
+    Route::get('/homeAdmin', [AdminController::class, 'index'])->middleware('role:admin')->name('homeAdmin');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 require __DIR__.'/auth.php';

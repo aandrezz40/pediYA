@@ -1,7 +1,7 @@
 <x-app-layout>
     <main>
         <section class="cont-nombre-usuario">
-            <h2>¡Hola, {{Auth::user()->name}}!</h2>
+            <h2>¡Hola, {{Auth::user()->address_neighborhood}}!</h2>
             <p>¿Qué deseas ordenar hoy en tus tiendas favoritas?</p>
         </section>
         <section class="cont-bienvenido">
@@ -14,6 +14,9 @@
             </article>
         </section>
             <!--CONTENEDOR DE CARDS DE TIENDAS FAVORITOS---->
+        <section class="titulo-contenedor" id="tiendasCercanas">
+            <h2>Tiendas cercanas</h2>
+        </section>
 <section id="favorite-stores" class="cont-cards-tiendas">
     @forelse ($favoriteStores as $store)
         <article id="store-{{ $store->id }}" class="card-tienda">
@@ -38,7 +41,7 @@
             </section>
         </article>
     @empty
-        <p class="mensaje-vacio">No tienes tiendas favoritas todavía.</p>
+        <p class="mensaje-vacio">Aún no tienes tiendas favoritas. ¡Explora!</p>
     @endforelse
 </section>
 
@@ -47,6 +50,7 @@
             <h2>Tiendas cercanas</h2>
         </section>
         <section class="cont-cards-tiendas">
+                @forelse ($stores as $store)
             <article class="card-tienda">
                 <section class="cont-img">
                     <p>Cercano</p>
@@ -57,12 +61,15 @@
                     <img src="{{ asset('img/slider-1.jpg') }}" alt="Imagen de la tienda">
                 </section>
                 <section class="cont-info-tienda">
-                    <h3>Nombre de la tienda</h3>
-                    <p>Abierto</p>
-                    <p>Carrera 50 #65-17, Manrique, Las Granjas</p>
+                 <h3>{{ $store->name }}</h3>
+                <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
+                <p>{{ $store->address_street }}, {{ $store->address_neighborhood }}</p>
                     <button type="submit">Ver tienda</button>
                 </section>
             </article>
+            @empty
+                <p class="mensaje-vacio">Aún no tienes tiendas favoritas. ¡Explora!</p>
+            @endforelse
         </section>
     </main>
 
@@ -88,7 +95,7 @@
                         storeCard.remove();
                     }
                     if (container.querySelectorAll('.card-tienda').length === 0) {
-                            container.innerHTML = '<p class="mensaje-vacio">No tienes tiendaas favoritas todavía.</p>';
+                            container.innerHTML = '<p class="mensaje-vacio">Aún no tienes tiendas favoritas. ¡Explora!</p>';
                     }
                 })
                 .catch(error => {

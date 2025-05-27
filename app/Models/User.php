@@ -31,9 +31,13 @@ class User extends Authenticatable
     /**
      * Relación con Address (un usuario tiene muchas direcciones)
      */
-    public function addresses()
+    public function address()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class);
+    }
+    public function defaultAddress()
+    {
+        return $this->hasOne(Address::class)->where('is_default', true);
     }
 
     /**

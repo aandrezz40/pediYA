@@ -96,11 +96,6 @@ main{
     font-weight: 300;
     font-size: 1.5em;
 }
-.mensaje-vacio{
-    font-size: 1.4em;
-    padding-top: 1.4em;
-    width: 200%;
-}
 .cont-bienvenido article:nth-child(2) button{
     width: 50%;
     height: 30px;
@@ -120,6 +115,12 @@ main{
     width: 80vw;
     margin-top: 50px;
 }
+.mensaje-vacio{
+    font-size: 1.4em;
+    padding-top: 1.4em;
+    color: var(--color-primario);
+    width: 200%;
+}
 .cont-cards-tiendas{
     width: 80vw;
     margin-top: 20px;
@@ -128,13 +129,13 @@ main{
     grid-template-columns: repeat(4, minmax(250px, 300px));
     grid-template-rows: repeat(auto, 300px);
     gap: 20px;
-    place-content: center;
+    place-content: start;
 }
 .card-tienda{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     width: 100%;
     height: 300px;
     transition: all 0.3s ease-in-out;
@@ -219,12 +220,19 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    text-align: center;
+    align-items: start;
+    text-align: start;
 }
 .cont-info-tienda p{
     font-size: 0.8em;
     font-weight: 300;
+}
+.cont-info-tienda form{
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
 }
 .cont-info-tienda button{
     background-color: var(--color-terciario);

@@ -1,12 +1,9 @@
 <x-app-layout>
     <main>
-        <section class="cont-nombre-usuario">
-            <h2>¡Hola, {{Auth::user()->address_neighborhood}}!</h2>
-            <p>¿Qué deseas ordenar hoy en tus tiendas favoritas?</p>
-        </section>
+
         <section class="cont-bienvenido">
             <article>
-                <h2>¡Te damos la bienvenida!</h2>
+                <h2>¡Hola, {{Auth::user()->name}}!</h2>
                 <p>Explora todas nuestras tiendas disponibles.</p>
             </article>
             <article>
@@ -15,7 +12,7 @@
         </section>
             <!--CONTENEDOR DE CARDS DE TIENDAS FAVORITOS---->
         <section class="titulo-contenedor" id="tiendasCercanas">
-            <h2>Tiendas cercanas</h2>
+            <h2>Tiendas favoritas</h2>
         </section>
 <section id="favorite-stores" class="cont-cards-tiendas">
     @forelse ($favoriteStores as $store)
@@ -64,7 +61,9 @@
                  <h3>{{ $store->name }}</h3>
                 <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
                 <p>{{ $store->address_street }}, {{ $store->address_neighborhood }}</p>
+                <form action="" method="GET">
                     <button type="submit">Ver tienda</button>
+                </form>
                 </section>
             </article>
             @empty

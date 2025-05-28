@@ -4,6 +4,7 @@
     --color-terciario: #3F1650;
     --color-cuarto: #270D32;
     --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
     --color-negro: #000000;
     --color-borde-claro:#999999;
     --color-text1:#757575;
@@ -19,8 +20,10 @@
     margin: 0;
     padding: 0;
     font-family: "ADLaM Display", serif;
+    font-weight: 300;
     scrollbar-width: thin;
     scrollbar-color: #888 transparent;
+    scroll-behavior: smooth;
 
 }
 html{
@@ -108,23 +111,37 @@ main{
     box-shadow: 2px 5px 10px var(--color-terciario);
 }
 /*DISEÑO DE LAS CARD DE LAS TIENDAS*/
-.cont-cards-tiendas{
+.titulo-contenedor{
     width: 80vw;
     margin-top: 50px;
+}
+.mensaje-vacio{
+    font-size: 1.4em;
+    padding-top: 1.4em;
+    color: var(--color-primario);
+    width: 200%;
+}
+.cont-cards-tiendas{
+    width: 80vw;
+    margin-top: 20px;
     margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 300px));
-    grid-template-rows: repeat(3, 300px);
+    grid-template-rows: repeat(auto, 300px);
     gap: 20px;
+    place-content: start;
 }
 .card-tienda{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     width: 100%;
     height: 300px;
     transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    border-radius: 15px;
+    cursor: pointer;
 }
 .card-tienda:hover{
     scale: 1.05;
@@ -152,8 +169,8 @@ main{
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: var(--color-terciario);
-    color: white;
+    background-color: white;
+    color: var(--color-terciario);
     padding: 8px;
     font-size: 1em;
     font-weight: 300;
@@ -163,42 +180,59 @@ main{
 
 .estrella-container {
     position: absolute;
-    display: inline-block;
+    display: flex;
+    width: 32px;
+    height: 32px;
     right: 10px;
-    top: 5px;
+    top: 10px;
     z-index: 2;
-
+    background-color: white;
+    border-radius: 50%;
 }
 .estrella-container input[type="checkbox"] {
     display: none;
 }
 .estrella {
+    position: relative;
     font-size: 24px;
+    margin: -2px 0px;
     color: transparent;
     cursor: pointer;
     text-shadow: 0 0 0 gray;
     transition: color 0.3s;
+    padding: 0px 6px;
 }
 .estrella-container input[type="checkbox"]:checked + .estrella {
-    color: gold;
+    color: var(--color-primario);
     text-shadow: none;
+}
+/* Cuando dentro de .cont-img haya un checkbox marcado, aplica al <p> */
+.cont-img:has(.estrella-container input:checked) p {
+    background-color: var(--color-terciario);
+    color: white;
 }
 .cont-info-tienda{
     width: 100%;
     height: 50%;
-    border: 1px solid var(--color-secundario);
     border-top: none;
     border-radius: 0 0 15px 15px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    text-align: center;
+    align-items: start;
+    text-align: start;
 }
 .cont-info-tienda p{
     font-size: 0.8em;
     font-weight: 300;
+}
+.cont-info-tienda form{
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
 }
 .cont-info-tienda button{
     background-color: var(--color-terciario);

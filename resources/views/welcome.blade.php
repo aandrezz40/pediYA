@@ -70,7 +70,7 @@
                 <!-- <img src="{{ asset('img/Rectángulo.png') }}" alt="" class="logo-principal"> -->
                 <h2 class="titulo">PediYÁ</h2>
                 <p>Compra fácil, recoge rápido. PediYÁ...</p>
-                <button type="submit">¡Pide YÁ!</button>
+                <button type="submit"><a href="{{ route('home') }}">¡Pide YÁ!</a></button>
             </article>
             <article class="cont-slider">
                 <h2>¡BIENVENIDOS!</h2>
@@ -100,7 +100,7 @@
                     </section>
                 </section>
                 <a href="{{ url('/') }}">
-                    <button class="button-action" type="submit">¡Únete YÁ!</button>
+                    <button class="button-action" type="submit"><a href="{{ route('home') }}">¡Únete YÁ!</a></button>
                 </a>
             </article>
         </section>

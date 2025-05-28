@@ -33,8 +33,9 @@ Route::get('/home', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/homeCliente', [ClienteController::class, 'index'])->name('homeCliente');
+    Route::get('/homeCliente', [ClienteController::class, 'index'])->middleware('role:cliente')->name('homeCliente');
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->name('store.unfavorite');
+    Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->name('store.favorite');  
 
     Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');
 

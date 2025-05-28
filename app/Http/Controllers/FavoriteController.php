@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Store;
+use App\Models\User;
 
 class FavoriteController extends Controller
 {
@@ -18,5 +19,16 @@ class FavoriteController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'Store not favorited'], 400);
+    }
+
+
+    public function favorite(Store $store, Request $request)
+    {
+        $user = auth()->user(); // Obtenemos el usuario autenticado
+
+        // Relación muchos a muchos: usuario -> tiendas favoritas
+        $user->favoriteStores()->syncWithoutDetaching([$store->id]);
+
+        return response()->json(['success' => true]);
     }
 }

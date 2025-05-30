@@ -20,6 +20,7 @@
     margin: 0;
     padding: 0;
     font-family: "ADLaM Display", serif;
+    text-decoration: none;
 }
 
 /*DISEÑO DE BARRA DE NAVEGACION*/
@@ -31,11 +32,6 @@ header{
     align-items: center;
     justify-content: space-between;
 
-}
-.btn_exit{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 
 .bar-logo, .bar-search, .bar-buttons{
@@ -212,8 +208,9 @@ aside {
     box-shadow: 0px 2px 0 var(--color-primario);
 }
 .icono-nav{
-    width: 40px;
+    width: 45px;
     cursor: pointer;
+    background-size: cover;
 }
 .cont-icono:hover{
     background-color: var(--color-quinto);
@@ -221,6 +218,20 @@ aside {
 }
 .logo-nav-bar{
     width: 60px;
+}
+.btn_exit{
+    border: none;
+    background-color: transparent;
+}
+.cont-icono-salir{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    cursor: pointer;
+    background-size: cover;
+}
+.cont-icono-salir:hover{
+    fill: var(--color-primario);
 }
 /*DISEÑO CONTENEDOR DE NOTIFICACIONES*/
 .contenedor-notificaciones{

@@ -21,6 +21,7 @@
     font-family: "ADLaM Display", serif;
     scrollbar-width: thin;
     scrollbar-color: #888 transparent;
+    text-decoration: none;
 
 }
 html{
@@ -342,14 +343,15 @@ main{
     width: 200px;
     height: 35px;
     background-color: var(--color-primario);
-    color: #ffffff;
     border: none;
     font-size: 1.05em;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 20px;
 }
-
+.button-action a{
+    color: #ffffff;
+}
 
 /*DISEÑO DEL CARRITO DE COMPRAS*/
 .overlay-carrito{

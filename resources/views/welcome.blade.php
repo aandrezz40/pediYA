@@ -13,7 +13,9 @@
     <header>
         <section class="bar-logo">
             <img id="icono-nav-bar"class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-            <h1 class="nombreEmpresa">PediYÁ</h1>
+            <a href="{{ url('/') }}">
+                <h1 class="nombreEmpresa">PediYÁ</h1>
+            </a>
         </section>
         
         <section class="bar-search">
@@ -21,7 +23,7 @@
             <input class="input-search" type="text" placeholder="Tiendas, productos...">
         </section>
         <section class="bar-buttons">
-            <a class="button-ingreso" href="{{ route('login') }}">Ingreso</a>
+            <a class="button-ingreso" href="{{ route('login') }}">Panel principal</a>
         </section>
     </header>
     <aside id="cont-nav-bar">
@@ -70,7 +72,7 @@
                 <!-- <img src="{{ asset('img/Rectángulo.png') }}" alt="" class="logo-principal"> -->
                 <h2 class="titulo">PediYÁ</h2>
                 <p>Compra fácil, recoge rápido. PediYÁ...</p>
-                <button type="submit"><a href="{{ route('home') }}">¡Pide YÁ!</a></button>
+                <button type="submit" class="button-action"><a href="{{ route('home') }}">¡Pide YÁ!</a></button>
             </article>
             <article class="cont-slider">
                 <h2>¡BIENVENIDOS!</h2>

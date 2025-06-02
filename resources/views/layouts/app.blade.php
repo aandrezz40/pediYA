@@ -15,6 +15,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/users/detallesTienda.css') }}">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

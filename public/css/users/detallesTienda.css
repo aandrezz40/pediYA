@@ -45,21 +45,23 @@ main{
 }
 /*DISEÑO DEL BANNER*/
 .cont-baner{
-    width: 100vw;
+    width: 90vw;
     height: 200px;
     background-color: var( --color-sexto);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
 }
-.cont-img{
+.cont-baner .cont-img{
     width: 30%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.cont-img img{
+.cont-baner .cont-img img{
     width: 50%;
     height: 70%;
     object-fit: cover;
@@ -80,11 +82,11 @@ main{
 
 .cont-horario{
     display: flex;
-    justify-content: space-between;
-    align-items: center ;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     color: white;
     font-weight: 300;
-    width: 30%;
     margin-top: 20px;
 
 }
@@ -92,20 +94,22 @@ main{
     width: var(--tamaño-icono3);
 }
 .cont-acciones-tienda{
-    width: 50%;
+    width: 80%;
     display: flex;
     gap: 10px;
     margin-top: 20px;
+
 }
 .cont-acciones-tienda img{
     width: var(--tamaño-icono2);
     height: var(--tamaño-icono2);
     margin-right: 10px;
 }
+
 .cont-acciones-tienda button{
-    width: 30%;
+    width: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     padding: 10PX;
     background-color: transparent;
@@ -126,7 +130,7 @@ main{
     width: 90vw;
     height: 50px;
     display: flex;
-    justify-content: start;
+    justify-content: space-around;
     align-items: center;
     border-left: 1px solid var(--color-borde-claro);
     border-right: 1px solid var(--color-borde-claro);
@@ -139,7 +143,7 @@ main{
     width: 80%;
     height: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: space-around;
     align-items: end;
     gap: 30px;
     list-style: none;
@@ -169,7 +173,7 @@ main{
 }
 /*DISEÑO DEL CONTENEDOR DE PRODUCTOS*/
 .cont-productos-tienda{
-    width: 95vw;
+    width: 90vw;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -177,13 +181,15 @@ main{
     margin-top: 20px;
 }
 .tituloProductos{
+    text-align: center;
     font-size: 2em;
+    width: 100%;
 }
 .cont-categorias{
     width: 100%;
     display: flex;
-    justify-content: start;
     align-items: center;
+    justify-content: space-around;
     gap: 20px;
     margin:20px 0
 }
@@ -218,8 +224,6 @@ main{
     background-color: var(--color-sexto);
     color: white;
 }
-
-
 .cont-cards-productos{
     width: 100%;
     height: 400px;
@@ -230,7 +234,6 @@ main{
     overflow-y: auto;
     justify-content: space-between;
     align-content: space-around;
-
 }
 .card-producto{
     width: 200px;
@@ -244,12 +247,11 @@ main{
     margin-bottom: 15px;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.263);
     transition: all 0.3s ease-in-out;
-    
 }
 .card-producto:hover{
     transform: scale(1.02);
 }
-.cont-img-producto{
+.cont-baner .cont-img-producto{
     position: relative;
     width: 100%;
     height: 50%;
@@ -261,7 +263,7 @@ main{
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
 }
-.cont-img-producto span{
+.cont-baner .cont-img-producto span{
     position: absolute;
     top: 0;
     right: 0;
@@ -334,18 +336,24 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3px;
+    padding: 0px 10px;
     background-color: var(--color-sexto);
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
     border: none;
 }
-
+.cont-cantidad-producto-detalles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 50%;
+}
 /*DISEÑO DEL CONTENEDOR DE DETALLES*/
 .cont-detalles-tienda{
-    width: 95vw;
+    width: 90vw;
     display: none;
     flex-direction: column;
     align-items: start;
@@ -402,7 +410,7 @@ main{
     justify-content: flex-start;
     align-items: center;
 }
-.sect-dato:nth-child(1), .sect-dato:nth-child(2), .sect-dato:nth-child(3), .info-adicional:nth-child(1){
+.sect-dato:nth-child(1), .sect-dato:nth-child(2), .info-adicional:nth-child(1){
     border-bottom: 1px solid var(--color-borde-claro);
 }
 .sect-dato img, .info-adicional img{
@@ -424,14 +432,14 @@ main{
         justify-content: space-around;
         align-items: center;
     }
-    .cont-img{
+    .cont-baner .cont-img{
         width: 40%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-img img{
+    .cont-baner .cont-img img{
         width: 100%;
         height: 70%;
         object-fit: cover;
@@ -569,14 +577,14 @@ main{
         justify-content: space-around;
         align-items: center;
     }
-    .cont-img{
+    .cont-baner .cont-img{
         width: 30%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-img img{
+    .cont-baner .cont-img img{
         width: 100%;
         height: 70%;
         object-fit: cover;

@@ -8,8 +8,7 @@ use App\Models\Store;
 
 class ClienteController extends Controller
 {
-    public function index()
-    {   
+    public function index(){   
         $user = auth()->user();
         $user->load('address');
 
@@ -18,5 +17,14 @@ class ClienteController extends Controller
 
         
         return view('cliente.homeCliente', compact('favoriteStores','stores'));
+    }
+
+    public function detallesTienda($id){   
+        $user = auth()->user();
+        $user->load('address');
+        $store = Store::findOrFail($id);
+
+        
+        return view('cliente.detallesTienda', compact('store'));
     }
 }

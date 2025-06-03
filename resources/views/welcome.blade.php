@@ -23,7 +23,7 @@
             <input class="input-search" type="text" placeholder="Tiendas, productos...">
         </section>
         <section class="bar-buttons">
-            <a class="button-ingreso" href="{{ route('login') }}">Panel principal</a>
+            <a class="button-ingreso" href="{{ route('login') }}">Ingreso</a>
         </section>
     </header>
     <aside id="cont-nav-bar">

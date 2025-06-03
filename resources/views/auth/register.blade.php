@@ -29,7 +29,7 @@
                         </ul>
                     </div>
                 @endif
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('register') }}" id="formRegistro">
                 @csrf {{-- ¡IMPORTANTE! Directiva CSRF para seguridad en formularios Laravel --}}
 
                 {{-- Número Telefónico y Nombre Completo  --}}
@@ -77,6 +77,13 @@
             </article>
         </section>
     </main>
+    <dialog id="modalError" class="modal-error" closedby="any">
+        <div class="modal-content">
+          <p id="mensajeError">Texto del error aquí</p>
+          <button id="cerrarModal">Entendido</button>
+        </div>
+    </dialog>
     <script src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/validacionContrasena.js') }}"></script>
 </body>
 </html>

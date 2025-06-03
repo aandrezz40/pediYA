@@ -18,23 +18,30 @@
             </a>
         </section>
         
-        <section class="bar-search">
-            <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
-            <input class="input-search" type="text" placeholder="Tiendas, productos...">
-        </section>
+        <form action="{{ route('busquedaTienda') }}" method="post">
+        @csrf    
+            <section class="bar-search">
+                <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
+                <input class="input-search" name="nameStore" type="text" placeholder="Tiendas...">
+                <input type="submit" value="Buscar">
+            </section>
+        </form>
         <section class="bar-buttons">
             <a class="button-ingreso" href="{{ route('login') }}">Ingreso</a>
         </section>
     </header>
     <aside id="cont-nav-bar">
         <section class="nav-bar">
-            <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
+                <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
+            
             <div class="cont-icono">
-                <svg  class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="home">
-                <path d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"></path>
-                </svg>
+                <a href="{{ url('/home') }}">
+                    <svg  class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="home">
+                    <path d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"></path>
+                    </svg>
+                </a>
                 <article class="container-links">
-                    <h3>Pagina principal</h3>
+                    <h3>Panel principal</h3>
                 </article>
             </div>
             <div class="cont-icono">
@@ -63,7 +70,6 @@
                     <h3>Contacto</h3>
                 </article>
             </div>
-            <div><img class="logo-nav-bar" src="{{ asset('img/logo-v1.1.png') }}" alt=""></div>
         </section>
     </aside>
     <main>

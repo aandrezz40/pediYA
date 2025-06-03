@@ -33,7 +33,7 @@
     <section class="cont-productos-tienda" id="contProductosTienda">
         <h2 class="tituloProductos">Productos</h2>
         <article class="cont-categorias">
-            <button type="submit" class="btn-categoria">Todos</button>
+            <button type="submit" class="btn-categoria" data-category-id="0">Todos</button>
             @forelse ($categories as $category)
             <button type="submit" class="btn-categoria" data-category-id="{{ $category->id }}">{{ $category->name }}</button>
             @empty
@@ -119,7 +119,7 @@
         btn.addEventListener('click', function () {
             const categoryId = btn.dataset.categoryId;
 
-            fetch(`/product/${categoryId}`, {
+            fetch(`/product/${categoryId}/{{$store->id}}`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,

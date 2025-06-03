@@ -8,12 +8,15 @@
             <h1 class="nombreEmpresa">PediYÁ</h1>
         </a>
     </section>
-    
-    <section class="bar-search">
-        <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
-        <input class="input-search" type="text" placeholder="Tiendas, productos...">
-    </section>
 
+    <form action="{{ route('busquedaTienda') }}" method="post">
+    @csrf
+        <section class="bar-search">
+            <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
+            <input class="input-search" name="nameStore" type="text" placeholder="Tiendas...">
+            <input type="submit" value="Buscar">
+        </section>
+    </form>
 
     
     <section class="bar-buttons">
@@ -52,16 +55,13 @@
                 </article>
             </div>
             <div class="cont-icono">
-                <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
+                <a href="{{ url('/nosotros') }}">
+                    <svg class="icono-nav"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
                     <g>
-                        <path
-                            d="M28.88,25.75H3.13a1.88,1.88,0,0,1-1.87-1.87V8.13A1.88,1.88,0,0,1,3.13,6.25H28.88a1.88,1.88,0,0,1,1.88,1.88V23.88A1.88,1.88,0,0,1,28.88,25.75ZM3.13,7.75a.38.38,0,0,0-.37.38V23.88a.38.38,0,0,0,.38.38H28.88a.38.38,0,0,0,.38-.37V8.13a.38.38,0,0,0-.37-.37Z">
-                        </path>
+                        <path d="M28.88,25.75H3.13a1.88,1.88,0,0,1-1.87-1.87V8.13A1.88,1.88,0,0,1,3.13,6.25H28.88a1.88,1.88,0,0,1,1.88,1.88V23.88A1.88,1.88,0,0,1,28.88,25.75ZM3.13,7.75a.38.38,0,0,0-.37.38V23.88a.38.38,0,0,0,.38.38H28.88a.38.38,0,0,0,.38-.37V8.13a.38.38,0,0,0-.37-.37Z"></path>
                         <rect width="10" height="1.5" x="6" y="17" rx=".75" ry=".75"></rect>
                         <rect width="5" height="1.5" x="6" y="13.5" rx=".75" ry=".75"></rect>
-                        <path
-                            d="M25.45,19.5H21a1.3,1.3,0,0,1-1.3-1.3V13.8A1.3,1.3,0,0,1,21,12.5h4.4a1.3,1.3,0,0,1,1.3,1.3v4.4A1.3,1.3,0,0,1,25.45,19.5ZM21.25,18h4V14h-4Z">
-                        </path>
+                        <path d="M25.45,19.5H21a1.3,1.3,0,0,1-1.3-1.3V13.8A1.3,1.3,0,0,1,21,12.5h4.4a1.3,1.3,0,0,1,1.3,1.3v4.4A1.3,1.3,0,0,1,25.45,19.5ZM21.25,18h4V14h-4Z"></path>
                     </g>
                     </svg>
                 </a>

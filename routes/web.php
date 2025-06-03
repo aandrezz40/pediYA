@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/homeCliente', [ClienteController::class, 'index'])->middleware('role:cliente')->name('homeCliente');
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->name('store.unfavorite');
     Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->name('store.favorite');  
+    Route::post('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
+    Route::post('/product/{id}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
 
     Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');
 

@@ -15,7 +15,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
-        <!-- Scripts -->
+        <link rel="stylesheet" href="{{ asset('css/users/detallesTienda.css') }}">
+        <!-- Scripts -->    
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -37,6 +38,7 @@
             </main>
         </div>
     <script src="{{ asset('js/homeCliente.js') }}"></script>
+    <script src="{{ asset('js/detallesTienda.js') }}"></script>
 
     </body>
 </html>

@@ -1,16 +1,26 @@
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-        <h1 class="nombreEmpresa">PediYÁ</h1>
+        <a href="{{ url('/') }}">
+            <h1 class="nombreEmpresa">PediYÁ</h1>
+        </a>
     </section>
     
     <section class="bar-search">
         <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
         <input class="input-search" type="text" placeholder="Tiendas, productos...">
     </section>
+
+
     
     <section class="bar-buttons">
+        <article class="icono-notificacion-view">
+            <img class="" src="{{ asset('img/bell-regular.svg') }}" alt="" srcset="">
+            <section class="num-notificaciones"><span>2</span></section>
+        </article>
         <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
     </section>
 </header>
@@ -19,13 +29,11 @@
         <section class="nav-bar">
             <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
             <div class="cont-icono">
-                <a href="{{ url('/') }}">
-                    <svg  class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="home">
-                    <path d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"></path>
-                    </svg>
-                </a>
+                <a href="{{ url('/home') }}"><svg  class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="home">
+                <path d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"></path></a>
+                </svg>
                 <article class="container-links">
-                    <h3>Pagina principal</h3>
+                    <h3>Panel principal</h3>
                 </article>
             </div>
             <div class="cont-icono">
@@ -36,11 +44,11 @@
                 </svg>
                 <article class="container-links">
                     <h3>Pedidos</h3>
-                    {{-- <section class="links">
+                    <!-- <section class="links">
                         <a href="" class="link">Tiendas</a>
                         <a href="" class="link">Favoritos</a>
                         <a href="" class="link">Historial</a>
-                    </section> --}}
+                    </section> -->
                 </article>
             </div>
             <div class="cont-icono">
@@ -62,14 +70,16 @@
                 </article>
             </div>
             <div class="cont-icono">
-                <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 16.933 16.933" id="book">
-                    <path fill-rule="evenodd" d="M 14.003906,2 C 10.714471,2 8.0019531,4.7106393 8.0019531,8 V 55.998047 C 8.0019531,59.287483 10.714516,62 14.003906,62 h 35.994141 c 1.105287,-1.1e-4 2.000969,-0.896667 2,-2.001953 v -8.001953 h 2 c 1.104524,-1.1e-4 1.99989,-0.895476 2,-2 V 4 c -1.1e-4,-1.1045238 -0.895476,-1.9998896 -2,-2 z m 0,4 h 37.994141 v 42.003906 h -7.994141 c -2.837727,-0.182108 -2.837727,4.174296 0,3.992188 h 3.992188 v 6.001953 H 14.003906 c -1.14261,0 -2,-0.857373 -2,-2 v -2 c 0,-1.142627 0.85739,-2.001953 2,-2.001953 H 32 c 2.837727,0.182108 2.837727,-4.174296 0,-3.992188 H 14.003906 c -0.776667,0 -1.315927,0.559818 -2,0.833985 V 8 c 0,-1.1425512 0.857437,-2 2,-2 z M 32,14.001953 c -4.394589,0 -8.001953,3.599533 -8.001953,7.994141 0,2.125269 0.850337,4.061927 2.21875,5.5 C 22.517489,29.546629 19.998053,33.49083 19.998047,38 c -0.0605,2.726493 4.060499,2.726493 4,0 6e-6,-4.441928 3.559992,-8.001953 8.001953,-8.001953 4.441963,0 8.001949,3.560025 8.001953,8.001953 0,2.667968 4.001953,2.667968 4.001953,0 -5e-6,-4.50917 -2.519442,-8.453371 -6.21875,-10.503906 1.368413,-1.438073 2.216797,-3.374731 2.216797,-5.5 0,-4.394608 -3.607364,-7.994141 -8.001953,-7.994141 z m 0,4.001953 c 2.232828,0 4.001953,1.759356 4.001953,3.992188 0,2.232831 -1.769125,4.001953 -4.001953,4.001953 -2.232829,0 -4,-1.769122 -4,-4.001953 0,-2.232832 1.767171,-3.992188 4,-3.992188 z M 38,48 c -1.104576,0 -2.000008,0.895433 -2,2 1.5e-5,1.104567 0.895439,2 2,2 1.104559,0 1.999989,-0.895433 2,-2 8e-6,-1.104567 -0.895425,-2 -2,-2 z" color="#000" font-family="sans-serif" font-weight="400" overflow="visible" paint-order="stroke fill markers" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal" transform="scale(.26458)"></path>
-                  </svg>
+                <a href="{{ url('/contacto') }}">
+                    <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 16.933 16.933" id="book">
+                        <path fill-rule="evenodd" d="M 14.003906,2 C 10.714471,2 8.0019531,4.7106393 8.0019531,8 V 55.998047 C 8.0019531,59.287483 10.714516,62 14.003906,62 h 35.994141 c 1.105287,-1.1e-4 2.000969,-0.896667 2,-2.001953 v -8.001953 h 2 c 1.104524,-1.1e-4 1.99989,-0.895476 2,-2 V 4 c -1.1e-4,-1.1045238 -0.895476,-1.9998896 -2,-2 z m 0,4 h 37.994141 v 42.003906 h -7.994141 c -2.837727,-0.182108 -2.837727,4.174296 0,3.992188 h 3.992188 v 6.001953 H 14.003906 c -1.14261,0 -2,-0.857373 -2,-2 v -2 c 0,-1.142627 0.85739,-2.001953 2,-2.001953 H 32 c 2.837727,0.182108 2.837727,-4.174296 0,-3.992188 H 14.003906 c -0.776667,0 -1.315927,0.559818 -2,0.833985 V 8 c 0,-1.1425512 0.857437,-2 2,-2 z M 32,14.001953 c -4.394589,0 -8.001953,3.599533 -8.001953,7.994141 0,2.125269 0.850337,4.061927 2.21875,5.5 C 22.517489,29.546629 19.998053,33.49083 19.998047,38 c -0.0605,2.726493 4.060499,2.726493 4,0 6e-6,-4.441928 3.559992,-8.001953 8.001953,-8.001953 4.441963,0 8.001949,3.560025 8.001953,8.001953 0,2.667968 4.001953,2.667968 4.001953,0 -5e-6,-4.50917 -2.519442,-8.453371 -6.21875,-10.503906 1.368413,-1.438073 2.216797,-3.374731 2.216797,-5.5 0,-4.394608 -3.607364,-7.994141 -8.001953,-7.994141 z m 0,4.001953 c 2.232828,0 4.001953,1.759356 4.001953,3.992188 0,2.232831 -1.769125,4.001953 -4.001953,4.001953 -2.232829,0 -4,-1.769122 -4,-4.001953 0,-2.232832 1.767171,-3.992188 4,-3.992188 z M 38,48 c -1.104576,0 -2.000008,0.895433 -2,2 1.5e-5,1.104567 0.895439,2 2,2 1.104559,0 1.999989,-0.895433 2,-2 8e-6,-1.104567 -0.895425,-2 -2,-2 z" color="#000" font-family="sans-serif" font-weight="400" overflow="visible" paint-order="stroke fill markers" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal" transform="scale(.26458)"></path>
+                    </svg>
+                </a>
                 <article class="container-links">
                     <h3>Contacto</h3>
                 </article>
             </div>
-            <div class="cont-icono">
+                        <div class="cont-icono">
                 <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="settings" >
                     <g>
                       <g>
@@ -87,12 +97,17 @@
                     </section> -->
                 </article>
             </div>
+           <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn_exit">
             <div class="cont-icono-salir">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="login">
                     <path d="M21 10h-2.6l.3-.3c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-2 2c-.1.1-.2.2-.2.3-.1.2-.1.5 0 .8.1.1.1.2.2.3l2 2c.2.2.5.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-.3-.3H21c.6 0 1-.4 1-1s-.4-1-1-1zm-3 6z"></path>
                     <path d="M17 15c-.6 0-1 .4-1 1s-.4 1-1 1h-1V8.4c0-1.3-.8-2.4-1.9-2.8L10.5 5H15c.6 0 1 .4 1 1s.4 1 1 1 1-.4 1-1c0-1.7-1.3-3-3-3H5c-.1 0-.2 0-.3.1-.1 0-.2.1-.2.1l-.1.1c-.1 0-.2.1-.2.2v.1c-.1 0-.2.1-.2.2V18c0 .4.3.8.6.9l6.6 2.5c.2.1.5.1.7.1.4 0 .8-.1 1.1-.4.5-.4.9-1 .9-1.6V19h1c1.6 0 3-1.3 3-3 .1-.5-.4-1-.9-1zM6 17.3V5.4l5.3 2c.4.2.7.6.7 1v11.1l-6-2.2z"></path>
                 </svg>
             </div>
+                </button>
+            </form>
         </section>
     </aside>
 <article class="overlay-carrito" id="overlayCarrito">

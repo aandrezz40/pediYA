@@ -20,6 +20,7 @@
     margin: 0;
     padding: 0;
     font-family: "ADLaM Display", serif;
+    text-decoration: none;
 }
 
 /*DISEÑO DE BARRA DE NAVEGACION*/
@@ -31,11 +32,6 @@ header{
     align-items: center;
     justify-content: space-between;
 
-}
-.btn_exit{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 .bar-logo, .bar-search, .bar-buttons{
     display: flex;
@@ -221,6 +217,10 @@ aside {
 }
 .logo-nav-bar{
     width: 60px;
+}
+.btn_exit{
+    border: none;
+    background-color: transparent;
 }
 .cont-icono-salir{
     width: 45px;

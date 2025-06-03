@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
+    public function store(){
+        return $this->belongTo(Store::class, 'store_id');
+    }
 }

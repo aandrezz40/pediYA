@@ -70,7 +70,8 @@
                         <h3>{{ $store->name }}</h3>
                         <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
                         <p>{{ $store->address_street }}, {{ $store->address_neighborhood }}</p>
-                        <form action="" method="GET">
+                        <form action="{{ route('detallesTienda', ['id' => $store->id]) }}" method="post">
+                            @csrf
                             <button type="submit">Ver tienda</button>
                         </form>
                     </section>

@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Store::class, 'store_favorites')->withTimestamps();
     }
+
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
 }

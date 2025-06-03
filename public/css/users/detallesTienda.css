@@ -54,14 +54,14 @@ main{
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
 }
-.cont-baner .cont-img{
+.cont-baner .cont-img-tienda{
     width: 30%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.cont-baner .cont-img img{
+.cont-baner .cont-img-tienda img{
     width: 50%;
     height: 70%;
     object-fit: cover;
@@ -210,7 +210,7 @@ main{
 }
 
 .cont-categorias button:hover {
-    background-color: var(--color-sexto); /* Este debería ser tu color morado */
+    background-color: var(--color-primario); /* Este debería ser tu color morado */
     color: white;
 }
 
@@ -251,7 +251,7 @@ main{
 .card-producto:hover{
     transform: scale(1.02);
 }
-.cont-baner .cont-img-producto{
+.cont-baner .cont-img-tienda-producto{
     position: relative;
     width: 100%;
     height: 50%;
@@ -263,7 +263,7 @@ main{
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
 }
-.cont-baner .cont-img-producto span{
+.cont-baner .cont-img-tienda-producto span{
     position: absolute;
     top: 0;
     right: 0;
@@ -432,14 +432,14 @@ main{
         justify-content: space-around;
         align-items: center;
     }
-    .cont-baner .cont-img{
+    .cont-baner .cont-img-tienda{
         width: 40%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-baner .cont-img img{
+    .cont-baner .cont-img-tienda img{
         width: 100%;
         height: 70%;
         object-fit: cover;
@@ -577,14 +577,14 @@ main{
         justify-content: space-around;
         align-items: center;
     }
-    .cont-baner .cont-img{
+    .cont-baner .cont-img-tienda{
         width: 30%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-baner .cont-img img{
+    .cont-baner .cont-img-tienda img{
         width: 100%;
         height: 70%;
         object-fit: cover;

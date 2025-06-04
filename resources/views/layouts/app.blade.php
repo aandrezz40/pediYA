@@ -16,6 +16,8 @@
         <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/detallesTienda.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -37,6 +39,7 @@
         </div>
     <script src="{{ asset('js/homeCliente.js') }}"></script>
     <script src="{{ asset('js/detallesTienda.js') }}"></script>
-
+    <script src="{{ asset('js/notificaciones.js') }}"></script>
+    <script src="{{ asset('js/perfilUsuario.js') }}"></script>
     </body>
 </html>

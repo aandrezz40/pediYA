@@ -35,7 +35,7 @@
                 {{-- Número Telefónico y Nombre Completo  --}}
                 <article class="cont-inputs">
                     <input type="text" name="name" id="name" placeholder="Nombre Completo" class="input-info" required autocomplete="name">
-                    <input type="tel" name="phone_number" id="numero_telefono" placeholder="Número Telefónico" class="input-info" required autocomplete="tel">
+                    <input type="tel" name="phone_number" id="numero_telefono" placeholder="Número Telefónico" class="input-info" required autocomplete="phone_number">
                 </article>
 
                 {{-- Correo Electrónico --}}

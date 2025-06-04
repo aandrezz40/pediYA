@@ -36,9 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/homeCliente', [ClienteController::class, 'index'])->middleware('role:cliente')->name('homeCliente');
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->name('store.unfavorite');
     Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->name('store.favorite');  
+
     Route::post('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
     Route::post('/product/{id}/{idTienda}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
     Route::post('/busquedaTienda', [ClienteController::class, 'busquedaTienda'])->middleware('role:cliente')->name('busquedaTienda');
+
+    Route::get('/perfil', [ClienteController::class, 'perfil'])->middleware('role:cliente')->name('perfil');
+    Route::put('updateUser', [ClienteController::class, 'updateUser'])->name('updateUser');
+    Route::post('updatePassword', [ClienteController::class, 'updatePassword'])->name('updatePassword');
 
     Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');
 

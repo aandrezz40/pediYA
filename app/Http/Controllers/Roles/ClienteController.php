@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Roles;
 
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Store;
@@ -62,7 +63,7 @@ class ClienteController extends Controller
 
     }
 
-        public function busquedaTienda(Request $request){ 
+    public function busquedaTienda(Request $request){ 
 
         $nombre = $request->input('nameStore');
 
@@ -82,5 +83,64 @@ class ClienteController extends Controller
 
 
         return view('cliente.detallesTienda', compact('store', 'owner', 'products', 'categories'));
+    }
+    public function perfil(){   
+        $user = auth()->user();
+        $user->load('address');
+        
+        return view('cliente.perfil', compact('user'));
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = auth()->user();
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:20',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'address_line_1' => 'nullable|string|max:255',
+            'neighborhood' => 'nullable|string|max:255',
+        ]);
+
+        // Actualizar datos del usuario
+        $user->update([
+            'name' => $validatedData['name'],
+            'phone_number' => $validatedData['phone_number'] ?? null,
+            'email' => $validatedData['email'],
+        ]);
+
+        // Actualizar o crear dirección
+        if ($user->address) {
+            $user->address->update([
+                'address_line_1' => $validatedData['address_line_1'] ?? null,
+                'neighborhood' => $validatedData['neighborhood'] ?? null,
+            ]);
+        } else {
+            $user->address()->create([
+                'address_line_1' => $validatedData['address_line_1'] ?? null,
+                'neighborhood' => $validatedData['neighborhood'] ?? null,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Información actualizada correctamente.');
+    }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'La contraseña actual no es correcta.');
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Tu contraseña ha sido actualizada.');
     }
 }

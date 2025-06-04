@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id(); // Columna autoincremental, clave primaria única para cada usuario.
             $table->string('name'); // Nombre completo del usuario.
             $table->string('email')->unique(); // Correo electrónico del usuario, debe ser único para el inicio de sesión.
-            $table->string('phone_number')->nullable(); // Número de teléfono del usuario, opcional.
+            $table->string('phone_number'); // Número de teléfono del usuario, opcional.
             $table->string('password'); // Contraseña encriptada del usuario para seguridad.
             $table->enum('role', ['client', 'tendero', 'admin'])->default('client'); // Define el rol del usuario (cliente, tendero, o administrador). 'client' es el rol por defecto.
             $table->boolean('is_active')->default(true); // Indica si la cuenta del usuario está activa o desactiva (para gestión del administrador).

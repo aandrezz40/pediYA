@@ -18,12 +18,12 @@
             </a>
         </section>
         
-        <form action="{{ route('busquedaTienda') }}" method="post">
+        <form class="form-bar-search" action="{{ route('busquedaTienda') }}" method="post">
         @csrf    
             <section class="bar-search">
                 <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
                 <input class="input-search" name="nameStore" type="text" placeholder="Tiendas...">
-                <input type="submit" value="Buscar">
+                <input class="btn-search" type="submit" value="Buscar">
             </section>
         </form>
         <section class="bar-buttons">

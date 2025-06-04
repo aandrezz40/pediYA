@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Barrio;
 use App\Models\Address;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -19,10 +20,10 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function create(): View
-    {
-        return view('auth.register');
+    {   
+        $barrios = Barrio::all();
+        return view('auth.register', compact('barrios'));
     }
-
     /**
      * Handle an incoming registration request.
      *

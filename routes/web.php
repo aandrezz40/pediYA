@@ -5,6 +5,9 @@ use App\Http\Controllers\Roles\TenderoController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BarriosController;
+
+use App\Models\Barrio;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');
 
     Route::get('/homeAdmin', [AdminController::class, 'index'])->middleware('role:admin')->name('homeAdmin');
-
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

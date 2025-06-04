@@ -122,10 +122,10 @@ form{
 input[type="email"]{
     width: 100%;
 }
-select{
+.selectBarrios, .selectRol{
     width: 50%;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px 5px;
     border: 1px solid var(--color-borde-claro);
     color: var(--color-primario);
     opacity: .8;
@@ -178,6 +178,7 @@ select{
     opacity: .8;
     cursor: pointer;
 }
+
 .visibility-contra{
     fill: var(--color-primario);
     opacity: 1;
@@ -208,10 +209,6 @@ select{
     position: relative;
     padding: 20px;
     box-sizing: border-box;
-    @media (width >= 1280px) {
-      width: 400px;
-      height: 250px;
-}
     display: flex;
     flex-direction: column;
     align-items: center;

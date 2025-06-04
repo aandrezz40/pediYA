@@ -46,22 +46,23 @@
                 {{-- Dirección y Contraseña --}}
                 <article class="cont-inputs">
                     <input type="text" name="address_line_1" id="address_line_1" placeholder="Dirección" class="input-info" required autocomplete="street-address">
-                    <select name="neighborhood" id="neighborhood" required>
+                    <select name="neighborhood" id="neighborhood" class="selectBarrios" required>
                         <option value="" disabled selected>Barrio</option>
-                        <option value="Las Granjas">Las Granjas</option>
-                        <option value="Otro Barrio">Otro Barrio</option>
+                        @foreach($barrios as $barrio)
+                            <option  value="{{ $barrio->nombre_barrio }}">{{ $barrio->nombre_barrio }}</option>
+                        @endforeach
                         <!-- Agrega aquí más barrios -->
                     </select>
                 </article>
 
                 {{-- Rol --}}
                 <article class="cont-inputs">
-                    <select name="role" id="rol" required>
+                    <select name="role" id="rol" required class="selectRol">
                         <option value="" disabled selected>Selecciona un Rol</option>
                         <option value="cliente">Cliente</option>
                         <option value="tendero">Tendero</option>
                     </select>
-                                        <section class="cont-input-contra">
+                    <section class="cont-input-contra">
                         <input type="password" name="password" id="inputContrasena" placeholder="Contraseña" class="input-info" required autocomplete="new-password">
                         
                         {{-- El SVG para el ojo (mostrar/ocultar contraseña) --}}

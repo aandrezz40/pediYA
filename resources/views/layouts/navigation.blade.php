@@ -138,13 +138,13 @@
             </section>
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>
-        <article class="cont-cards">
+        <article class="cont-cards-carrito">
             @foreach($orders as $order)
                 <article class="card-carrito">
                     <section class="cont-acciones">
                         <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
                         <button type="submit">✔</button>
-                        <img id="desplegarProducto" class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
+                        <img class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
                         <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
                     </section>
 
@@ -157,11 +157,14 @@
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">
                                             <p class="precioProducto">{{ $item->unit_price }}</p>
-                                            <section class="cont-cantidad-producto">
-                                                <button type="submit">-</button>
-                                                <span>{{ $item->quantity }}</span>
-                                                <button type="submit">+</button>
-                                            </section>
+                                            <form class="cont-cantidad-producto">
+                                                <input type="submit" value="✔" class="btn-confirmar-cantidad">
+                                                <article class="cont-boton-cantidad">
+                                                    <button type="button" class="disminuir-cantidad">-</button>
+                                                    <span class="cantidad-producto">{{ $item->quantity }}</span>
+                                                    <button type="button" class="aumentar-cantidad">+</button>
+                                                </article>                                                
+                                            </form>
                                         </article>
                                     </article>    
                                 </section>
@@ -172,115 +175,9 @@
                             </section>
                             @endforeach
                         </section>
- 
                 </article>    
             @endforeach
-                        <article class="card-carrito">
-                <section class="cont-acciones">
-                    <h3 class="nombreTienda"><span></span>Nombre de la empresa</h3>
-                    <img id="desplegarProducto" class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
-                    <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
-                </section>
-                <section class="cont-productos oculto">
-                    <section class="cont-imagen-producto" id="cont-imagen-producto">
-                        <section class="cont-datos-producto">
-                            <img src="{{ asset('img/rice-ball_.png') }}" alt="">
-                            <article class="contDescripcion">
-                                <h3 class="nombreProducto">Arroz ROA</h3>
-                                <p class="descripcionProducto">1 Libra</p>
-                                <article class="cont-cantidad">
-                                    <p class="precioProducto">$5000.00</p>
-                                    <section class="cont-cantidad-producto">
-                                        <button type="submit">-</button>
-                                        <span>1</span>
-                                        <button type="submit">+</button>
-                                    </section>
-                                </article>
-                            </article>    
-                        </section>
-                        <article class="cont-confirmar">
-                            <button type="submit">Confirmar</button>
-                            <p>Subtotal: <span>$4.500</span></p>
-                        </article>
-                    </section>
-                    <!-- Repite los cont-imagen-producto cuantas veces quieras -->
-                    <section class="cont-imagen-producto" id="cont-imagen-producto">
-                        <section class="cont-datos-producto">
-                            <img src="{{ asset('img/rice-ball_.png') }}" alt="">
-                            <article class="contDescripcion">
-                                <h3 class="nombreProducto">Arroz ROA</h3>
-                                <p class="descripcionProducto">1 Libra</p>
-                                <article class="cont-cantidad">
-                                    <p class="precioProducto">$5000.00</p>
-                                    <section class="cont-cantidad-producto">
-                                        <button type="submit">-</button>
-                                        <span>1</span>
-                                        <button type="submit">+</button>
-                                    </section>
-                                </article>
-                            </article>    
-                        </section>
-                        <article class="cont-confirmar">
-                            <button type="submit">Confirmar</button>
-                            <p>Subtotal: <span>$4.500</span></p>
-                        </article>
-                    </section>
-                    <!-- Puedes seguir duplicando o hacer un loop dinámico con Blade si quieres -->
-                </section>
-            </article>    
-            <article class="card-carrito">
-                <section class="cont-acciones">
-                    <h3 class="nombreTienda"><span></span>Nombre de la empresa</h3>
-                    <img id="desplegarProducto" class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
-                    <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
-                </section>
-                <section class="cont-productos oculto">
-                    <section class="cont-imagen-producto" id="cont-imagen-producto">
-                        <section class="cont-datos-producto">
-                            <img src="{{ asset('img/rice-ball_.png') }}" alt="">
-                            <article class="contDescripcion">
-                                <h3 class="nombreProducto">Arroz ROA</h3>
-                                <p class="descripcionProducto">1 Libra</p>
-                                <article class="cont-cantidad">
-                                    <p class="precioProducto">$5000.00</p>
-                                    <section class="cont-cantidad-producto">
-                                        <button type="submit">-</button>
-                                        <span>1</span>
-                                        <button type="submit">+</button>
-                                    </section>
-                                </article>
-                            </article>    
-                        </section>
-                        <article class="cont-confirmar">
-                            <button type="submit">Confirmar</button>
-                            <p>Subtotal: <span>$4.500</span></p>
-                        </article>
-                    </section>
-                    <!-- Repite los cont-imagen-producto cuantas veces quieras -->
-                    <section class="cont-imagen-producto" id="cont-imagen-producto">
-                        <section class="cont-datos-producto">
-                            <img src="{{ asset('img/rice-ball_.png') }}" alt="">
-                            <article class="contDescripcion">
-                                <h3 class="nombreProducto">Arroz ROA</h3>
-                                <p class="descripcionProducto">1 Libra</p>
-                                <article class="cont-cantidad">
-                                    <p class="precioProducto">$5000.00</p>
-                                    <section class="cont-cantidad-producto">
-                                        <button type="submit">-</button>
-                                        <span>1</span>
-                                        <button type="submit">+</button>
-                                    </section>
-                                </article>
-                            </article>    
-                        </section>
-                        <article class="cont-confirmar">
-                            <button type="submit">Confirmar</button>
-                            <p>Subtotal: <span>$4.500</span></p>
-                        </article>
-                    </section>
-                    <!-- Puedes seguir duplicando o hacer un loop dinámico con Blade si quieres -->
-                </section>
-            </article>    
+
         </article>
         <article class="cont-total">
             <h3>Total:</h3>

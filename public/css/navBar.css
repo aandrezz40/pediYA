@@ -21,8 +21,15 @@
     padding: 0;
     font-family: "ADLaM Display", serif;
     text-decoration: none;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+    scroll-behavior: smooth;
 }
-
+.no-scroll {
+    overflow: hidden;
+    position: fixed; /* Mantiene la página fija en su posición */
+    width: 100%;
+}
 /*DISEÑO DE BARRA DE NAVEGACION*/
 header{
     width: 100vw;
@@ -391,19 +398,25 @@ aside {
     font-size: 1.2em;
     font-weight: 300;
 }
-.cont-cards{
+.cont-cards-carrito {
     min-height: 70vh;
+    max-height: 70vh; /* Mejor que height fijo */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
 }
-.card-carrito{
+.card-carrito {
     width: 380px;
-    height: auto;
-    overflow-y: hidden;
+    min-height: 30px;
+    overflow: hidden;
     margin-bottom: 10px;
-
+    padding-bottom: 10px;
+    transition: min-height 0.5s ease; /* opcional, para animaciones suaves */
+}
+.con-altura-minima {
+    min-height: 200px;
 }
 .cont-acciones{
     display: flex;
@@ -437,13 +450,13 @@ aside {
 .desplegarProducto{
     cursor: pointer;
     width: var(--tamaño-icono3);
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 .esconderProducto{
     transform: rotate(180deg);
     width: var(--tamaño-icono3);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 .cont-productos{
     display: flex;
@@ -453,7 +466,7 @@ aside {
     max-height: 180px;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
     opacity: 1;
 }
 .cont-imagen-producto {
@@ -504,11 +517,26 @@ aside {
 .cont-cantidad-producto{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 80px;
-    padding: 5px;
-    border-radius: 21px;
+    justify-content: end;
+    gap: 10px;
+    width: 100px;
+}
+.btn-confirmar-cantidad{
+    padding: 5px 10px;
+    color: white;
+    background-color: var(--color-sexto);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.cont-boton-cantidad{
     background-color: #F9EFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 25px;
 }
 .cont-cantidad-producto button{
     background-color: transparent;
@@ -516,6 +544,8 @@ aside {
     color: black;
     font-size: 1.5em;
     cursor: pointer;
+    background-color: #F9EFFF;
+
 }
 .cont-cantidad-producto span{
     color: var(--color-primario);
@@ -524,7 +554,7 @@ aside {
 .cont-confirmar{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: start;
     width: 100%;
     margin-top: 10px;
 }

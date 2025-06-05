@@ -31,4 +31,9 @@ linkNav.forEach((link, index) => {
 });
 
 //FUNCION PARA OCULTAR EL CONTENIDO DE LOS LINKS
+cont_nav.addEventListener('click', (e) => {
+    if (e.target === cont_nav) {
+        cont_nav.classList.remove('visible');
 
+    }
+});

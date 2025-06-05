@@ -228,7 +228,7 @@
                     <!-- Puedes seguir duplicando o hacer un loop dinámico con Blade si quieres -->
                 </section>
             </article>    
-                        <article class="card-carrito">
+            <article class="card-carrito">
                 <section class="cont-acciones">
                     <h3 class="nombreTienda"><span></span>Nombre de la empresa</h3>
                     <img id="desplegarProducto" class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">

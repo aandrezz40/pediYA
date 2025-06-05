@@ -410,6 +410,17 @@ aside {
     justify-content: space-between;
     align-items: center;
 }
+.cont-acciones button{
+    width: 50px;
+    height: 30px;
+    background-color: var(--color-sexto);
+    color: white;
+    border: none;
+    font-size: 1em;
+    border-radius: 10px;
+    margin-right: 4px;
+    cursor: pointer;
+}
 .nombreTienda{
     font-weight: 300;
     font-style: normal;
@@ -439,7 +450,7 @@ aside {
     flex-direction: column;
     justify-content: start;
     width: 380px;
-    max-height: 300px;
+    max-height: 180px;
     overflow-y: auto;
     overflow-x: hidden;
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -516,16 +527,6 @@ aside {
     justify-content: space-around;
     width: 100%;
     margin-top: 10px;
-}
-.cont-confirmar button{
-    width: 110px;
-    height: 30px;
-    background-color: var(--color-sexto);
-    color: white;
-    border: none;
-    font-size: 1em;
-    border-radius: 10px;
-    cursor: pointer;
 }
 .cont-confirmar span{
     color: var(--color-sexto);

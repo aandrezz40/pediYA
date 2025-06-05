@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained()->onDelete('cascade'); // Clave foránea que vincula el pedido a la `store` a la que se le hizo el pedido.
             $table->string('order_code')->unique(); // Un código único para el pedido, útil para seguimiento (ej: UUID o un hash).
             $table->decimal('total_amount', 10, 2); // El monto total del pedido incluyendo todos los ítems.
-            $table->enum('status', ['pending', 'in_preparation', 'ready_for_pickup', 'completed', 'cancelled'])->default('pending'); // El estado actual del pedido en su ciclo de vida.
+            $table->enum('status', ['inactive', 'pending', 'in_preparation', 'ready_for_pickup', 'completed', 'cancelled'])->default('pending'); // El estado actual del pedido en su ciclo de vida.
             $table->text('customer_notes')->nullable(); // Campo para que el cliente agregue notas o instrucciones adicionales al tendero.
             $table->timestamps(); // `created_at` y `updated_at`.
         });

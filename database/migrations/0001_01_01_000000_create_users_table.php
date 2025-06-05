@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique(); // Correo electrónico del usuario, debe ser único para el inicio de sesión.
             $table->string('phone_number'); // Número de teléfono del usuario, opcional.
             $table->string('password'); // Contraseña encriptada del usuario para seguridad.
-            $table->enum('role', ['client', 'tendero', 'admin'])->default('client'); // Define el rol del usuario (cliente, tendero, o administrador). 'client' es el rol por defecto.
+            $table->enum('role', ['cliente', 'tendero', 'admin'])->default('client'); // Define el rol del usuario (cliente, tendero, o administrador). 'client' es el rol por defecto.
             $table->boolean('is_active')->default(true); // Indica si la cuenta del usuario está activa o desactiva (para gestión del administrador).
             $table->timestamp('email_verified_at')->nullable(); // Marca de tiempo para registrar cuándo se verificó el correo electrónico del usuario (opcional si se implementa verificación).
             $table->rememberToken(); // Token para la funcionalidad "recordarme" en el inicio de sesión.

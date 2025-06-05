@@ -102,6 +102,17 @@ form{
     margin-top: 15px;
     width: 100%;    
 }
+.cont-recuerdame{
+    display: flex;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;    
+    margin-top: 15px;
+    width: 100%;    
+}
+.input-recuerdame:checked{
+    accent-color: var(--color-primario);
+}
 .input-info{
     padding: 10px;
     width: 100%;

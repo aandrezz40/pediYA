@@ -143,4 +143,17 @@ class ClienteController extends Controller
 
         return back()->with('success', 'Tu contraseña ha sido actualizada.');
     }
+
+    public function historialPedidos(){   
+        $user = auth()->user();
+        $user->load('address');
+        
+        $orders = $user->Orders()
+            ->where('status', '!=', 'inactive')
+            ->with(['orderItems.product.category', 'store'])
+            ->get();
+
+        return view('cliente.historialPedido', compact('user', 'orders'));
+    }
+
 }

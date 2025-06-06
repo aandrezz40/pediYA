@@ -158,7 +158,7 @@ main{
 }
 .cont-card-pedido{
     width: 100%;
-    height: 200px;
+    height: 360px;
     border-radius: 15px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
     padding: 10px;
@@ -179,7 +179,6 @@ main{
 }
 #infoProceso{
     font-size: .9rem;
-
 }
 .cont-productos-pedido img{
     width: var(--tamaño-icono3);
@@ -187,14 +186,27 @@ main{
 }
 .cont-productos-pedido{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 260px;
+    overflow-y: auto;
+}
+.cont-categoria-producto{
+    width: 100%;
+    height: 120px;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: start;
     flex-wrap: wrap;
     gap: 10px;
-    width: 100%;
-    height: 100px;
     overflow-y: auto;
+}
+.cont-titulo-categoria{
+    width: 100%;
 }
 .producto-pedido{
     display: flex;
@@ -202,7 +214,7 @@ main{
     align-items: center;
     justify-content: space-around;
     gap: 10px;
-    width: 23%;
+    width: 28%;
     height: 70px;
     background-color: rgb(235, 235, 235);
     border-radius: 15px;
@@ -230,22 +242,67 @@ main{
     border-radius: 3px;
     font-size: .7em;
 }
-.cont-total-pedido{
+/*Mensaje cliente*/
+.cont-mensaje-cliente{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 50px;
+    gap: 15px;
+}
+.cont-mensaje-cliente img{
+    width: var(--tamaño-icono3);
+    height: var(--tamaño-icono3);
+}
+.cont-mensaje-cliente p{
+    font-size:.8em;
+    font-weight: 100;
+    color: var(--color-text1);
+}
+.cont-info-pedido{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    height: 30px;
+}
+.cont-total-pedido{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+    height: 35px;
 }
 .cont-total-pedido p{
     color: rgba(128, 128, 128, 0.671);
     font-weight: 100;
-    font-size: .9em;
+    font-size: .7em;
 }
 .cont-total-pedido p:first-child{
     color: var(--color-primario);
     font-size: 1em;
+}
+.btns-historial-pedidos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    width: 50%;
+    height: 35px;
+}
+.cont-soporte{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.cont-soporte img{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 .btn-Confirmar-Pedido{
     background-color: var(--color-primario);

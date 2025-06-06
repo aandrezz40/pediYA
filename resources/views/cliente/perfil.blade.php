@@ -1,5 +1,5 @@
 <x-app-layout>
-        <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
+
 <main class="main-perfil-usuario">
     <section class="container-aside animate__animated  animate__fadeInDown">
         <section class="cont-aside-perfil">

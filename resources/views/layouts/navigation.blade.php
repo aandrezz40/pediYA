@@ -1,6 +1,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+    
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
@@ -55,11 +56,13 @@
                 </article>
             </div>
             <div class="cont-icono">
+                <a href="{{ url('/pedidos') }}">
                 <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="35" height="40" fill=""
                     class="bi bi-receipt" viewBox="0 0 16 16">
                     <path
                         d="M1.92.506a.5.5 0 0 1 .58.092L4 2.087l1.5-1.49a.5.5 0 0 1 .707 0L8 2.087 9.793.598a.5.5 0 0 1 .707 0L12 2.087l1.5-1.49a.5.5 0 0 1 .832.374v14a.5.5 0 0 1-.832.374L12 14.087l-1.5 1.49a.5.5 0 0 1-.707 0L8 14.087l-1.793 1.49a.5.5 0 0 1-.707 0L4 14.087l-1.5 1.49a.5.5 0 0 1-.832-.374v-14a.5.5 0 0 1 .252-.432ZM3 3v10.379l1-1 2 2 2-2 2 2 2-2 1 1V3H3Zm2 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm-.5 3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z" />
                 </svg>
+                </a>
                 <article class="container-links">
                     <h3>Pedidos</h3>
                     <!-- <section class="links">

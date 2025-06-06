@@ -38,7 +38,7 @@ body{
     justify-content: center;
     overflow-x: hidden;
 }
-main{
+.main-detalles-pedido{
     width: 70vw;
     display: flex;
     flex-direction: column;

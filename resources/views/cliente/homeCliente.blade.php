@@ -19,7 +19,7 @@
         <section id="favorite-stores" class="cont-cards-tiendas">
             @forelse ($favoriteStores as $store)
                 <article id="store-{{ $store->id }}" class="card-tienda">
-                    <section class="cont-img">
+                    <section class="cont-img-tienda">
                         <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
                         <label class="estrella-container">
                             <input type="checkbox" class="toggle-favorito" data-store-id="{{ $store->id }}" checked>
@@ -53,9 +53,8 @@
         <section id="stores-cerca" class="cont-cards-tiendas">
             @forelse ($stores as $store)
                 <article id="store-{{ $store->id }}" class="card-tienda">
-                    <section class="cont-img">
+                    <section class="cont-img-tienda">
                         <p>Cercano</p>
-
                         {{-- Mostrar checkbox solo si la tienda NO está en favoritos --}}
                         @unless(in_array($store->id, $favoriteStoreIds))
                             <label class="estrella-container">

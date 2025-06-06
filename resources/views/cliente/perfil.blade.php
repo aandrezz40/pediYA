@@ -159,15 +159,16 @@
             </article>
         </form>
     </section>
+    <dialog id="modalCencelar" closedby="any">
+        <article class="cont-info-modal">
+            <h3>¿Estás seguro que quieres cancelar esta acción?</h3>
+            <section class="cont-btn-modal">
+                <button id="btnCancelarModal">Cancelar</button>
+                <button id="btnAceptarModal">Aceptar</button>
+            </section>
+        </article>
+    </dialog>
 </main>
-<dialog id="modalCencelar" closedby="any">
-    <article class="cont-info-modal">
-        <h3>¿Estás seguro que quieres cancelar esta acción?</h3>
-        <section class="cont-btn-modal">
-            <button id="btnCancelarModal">Cancelar</button>
-            <button id="btnAceptarModal">Aceptar</button>
-        </section>
-    </article>
-</dialog>
+
 
 </x-app-layout>

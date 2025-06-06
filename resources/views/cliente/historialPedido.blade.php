@@ -1,5 +1,5 @@
 <x-app-layout>
-<main>
+<article class="main-historial-pedido">
     <section class="cont-aside-pedidos">
         <article class="cont-info-usuario">
             <section>
@@ -86,7 +86,7 @@
         <p>No tienes pedidos pendientes.</p>
     @endforelse
 </section>
-</main>
+</article>
 
 {{-- Scripts --}}
 <script src="{{ asset('js/nav-bar.js') }}"></script>

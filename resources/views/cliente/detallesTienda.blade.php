@@ -1,14 +1,14 @@
 <x-app-layout>
-<main class="main-detalles-tienda">
+<article class="main-detalles-tienda">
     <!--BANNER DETALLES DE LA TIENDA-->
-    <section class="cont-baner">
-        <article class="cont-img-tienda">
+    <section class="cont-baner-detalles-tienda">
+        <article class="cont-img-tienda-detalle">
             <img class="img-tienda" src="{{ asset('img/slider-3.jpg') }}" alt="">
         </article>
         <article class="cont-info">
             <h2>{{$store->name}}</h2>
             <section class="cont-horario">
-                <img src="{{ asset('img/clock-solid.svg') }}" alt="">
+                <img class="" src="{{ asset('img/clock-solid.svg') }}" alt="">
                 <h3>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</h3>
             </section>
             <article class="cont-acciones-tienda">
@@ -110,7 +110,7 @@
             </section>
         </article>
     </section>
-</main>
+</article>
 
 <script>
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

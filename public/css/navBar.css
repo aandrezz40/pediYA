@@ -619,7 +619,7 @@ aside {
     .icono-carrito-view{
         width: var(--tamaño-icono4);
         padding: 2px 5px 1px 5px;
-        margin: 0 20px 0 0;
+        margin: 0 0 0 0;
     }
     .icono-notificacion-view{
         width: 40px;

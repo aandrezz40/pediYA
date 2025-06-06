@@ -50,7 +50,7 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
 }
 /*BAR-LOGO*/
 .icono-hamburguesa{
@@ -83,6 +83,7 @@ header{
     border: none;
     outline: none;
     font-size: 1.1em;
+    
 }
 .btn-search{
     height: 100%;
@@ -91,6 +92,7 @@ header{
     border: 0px;
     border-left: 1px solid var(--color-borde-claro);
     background-color: transparent;
+    cursor: pointer;
 }
 /*BAR-BUTTONS */
 .bar-buttons{
@@ -103,7 +105,7 @@ header{
     border: 1px solid var(--color-borde-claro);
     border-radius: 10px;
     padding: 12px;
-
+    margin-right: 10px;
 }
 .icono-carrito-view{
     width: 62px;
@@ -847,22 +849,27 @@ footer{
         display: none;
     }
     /*BAR-SEARCH*/
+    .form-bar-search{
+        width: 50%;
+        padding: 0;
+    }
     .bar-search{
-        width: 40%;
-        padding: 10px;
+        width: 100%;
+        padding: 0px;
     }
     .icono-search{
-        width: 15px;
+        display: none;
     }
     .input-search{
         width: 95%;
         border: none;
         outline: none;
         font-size: 0.8em;
+        padding-left: 5px;
     }
     /*BAR-BUTTONS */
     .bar-buttons{
-        width: 40%;
+        width: 15%;
     }
     .button-ingreso{
         padding: 10px;
@@ -1077,20 +1084,27 @@ footer{
         margin-left: 10px;
         cursor: pointer;
     }
-    /*BAR-SEARCH*/
+    .form-bar-search{
+        width: 50%;
+        padding: 0;
+    }
     .bar-search{
-        width: 40%;
-        padding: 7px;
+        width: 100%;
+        padding: 0px;
     }
     .icono-search{
-        width: 20px;
+        display: none;
     }
     .input-search{
-        font-size: 1em;
+        width: 95%;
+        border: none;
+        outline: none;
+        font-size: 0.8em;
+        padding-left: 5px;
     }
     /*BAR-BUTTONS */
     .bar-buttons{
-        width: 30%;
+        width: 15%;
     }
     /*DISEÑO DEL MAIN*/
     .banner{

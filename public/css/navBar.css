@@ -89,7 +89,7 @@ header{
 /*BAR-BUTTONS */
 .bar-buttons{
     width: 15%;
-    justify-content: space-around;
+    justify-content: end;
 }
 .button-ingreso{
     text-decoration: none;

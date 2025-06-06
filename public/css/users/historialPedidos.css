@@ -1,42 +1,5 @@
-:root{
-    --color-primario: #7400C4;
-    --color-secundario: #E88BFF;
-    --color-terciario: #3F1650;
-    --color-cuarto: #270D32;
-    --color-quinto: #DDBFE3;
-    --color-sexto: #62238D;
-    --color-negro: #000000;
-    --color-borde-claro:#999999;
-    --color-text1:#757575;
-    --color-text2:#B032E7;
-    --color-text3: #9A9898;
-    --tamaño-icono1: 8px;
-    --tamaño-icono2: 16px;
-    --tamaño-icono3: 32px;
-    --tamaño-icono4: 48px;
-}
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "ADLaM Display", serif;
-    font-weight: 300;
-    scrollbar-width: thin;
-    scrollbar-color: #888 transparent;
 
-}
-html{
-    height: 100vh;
-}
-body{
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-}
-main{
+.main-historial-pedido{
     width: 90vw;
     height: 90vh;
     display: flex;
@@ -77,6 +40,8 @@ main{
 }
 .cont-info-usuario p{
     font-size: .9rem;
+    width: 80%;
+    text-align: center;
 }
 .aside-navBar{
     display: flex;
@@ -319,7 +284,7 @@ main{
     scale: 1.05;
 }
 @media (width >= 370px) and (width <= 720px){
-    main{
+    .main-historial-pedido{
         width: 90vw;
         height: 95vh;
         display: flex;
@@ -413,7 +378,7 @@ main{
     }
 }
 @media (width >= 720px) and (width <= 1280px){
-    main{
+    .main-historial-pedido{
         width: 90vw;
         height: 95vh;
         display: flex;

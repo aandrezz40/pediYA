@@ -1,43 +1,4 @@
-:root{
-    --color-primario: #7400C4;
-    --color-secundario: #E88BFF;
-    --color-terciario: #3F1650;
-    --color-cuarto: #270D32;
-    --color-quinto: #DDBFE3;
-    --color-sexto: #62238D;
-    --color-negro: #000000;
-    --color-borde-claro:#999999;
-    --color-text1:#757575;
-    --color-text2:#B032E7;
-    --color-text3: #9A9898;
-    --tamaño-icono1: 8px;
-    --tamaño-icono2: 16px;
-    --tamaño-icono3: 32px;
-    --tamaño-icono4: 48px;
-}
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "ADLaM Display", serif;
-    font-weight: 300;
-    scrollbar-width: thin;
-    scrollbar-color: #888 transparent;
-    scroll-behavior: smooth;
 
-}
-html{
-    height: 100vh;
-    overflow-x: hidden;
-}
-body{
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-}
 .main-pagina-principal-cliente{
     width: 100vw;
     display: flex;
@@ -126,9 +87,10 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-    grid-template-rows: repeat(auto-fit, auto);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+    grid-template-rows: repeat(auto-fit, 300px);
+    column-gap: 20px;
+    row-gap: 30px;
     place-content: start;
 }
 .card-tienda{
@@ -145,27 +107,25 @@ body{
 }
 .card-tienda:hover{
     scale: 1.05;
-    
 }
-
-.card-tienda:hover .cont-img img{
+.card-tienda:hover .cont-img-tienda img{
     filter: brightness(1);
 }
-.cont-img{
+.cont-img-tienda{
     width: 100%;
     height: 50%;
     border-radius: 15px 15px 0 0;
     overflow: hidden;
     position: relative;
 }
-.cont-img img{
+.cont-img-tienda img{
     width: 100%;
     height: 100%;
     filter: brightness(0.5);
     object-fit: cover;
     transition: filter 0.3s ease;
 }
-.cont-img p{
+.cont-img-tienda p{
     position: absolute;
     top: 10px;
     left: 10px;
@@ -226,6 +186,8 @@ body{
 .cont-info-tienda p{
     font-size: 0.8em;
     font-weight: 300;
+    display: flex;
+    flex-wrap: wrap;
 }
 .cont-info-tienda form{
     width: 100%;

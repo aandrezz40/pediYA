@@ -1,41 +1,4 @@
-:root{
-    --color-primario: #7400C4;
-    --color-secundario: #E88BFF;
-    --color-terciario: #3F1650;
-    --color-cuarto: #270D32;
-    --color-quinto: #DDBFE3;
-    --color-sexto: #62238D;
-    --color-negro: #000000;
-    --color-borde-claro:#999999;
-    --color-text1:#757575;
-    --color-text2:#B032E7;
-    --color-text3: #9A9898;
-    --tamaño-icono1: 8px;
-    --tamaño-icono2: 16px;
-    --tamaño-icono3: 32px;
-    --tamaño-icono4: 48px;
-}
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "ADLaM Display", serif;
-    font-weight: 300;
-    scrollbar-width: thin;
-    scrollbar-color: #888 transparent;
 
-}
-html{
-    height: 100vh;
-}
-body{
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-}
 .main-detalles-tienda{
     width: 100vw;
     display: flex;
@@ -44,24 +7,24 @@ body{
     justify-content: center;
 }
 /*DISEÑO DEL BANNER*/
-.cont-baner{
+.cont-baner-detalles-tienda{
     width: 90vw;
     height: 200px;
     background-color: var( --color-sexto);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
-.cont-baner .cont-img-tienda{
+.cont-baner-detalles-tienda .cont-img-tienda-detalle{
     width: 30%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.cont-baner .cont-img-tienda img{
+.cont-baner-detalles-tienda .cont-img-tienda-detalle img{
     width: 50%;
     height: 70%;
     object-fit: cover;
@@ -135,8 +98,8 @@ body{
     border-left: 1px solid var(--color-borde-claro);
     border-right: 1px solid var(--color-borde-claro);
     border-bottom: 1px solid var(--color-borde-claro);
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     padding: 10px 10px 0px 30px;
 }
 .cont-opcion ul{
@@ -424,22 +387,22 @@ body{
 }
 @media (width >= 370px) and (width <= 720px){
     /*DISEÑO DEL BANNER*/
-    .cont-baner{
-        width: 100vw;
+    .cont-baner-detalles-tienda{
+        width: 90vw;
         height: 200px;
         background-color: var( --color-sexto);
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-    .cont-baner .cont-img-tienda{
-        width: 40%;
+    .cont-baner-detalles-tienda .cont-img-tienda-detalle{
+        width: 35%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-baner .cont-img-tienda img{
+    .cont-baner-detalles-tienda .cont-img-tienda-detalle img{
         width: 100%;
         height: 70%;
         object-fit: cover;
@@ -452,11 +415,11 @@ body{
     .cont-info h2{
         font-size: 1.1em;
     }
-
     .cont-horario{
-        font-size: .7em;
+        font-size: .6em;
         font-weight: 300;
         width: 85%;
+        justify-content: start;
     }
     .cont-info img{
         width: 25px;
@@ -471,7 +434,7 @@ body{
     .cont-acciones-tienda button{
         width: 30%;
         padding: 5PX;
-        font-size: .7em;
+        font-size: .6em;
     }
     /*DISEÑO DEL MINI NAV-BAR*/
     .cont-opcion{
@@ -497,7 +460,7 @@ body{
     .cont-categorias button {
         width: 20%;
         padding: 8px;
-        font-size: .9em;
+        font-size: .6em;
         font-weight: 300;
     }
     .cont-cards-productos{
@@ -566,25 +529,28 @@ body{
         font-size: .8em;
         color: var(--color-text1);
     }
+    .mensaje-vacio{
+        font-size: 1em;
+    }
 }
 @media (width >= 720px) and (width <= 1280px){
      /*DISEÑO DEL BANNER*/
-     .cont-baner{
-        width: 100vw;
+     .cont-baner-detalles-tienda{
+        width: 90vw;
         height: 200px;
         background-color: var( --color-sexto);
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-    .cont-baner .cont-img-tienda{
+    .cont-baner-detalles-tienda .cont-img-tienda-detalle{
         width: 30%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .cont-baner .cont-img-tienda img{
+    .cont-baner-detalles-tienda .cont-img-tienda-detalle img{
         width: 100%;
         height: 70%;
         object-fit: cover;
@@ -602,6 +568,7 @@ body{
         font-size: .7em;
         font-weight: 300;
         width: 40%;
+        justify-content: start;
     }
     .cont-info img{
         width: 25px;
@@ -611,7 +578,7 @@ body{
         gap: 5px;
     }
     .cont-acciones-tienda button{
-        width: 25%;
+        width: 30%;
         padding: 5PX;
         font-size: .7em;
     }

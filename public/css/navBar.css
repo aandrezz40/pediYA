@@ -44,7 +44,7 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
 }
 /*BAR-LOGO*/
 .icono-hamburguesa{
@@ -79,8 +79,8 @@ header{
     font-size: 1.1em;
 }
 .btn-search{
-    height: 100%;
-    padding: 14px 5px;
+    cursor: pointer;
+    padding: 14px 10px;
     border-radius: 0%;
     border: 0px;
     border-left: 1px solid var(--color-borde-claro);
@@ -89,6 +89,7 @@ header{
 /*BAR-BUTTONS */
 .bar-buttons{
     width: 15%;
+    justify-content: space-around;
 }
 .button-ingreso{
     text-decoration: none;
@@ -103,7 +104,6 @@ header{
     border: 1px solid var(--color-borde-claro) ;
     border-radius: 10px;
     padding: 5px 10px 1px 10px;
-    margin: 0 40px 0 0;
     cursor: pointer;
 }
 .icono-notificacion-view{
@@ -112,7 +112,6 @@ header{
     border: 1px solid var(--color-borde-claro) ;
     border-radius: 10px;
     padding: 10px 15px;
-    margin: 0 40px 0 0;
     cursor: pointer;
     position: relative;
     display: flex;
@@ -588,22 +587,29 @@ aside {
         display: none;
     }
     /*BAR-SEARCH*/
+    .form-bar-search{
+        width: 50%;
+    }
     .bar-search{
-        width: 40%;
-        padding: 10px;
+        width: 100%;
+        padding: 0;
     }
     .icono-search{
-        width: 15px;
+        display: none;
     }
     .input-search{
         width: 95%;
         border: none;
         outline: none;
         font-size: 0.8em;
+        padding-left: 5px;
+    }
+    .btn-search{
+        padding: 10px 7px;
     }
     /*BAR-BUTTONS */
     .bar-buttons{
-        width: 40%;
+        width: 25%;
     }
     .button-ingreso{
         padding: 10px;
@@ -622,6 +628,7 @@ aside {
         width: 20px;
         height: 20px;
     }
+    
     /*DISEÑO DEL NAV-BAR*/
     .nav-bar{
         height: 100vh;
@@ -662,8 +669,7 @@ aside {
     }
     /*BAR-SEARCH*/
     .bar-search{
-        width: 40%;
-        padding: 7px;
+        width: 100%;
     }
     .icono-search{
         width: 20px;

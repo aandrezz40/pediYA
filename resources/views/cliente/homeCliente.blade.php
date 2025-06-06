@@ -1,5 +1,5 @@
 <x-app-layout>
-    <main>
+    <main class="main-pagina-principal-cliente">
 
         <!-- Sección de bienvenida -->
         <section class="cont-bienvenido">

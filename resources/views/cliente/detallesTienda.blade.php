@@ -1,5 +1,5 @@
 <x-app-layout>
-<main>
+<main class="main-detalles-tienda">
     <!--BANNER DETALLES DE LA TIENDA-->
     <section class="cont-baner">
         <article class="cont-img-tienda">

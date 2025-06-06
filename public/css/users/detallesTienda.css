@@ -36,7 +36,7 @@ body{
     justify-content: center;
     overflow-x: hidden;
 }
-main{
+.main-detalles-tienda{
     width: 100vw;
     display: flex;
     flex-direction: column;

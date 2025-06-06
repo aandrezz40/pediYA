@@ -38,7 +38,7 @@ body{
     justify-content: center;
     overflow-x: hidden;
 }
-main{
+.main-pagina-principal-cliente{
     width: 100vw;
     display: flex;
     flex-direction: column;

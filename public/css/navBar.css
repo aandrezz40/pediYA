@@ -90,6 +90,7 @@ header{
 .bar-buttons{
     width: 15%;
     justify-content: end;
+    margin-right: 10px;
 }
 .button-ingreso{
     text-decoration: none;

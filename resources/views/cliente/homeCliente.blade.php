@@ -157,7 +157,7 @@
                         label.appendChild(span);
 
                         // Insertar el label dentro de la sección de imagen
-                        const contImg = storeCardCerca.querySelector('.cont-img');
+                        const contImg = storeCardCerca.querySelector('.cont-img-tienda');
                         if (contImg) contImg.appendChild(label);
                     } else {
                         // Si el label ya existe pero estaba oculto o eliminado el checkbox, asegurarse que esté visible y desmarcado

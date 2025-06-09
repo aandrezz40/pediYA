@@ -110,11 +110,6 @@
                 </a>
                 <article class="container-links">
                     <h3>Ajustes de cuenta</h3>
-                    <!-- <section class="links">
-                        <a href="" class="link">Tiendas</a>
-                        <a href="" class="link">Favoritos</a>
-                        <a href="" class="link">Historial</a>
-                    </section> -->
                 </article>
             </div>
            <form method="POST" action="{{ route('logout') }}">
@@ -160,6 +155,9 @@
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">
                                             <p class="precioProducto">{{ $item->unit_price }}</p>
+
+
+
                                             <form class="cont-cantidad-producto">
                                                 <input type="submit" value="✔" class="btn-confirmar-cantidad">
                                                 <article class="cont-boton-cantidad">
@@ -168,6 +166,9 @@
                                                     <button type="button" class="aumentar-cantidad">+</button>
                                                 </article>                                                
                                             </form>
+
+
+
                                         </article>
                                     </article>    
                                 </section>
@@ -188,6 +189,10 @@
         </article>
     </section>
 </article>
+
+<script>
+    
+</script>
 
 <script src="{{ asset('js/nav-bar.js') }}"></script>
 <script src="{{ asset('js/carrito.js') }}"></script>

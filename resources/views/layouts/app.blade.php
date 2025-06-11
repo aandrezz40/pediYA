@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'PediYÁ') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -16,11 +16,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/detallesTienda.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/detallesPedidos.css') }}"> 
-        <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}"> --}}
+        @yield('styles')
     </head>
     <body class="font-sans antialiased">
         <div class="cont-all-app">
@@ -40,9 +41,11 @@
                 {{ $slot }}
             </main>
         </div>
-    <script src="{{ asset('js/homeCliente.js') }}"></script>
-    <script src="{{ asset('js/detallesTienda.js') }}"></script>
+    {{-- <script src="{{ asset('js/homeCliente.js') }}"></script>
+    
+    <script src="{{ asset('js/perfilUsuario.js') }}"></script> --}}
     <script src="{{ asset('js/notificaciones.js') }}"></script>
-    <script src="{{ asset('js/perfilUsuario.js') }}"></script>
+
+    @yield('scripts')
     </body>
 </html>

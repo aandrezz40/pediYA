@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('styles')
+    <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
+@endsection
     <main class="main-pagina-principal-cliente">
 
         <!-- Sección de bienvenida -->

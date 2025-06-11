@@ -1,4 +1,5 @@
-//LOGICA PARA EL CONTENEDOR DE PERFIL DE USUARIO
+document.addEventListener('DOMContentLoaded', () => {
+  //LOGICA PARA EL CONTENEDOR DE PERFIL DE USUARIO
 const contenedorPrincipalPerfil =  document.querySelector('.cont-config-opciones');
 const contenedorInformacionPersonal =  document.querySelector('.cont-form-personal');
 const contenedorSeguridad =  document.querySelector('.container-form-seguridad');
@@ -252,6 +253,8 @@ tabs.forEach(({ btn }) => {
   if (!btn) return;
   btn.addEventListener('click', () => activarTab(btn));
 });
+});
+
 
 // Opcional: Al cargar la página, activar la primera sección o dejar todas ocultas
 // activarTab(abrirInfoBasica);

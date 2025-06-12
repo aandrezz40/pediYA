@@ -1,6 +1,8 @@
 <x-app-layout>
-
-<main class="main-perfil-usuario">
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
+@endsection
+<article class="main-perfil-usuario">
     <section class="container-aside animate__animated  animate__fadeInDown">
         <section class="cont-aside-perfil">
             <article class="cont-titulo-perfil">
@@ -168,7 +170,9 @@
             </section>
         </article>
     </dialog>
-</main>
+</article>
 
-
+@section('scripts')
+    <script src="{{ asset('js/perfilUsuario.js') }}"></script>
+@endsection
 </x-app-layout>

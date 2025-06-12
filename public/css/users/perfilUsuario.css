@@ -1,41 +1,4 @@
-:root{
-    --color-primario: #7400C4;
-    --color-secundario: #E88BFF;
-    --color-terciario: #3F1650;
-    --color-cuarto: #270D32;
-    --color-quinto: #DDBFE3;
-    --color-sexto: #62238D;
-    --color-negro: #000000;
-    --color-borde-claro:#999999;
-    --color-text1:#757575;
-    --color-text2:#B032E7;
-    --color-text3: #9A9898;
-    --tamaño-icono1: 8px;
-    --tamaño-icono2: 16px;
-    --tamaño-icono3: 32px;
-    --tamaño-icono4: 48px;
-}
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "ADLaM Display", serif;
-    font-weight: 300;
-    scrollbar-width: thin;
-    scrollbar-color: #888 transparent;
 
-}
-html{
-    height: 100vh;
-}
-body{
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-}
 .main-perfil-usuario{
     width: 90vw;
     height: 90vh;
@@ -97,6 +60,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: start;
+    gap: 20px;
     width: 100%;
     height: 40px;
     font-size: 1rem;
@@ -109,7 +73,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: auto;
     height: 100%;
     text-decoration: none;
     border: none;
@@ -260,7 +224,7 @@ body{
 .cont-inputs label{
     font-size: .8em;
 }
-.cont-inputs input{
+.cont-inputs input, .selectBarrios{
     width: 100%;
     font-size: .8em;
     padding: 3px;
@@ -776,6 +740,10 @@ body{
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
     
 }
+#modalCencelar::backdrop {
+    background-color: rgba(0, 0, 0, 0.6); /* Negro con transparencia */
+    backdrop-filter: blur(3px);          /* Difuminado opcional */
+}
 #modalCencelar h3{
     font-size: 1.2rem;
     color: black;
@@ -819,9 +787,9 @@ body{
 /* DISEÑO RESPONSIVE */
 /* Para tablets (ancho máximo de 992px) */
 @media screen and (max-width: 992px) {
-    main {
+    .main-perfil-usuario {
         width: 95vw;
-        height: auto;
+        height: 90vh;
         flex-direction: column;
     }
     
@@ -974,7 +942,7 @@ body{
         width: 100vw;
         overflow-x: hidden;
     }
-    main {
+    .main-perfil-usuario {
         width: 100vw;
         padding: 10px;
     }

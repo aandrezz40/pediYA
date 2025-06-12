@@ -21,7 +21,7 @@
     </section>
 
     <!-- CONTENEDOR DE AJUSTES -->
-    <section class="cont-config-opciones animate__animated  animate__fadeInRight">
+    <section class="cont-config-opciones animate__animated  animate__fadeInRight" id="contConfigOpcionesCuenta">
         <h2 class="tituloSecundario">Ajustes de cuenta</h2>
 
         <article class="cont-cards-config">
@@ -52,7 +52,7 @@
     </section>
 
     <!-- CONTENEDOR PARA EDITAR LA INFORMACIÓN PERSONAL -->
-    <section class="cont-form-personal animate__animated animate__fadeInRight">
+    <section class="cont-form-personal animate__animated animate__fadeInRight" id="contFormInfoPersonal">
         <section class="cont-titulo-personal">
             <article class="titulo-personal">
                 <img src="{{ asset('img/person.svg') }}" alt="">
@@ -87,7 +87,14 @@
 
             <article class="cont-inputs">
                 <label for="barrio">Barrio</label>
-                <input type="text" name="neighborhood" value="{{ old('neighborhood', $user->address->neighborhood ?? '') }}" id="barrio">
+                
+                <select name="neighborhood" id="neighborhood" class="selectBarrios" required>
+                    <option value="{{ old('neighborhood', $user->address->neighborhood ?? '') }}" disabled selected>{{ old('neighborhood', $user->address->neighborhood ?? '') }}</option>
+                    @foreach($barrios as $barrio)
+                        <option  value="{{ $barrio->nombre_barrio }}">{{ $barrio->nombre_barrio }}</option>
+                    @endforeach
+                    <!-- Agrega aquí más barrios -->
+                </select>
             </article>
 
             <article class="cont-btn-form">
@@ -98,7 +105,7 @@
     </section>
 
     <!-- CONTENEDOR PARA EDITAR LA CONTRASEÑA -->
-    <section class="container-form-seguridad animate__animated animate__fadeInRight">
+    <section class="container-form-seguridad animate__animated animate__fadeInRight" id="contFormSeguridadCuenta">
         <article class="cont-titulo-personal">
             <article class="titulo-personal">
                 <img src="{{ asset('img/lock.svg') }}" alt="">

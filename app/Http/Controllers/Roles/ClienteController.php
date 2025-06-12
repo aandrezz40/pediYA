@@ -9,6 +9,8 @@ use App\Models\Store;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Barrio;
+
 
 class ClienteController extends Controller
 {
@@ -87,8 +89,9 @@ class ClienteController extends Controller
     public function perfil(){   
         $user = auth()->user();
         $user->load('address');
+        $barrios = Barrio::all();
         
-        return view('cliente.perfil', compact('user'));
+        return view('cliente.perfil', compact('user', 'barrios'));
     }
 
     public function updateUser(Request $request)

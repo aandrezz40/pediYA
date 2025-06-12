@@ -5,9 +5,11 @@
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-        <a href="{{ url('/') }}">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('tenderHome') : url('/'))) : url('/') }}">
             <h1 class="nombreEmpresa">PediYÁ</h1>
         </a>
+        
+        
     </section>
 
     <form class="form-bar-search" action="{{ route('busquedaTienda') }}" method="post">

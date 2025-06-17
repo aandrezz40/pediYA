@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Rules\PasswordComplexity;
 
 class RegisteredUserController extends Controller
 {
@@ -37,7 +38,7 @@ class RegisteredUserController extends Controller
             'address_line_1' => ['required', 'string', 'max:255'],
             'neighborhood' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', Rules\Password::defaults()],
+            'password' => ['required', new PasswordComplexity()],
             'role' => ['required', 'in:cliente,tendero'],
         ]);
 

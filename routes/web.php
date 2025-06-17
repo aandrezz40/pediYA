@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::put('updateUser', [ClienteController::class, 'updateUser'])->name('updateUser');
     Route::post('updatePassword', [ClienteController::class, 'updatePassword'])->name('updatePassword');
 
+    Route::post('/actualizar-cantidad/{id}', [ClienteController::class, 'actualizarCantidad']);
+
+
     Route::get('/historialPedidos', [ClienteController::class, 'historialPedidos'])->middleware('role:cliente')->name('historialPedidos');
 
     Route::get('/homeTendero', [TenderoController::class, 'index'])->middleware('role:tendero')->name('homeTendero');

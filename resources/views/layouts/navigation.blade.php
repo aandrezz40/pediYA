@@ -112,11 +112,6 @@
                 </a>
                 <article class="container-links">
                     <h3>Ajustes de cuenta</h3>
-                    <!-- <section class="links">
-                        <a href="" class="link">Tiendas</a>
-                        <a href="" class="link">Favoritos</a>
-                        <a href="" class="link">Historial</a>
-                    </section> -->
                 </article>
             </div>
            <form method="POST" action="{{ route('logout') }}">
@@ -162,14 +157,23 @@
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">
                                             <p class="precioProducto">{{ $item->unit_price }}</p>
-                                            <form class="cont-cantidad-producto">
-                                                <input type="submit" value="✔" class="btn-confirmar-cantidad">
-                                                <article class="cont-boton-cantidad">
-                                                    <button type="button" class="disminuir-cantidad">-</button>
-                                                    <span class="cantidad-producto">{{ $item->quantity }}</span>
-                                                    <button type="button" class="aumentar-cantidad">+</button>
-                                                </article>                                                
-                                            </form>
+
+
+
+                                        <form class="cont-cantidad-producto" data-id="{{ $item->id }}">
+                                            @csrf
+                                            <button type="button" class="btn-confirmar-cantidad">✔</button>
+                                            <article class="cont-boton-cantidad">
+                                                <button type="button" class="disminuir-cantidad">-</button>
+                                                <span class="cantidad-producto" contenteditable="false">{{ $item->quantity }}</span>
+                                                <button type="button" class="aumentar-cantidad">+</button>
+                                            </article>
+                                            {{-- Input oculto que se actualiza antes de enviar --}}
+                                            <input type="hidden" name="quantity" value="{{ $item->quantity }}">
+                                        </form>
+
+
+
                                         </article>
                                     </article>    
                                 </section>
@@ -190,6 +194,40 @@
         </article>
     </section>
 </article>
+
+<script>
+    document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
+        button.addEventListener('click', async function () {
+            const form = this.closest('form');
+            const itemId = form.dataset.id;
+            const quantitySpan = form.querySelector('.cantidad-producto');
+            const quantityInput = form.querySelector('input[name="quantity"]');
+
+            const quantity = parseInt(quantitySpan.textContent.trim());
+            quantityInput.value = quantity; // Actualiza input oculto
+
+            try {
+                const response = await fetch(`/actualizar-cantidad/${itemId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ quantity })
+                });
+
+                const data = await response.json();
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+</script>
+
+    
+</script>
 
 <script src="{{ asset('js/nav-bar.js') }}"></script>
 <script src="{{ asset('js/carrito.js') }}"></script>

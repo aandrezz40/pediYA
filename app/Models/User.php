@@ -16,6 +16,7 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'role',
+        'is_active'
     ];
 
     protected $hidden = [
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function isAdmin()
+    {
+    return $this->role === 'admin';
     }
 }

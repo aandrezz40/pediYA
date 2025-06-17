@@ -144,8 +144,6 @@ select_barrio.select_by_visible_text("La Avanzada")  # cambia por uno existente
 guardar_btn = driver.find_element(By.CSS_SELECTOR, "input.btn-guardar[type='submit']")
 guardar_btn.click()
 
-import time
-from selenium.webdriver.common.by import By
 
 # Esperar un momento después de actualizar la información
 time.sleep(3)
@@ -162,7 +160,7 @@ form_logout = driver.find_element(By.XPATH, "//form[@action='http://127.0.0.1:80
 form_logout.submit()
 
 # 4. Esperar a que cierre sesión
-time.sleep(2)
+time.sleep(5)
 
 # Click en enlace "Inicia sesión"
 # driver.find_element(By.LINK_TEXT, "Inicia sesión").click()

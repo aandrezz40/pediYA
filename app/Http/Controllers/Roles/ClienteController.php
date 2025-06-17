@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderItem;
 
 class ClienteController extends Controller
 {
@@ -155,5 +156,16 @@ class ClienteController extends Controller
 
         return view('cliente.historialPedido', compact('user', 'orders'));
     }
+
+    public function actualizarCantidad(Request $request, $id){
+
+        $orderItem = OrderItem::findOrFail($id);
+        $orderItem->quantity = $request->quantity;
+        $orderItem->subtotal = $orderItem->unit_price * $request->quantity;
+        $orderItem->save();
+
+        return response()->json(['success' => true]);
+    }
+
 
 }

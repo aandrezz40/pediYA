@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Barrio;
-
+use App\Models\Order;
 use App\Models\OrderItem;
 
 class ClienteController extends Controller
@@ -27,11 +27,34 @@ class ClienteController extends Controller
     }
 
     public function detallesTienda($id){ 
+        
 
         $store = Store::findOrFail($id);
         $owner = User::findOrFail($store->user_id);
-        $products = Product::where('category_id', $id ?? null)->get();
+        $products = Product::where('store_id', $id ?? null)->get();
         $categories = Category::where('store_id', $id ?? null)->get();
+
+
+        return view('cliente.detallesTienda', compact('store', 'owner', 'products', 'categories'));
+    }
+
+    public function busquedaTienda(Request $request){ 
+
+        $nombre = $request->input('nameStore');
+
+        $store = Store::whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", ["%{$nombre}%"])->first();
+
+
+        if (!$store) {
+            return redirect()->back()->with('error', 'Tienda no encontrada.');
+        }
+
+        $owner = User::findOrFail($store->user_id);
+
+        $categories = Category::where('store_id', $store->id ?? null)->get();
+        
+        $products = Product::where('store_id', $store->id ?? null)->get();
+
 
 
         return view('cliente.detallesTienda', compact('store', 'owner', 'products', 'categories'));
@@ -66,27 +89,101 @@ class ClienteController extends Controller
 
     }
 
-    public function busquedaTienda(Request $request){ 
 
-        $nombre = $request->input('nameStore');
+    public function agregarProducto(Request $request){
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'store_id' => 'required|exists:stores,id',
+            'cantidad' => 'required|integer|min:1',
+        ]);
 
-        $store = Store::whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", ["%{$nombre}%"])->first();
+        $user = auth()->user();
+        $product = Product::findOrFail($request->product_id);
+        $storeId = $request->store_id;
+        $cantidad = $request->cantidad;
 
+        // Buscar orden activa del usuario con esa tienda
+        $order = Order::where('user_id', $user->id)
+            ->where('store_id', $storeId)
+            ->whereIn('status', ['inactive', 'Pendiente'])
+            ->first();
 
-        if (!$store) {
-            return redirect()->back()->with('error', 'Tienda no encontrada.');
+        if (!$order) {
+            // Crear nueva orden
+            $order = Order::create([
+                'user_id' => $user->id,
+                'store_id' => $storeId,
+                'order_code' => uniqid('PED-'),
+                'total_amount' => 0,
+                'status' => 'inactive',
+            ]);
         }
 
-        $owner = User::findOrFail($store->user_id);
+        $subtotal = $product->price * $cantidad;
 
-        $categories = Category::where('store_id', $store->id ?? null)->get();
-        
-        $products = Product::where('store_id', $store->id ?? null)->get();
+        // Verificar si ya existe el producto en los ítems
+        $item = $order->orderItems()
+            ->where('product_id', $product->id)
+            ->first();
 
+        if ($item) {
+            return response()->json(['mensaje' => 'El producto ya está en la orden.'], 409);
+        }
 
+        // Crear nuevo ítem
+        $order->orderItems()->create([
+            'product_id' => $product->id,
+            'product_name' => $product->name,
+            'unit_price' => $product->price,
+            'quantity' => $cantidad,
+            'subtotal' => $subtotal,
+        ]);
 
-        return view('cliente.detallesTienda', compact('store', 'owner', 'products', 'categories'));
+        // Actualizar total de la orden
+        $order->total_amount += $subtotal;
+        $order->save();
+
+        // Cargar todas las órdenes activas del usuario para el carrito
+        $orders = Order::with(['store', 'orderItems.product'])
+            ->where('user_id', $user->id)
+            ->whereIn('status', ['inactive', 'Pendiente'])
+            ->get();
+
+        $totalOrdersCount = $orders->count();
+        $totalOrdersAmount = $orders->sum('total_amount');
+
+        // Renderizar la vista parcial del carrito
+        $carritoHtml = view('partials._carrito', [
+            'orders' => $orders,
+            'totalOrdersAmount' => $totalOrdersAmount,
+            'totalOrdersCount' => $totalOrdersCount,
+        ])->render();
+
+        return response()->json([
+            'mensaje' => 'Producto agregado correctamente.',
+            'carritoHtml' => $carritoHtml,
+            'totalCount' => $totalOrdersCount,
+            'totalAmount' => number_format($totalOrdersAmount, 0)
+        ]);
     }
+
+    public function eliminarOrden(Order $order){
+    // Asegúrate de que el usuario actual sea el dueño
+    if ($order->user_id !== auth()->id()) {
+        return response()->json(['mensaje' => 'No autorizado'], 403);
+    }
+
+    $order->delete(); // Elimina la orden y, si tienes relación en cascada, también los ítems
+
+    return response()->json([
+        'mensaje' => 'Orden eliminada correctamente',
+        'order_id' => $order->id,
+    ]);
+    }
+
+
+
+
     public function perfil(){   
         $user = auth()->user();
         $user->load('address');

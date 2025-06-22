@@ -89,35 +89,40 @@ document.addEventListener('click', function (e) {
         });
     }
 });
-
-// Función para manejar lógica de incremento/decremento de cantidad
 function initCantidadProductoHandlers() {
-    const contCantidadProductos = document.querySelectorAll('.cont-cantidad-producto-detalles-tienda');
-    contCantidadProductos.forEach((contCantidadProducto) => {
-        const verCantidadProducto = contCantidadProducto.querySelector('.cantidad-producto-detalles-tienda');
-        const aumentarCantidadProducto = contCantidadProducto.querySelector('.aumentar-cantidad-producto');
-        const disminuirCantidadProducto = contCantidadProducto.querySelector('.disminuir-cantidad-producto');
-        const confirmarCantidadProducto = contCantidadProducto.querySelector('.btn-confirmar-cantidad-producto');
+    const formularios = document.querySelectorAll('.form-agregar-producto');
 
-        let cantidadProducto = parseInt(verCantidadProducto.textContent) || 0;
+    formularios.forEach((form) => {
+        const spanCantidad = form.querySelector('.cantidad-producto-detalles-tienda');
+        const btnIncrementar = form.querySelector('.aumentar-cantidad-producto');
+        const btnDisminuir = form.querySelector('.disminuir-cantidad-producto');
+        const inputCantidad = form.querySelector('.input-cantidad-producto');
+        const btnConfirmar = form.querySelector('.btn-confirmar-cantidad-producto');
 
-        confirmarCantidadProducto.style.display = cantidadProducto > 0 ? 'inline-block' : 'none';
+        let cantidad = parseInt(spanCantidad.textContent) || 0;
 
-        aumentarCantidadProducto.addEventListener('click', () => {
-            cantidadProducto++;
-            verCantidadProducto.textContent = cantidadProducto;
-            confirmarCantidadProducto.style.display = 'inline-block';
+        const actualizarCantidad = () => {
+            spanCantidad.textContent = cantidad;
+            inputCantidad.value = cantidad;
+            btnConfirmar.style.display = cantidad > 0 ? 'inline-block' : 'none';
+        };
+
+        // Inicializar visibilidad al cargar
+        actualizarCantidad();
+
+        btnIncrementar.addEventListener('click', () => {
+            cantidad++;
+            actualizarCantidad();
         });
 
-        disminuirCantidadProducto.addEventListener('click', () => {
-            if (cantidadProducto > 0) {
-                cantidadProducto--;
-                verCantidadProducto.textContent = cantidadProducto;
-                confirmarCantidadProducto.style.display = cantidadProducto > 0 ? 'inline-block' : 'none';
+        btnDisminuir.addEventListener('click', () => {
+            if (cantidad > 0) {
+                cantidad--;
+                actualizarCantidad();
             }
         });
     });
 }
 
-// Inicialización al cargar
-initCantidadProductoHandlers();
+// Ejecutar al cargar el DOM
+document.addEventListener('DOMContentLoaded', initCantidadProductoHandlers);

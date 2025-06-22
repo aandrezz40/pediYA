@@ -1,5 +1,5 @@
 <?php
-
+//./vendor/bin/pest --filter=ProductPriceOrderTest
 use App\Models\Product;
 use Illuminate\Support\Collection;
 

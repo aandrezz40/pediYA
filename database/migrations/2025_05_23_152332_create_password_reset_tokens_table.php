@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('email')->primary(); // El correo electrónico del usuario que solicitó el restablecimiento, sirve como clave primaria para el token.
             $table->string('token'); // El token único generado para el restablecimiento de contraseña.
             $table->timestamp('created_at')->nullable(); // La marca de tiempo de creación del token, usada para controlar su expiración.
-        });
+        }); 
     }
 
     /**

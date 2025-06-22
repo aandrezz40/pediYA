@@ -43,6 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
     Route::post('/product/{id}/{idTienda}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
     Route::post('/busquedaTienda', [ClienteController::class, 'busquedaTienda'])->middleware('role:cliente')->name('busquedaTienda');
+    Route::post('/pedido/agregar', [ClienteController::class, 'agregarProducto'])->name('cliente.pedido.agregar');
+
+    Route::delete('/cliente/pedido/eliminar/{order}', [ClienteController::class, 'eliminarOrden'])->name('cliente.pedido.eliminar');
 
     Route::get('/perfil', [ClienteController::class, 'perfil'])->middleware('role:cliente')->name('perfil');
     Route::put('updateUser', [ClienteController::class, 'updateUser'])->name('updateUser');

@@ -1,41 +1,18 @@
-document.addEventListener('DOMContentLoaded', () => {
+function inicializarEventosCarrito() {
     const contCarrito      = document.getElementById('contCarrito');
-    const abrirCarrito     = document.getElementById('abrirCarrito');
     const cerrarCarrito    = document.getElementById('cerrarCarrito');
     const overlayCarrito   = document.getElementById('overlayCarrito');
 
-    // —————— Función para resetear todos los acordiones ——————
     function resetAcordiones() {
-        // Quitar altura mínima de todas las tarjetas
         document.querySelectorAll('.card-carrito').forEach(card => {
             card.classList.remove('con-altura-minima');
         });
-        // Ocultar todos los contenidos
         document.querySelectorAll('.cont-productos').forEach(contenido => {
             contenido.classList.add('oculto');
         });
-        // Rotación a su estado original de todos los botones
         document.querySelectorAll('.desplegarProducto').forEach(btn => {
             btn.classList.remove('esconderProducto');
         });
-    }
-
-    function abrirCarritoHandler() {
-        if (!overlayCarrito || !contCarrito) return;
-        // Resetear acordiones ANTES de mostrar el carrito
-        resetAcordiones();
-        overlayCarrito.classList.add('active-overlay-carrito');
-        contCarrito.classList.add('visible-carrito');
-        document.body.classList.add('no-scroll');
-    }
-
-    function cerrarCarritoHandler() {
-        if (!overlayCarrito || !contCarrito) return;
-        overlayCarrito.classList.remove('active-overlay-carrito');
-        contCarrito.classList.remove('visible-carrito');
-        document.body.classList.remove('no-scroll');
-        // Resetear acordiones DESPUÉS de ocultar el carrito
-        resetAcordiones();
     }
 
     function cerrarOtrosProductos(abrirProducto) {
@@ -67,43 +44,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // —————— Event Listeners ——————
-    abrirCarrito?.addEventListener('click', abrirCarritoHandler);
-    cerrarCarrito?.addEventListener('click', cerrarCarritoHandler);
+    cerrarCarrito?.addEventListener('click', () => {
+        overlayCarrito?.classList.remove('active-overlay-carrito');
+        contCarrito?.classList.remove('visible-carrito');
+        document.body.classList.remove('no-scroll');
+        resetAcordiones();
+    });
+
+    overlayCarrito?.addEventListener('click', e => {
+        if (e.target === overlayCarrito) {
+            overlayCarrito.classList.remove('active-overlay-carrito');
+            contCarrito?.classList.remove('visible-carrito');
+            document.body.classList.remove('no-scroll');
+            resetAcordiones();
+        }
+    });
 
     document.querySelectorAll('.desplegarProducto')
         .forEach(btn => btn.addEventListener('click', () => toggleProductoHandler(btn)));
 
-    overlayCarrito?.addEventListener('click', e => {
-        if (e.target === overlayCarrito) cerrarCarritoHandler();
-    });
-    // Opcional: Cerrar carrito al hacer click fuera
-
-    // ====== FUNCIONES PRINCIPALES ======
     document.querySelectorAll('.cont-cantidad-producto').forEach(form => {
         const confirmarBtn = form.querySelector('.btn-confirmar-cantidad');
         const aumentarBtn = form.querySelector('.aumentar-cantidad');
         const disminuirBtn = form.querySelector('.disminuir-cantidad');
         const cantidadSpan = form.querySelector('.cantidad-producto');
         let cantidadActual = parseInt(cantidadSpan.textContent) || 0;
-        
+
         let cantidad = parseInt(cantidadSpan.textContent) || 0;
         confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
-    
+
         form.addEventListener('submit', e => {
-            // Evitar que el formulario se envíe cuando se presionan + o -
             if (e.submitter === aumentarBtn || e.submitter === disminuirBtn) {
                 e.preventDefault();
             }
         });
-    
+
         aumentarBtn.addEventListener('click', e => {
             e.preventDefault();
             cantidad++;
             cantidadSpan.textContent = cantidad;
             confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
         });
-    
+
         disminuirBtn.addEventListener('click', e => {
             e.preventDefault();
             if (cantidad > 0) {
@@ -113,5 +95,53 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    console.log('✅ Carrito: Listo para usar.');
+
+    console.log('✅ Carrito: Eventos asignados');
+
+    document.querySelectorAll('.eliminarProducto').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const card = btn.closest('.card-carrito');
+        const orderId = card.dataset.orderId;
+
+        if (!orderId) return;
+
+        if (!confirm('¿Estás seguro de eliminar esta orden completa?')) return;
+
+        fetch(`/cliente/pedido/eliminar/${orderId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.mensaje) {
+                mostrarMensaje(data.mensaje);
+                card.remove(); // Elimina el HTML del carrito
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            mostrarMensaje('Error al eliminar la orden', true);
+        });
+    });
+});
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const abrirCarrito = document.getElementById('abrirCarrito');
+    const contCarrito  = document.getElementById('contCarrito');
+    const overlayCarrito = document.getElementById('overlayCarrito');
+
+    function abrirCarritoHandler() {
+        if (!overlayCarrito || !contCarrito) return;
+        overlayCarrito.classList.add('active-overlay-carrito');
+        contCarrito.classList.add('visible-carrito');
+        document.body.classList.add('no-scroll');
+    }
+
+    abrirCarrito?.addEventListener('click', abrirCarritoHandler);
+
+    inicializarEventosCarrito(); // Primera vez
 });

@@ -1,5 +1,5 @@
 <?php
-
+//./vendor/bin/pest --filter=OrderStatusTest
 namespace Tests\Unit;
 
 use Tests\TestCase;

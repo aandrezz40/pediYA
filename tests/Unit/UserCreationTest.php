@@ -1,5 +1,5 @@
 <?php
-
+//./vendor/bin/pest --filter=UserCreationTest
 namespace Tests\Unit;
 
 use Tests\TestCase;

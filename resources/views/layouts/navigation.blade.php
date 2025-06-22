@@ -139,54 +139,9 @@
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>
         <article class="cont-cards-carrito">
-            @foreach($orders as $order)
-                <article class="card-carrito">
-                    <section class="cont-acciones">
-                        <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
-                        <button type="submit">✔</button>
-                        <img class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
-                        <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
-                    </section>
-
-                        <section class="cont-productos oculto">
-                            @foreach ($order->orderItems as $item)
-                            <section class="cont-imagen-producto" id="cont-imagen-producto">
-                                <section class="cont-datos-producto">
-                                    <img src="{{ asset('img/rice-ball_.png') }}" alt="">
-                                    <article class="contDescripcion">
-                                        <h3 class="nombreProducto">{{ $item->product_name }}</h3>
-                                        <article class="cont-cantidad">
-                                            <p class="precioProducto">{{ $item->unit_price }}</p>
-
-
-
-                                        <form class="cont-cantidad-producto" data-id="{{ $item->id }}">
-                                            @csrf
-                                            <button type="button" class="btn-confirmar-cantidad">✔</button>
-                                            <article class="cont-boton-cantidad">
-                                                <button type="button" class="disminuir-cantidad">-</button>
-                                                <span class="cantidad-producto" contenteditable="false">{{ $item->quantity }}</span>
-                                                <button type="button" class="aumentar-cantidad">+</button>
-                                            </article>
-                                            {{-- Input oculto que se actualiza antes de enviar --}}
-                                            <input type="hidden" name="quantity" value="{{ $item->quantity }}">
-                                        </form>
-
-
-
-                                        </article>
-                                    </article>    
-                                </section>
-                                <article class="cont-confirmar">
-
-                                    <p>Subtotal: <span>{{ $item->subtotal }}</span></p>
-                                </article>
-                            </section>
-                            @endforeach
-                        </section>
-                </article>    
-            @endforeach
-
+<div id="contenedorCarritoInterno">
+    @include('partials._carrito')
+</div>
         </article>
         <article class="cont-total">
             <h3>Total:</h3>
@@ -195,8 +150,9 @@
     </section>
 </article>
 
+
 <script>
-    document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
+        document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
         button.addEventListener('click', async function () {
             const form = this.closest('form');
             const itemId = form.dataset.id;
@@ -227,7 +183,7 @@
 </script>
 
     
-</script>
+
 
 <script src="{{ asset('js/nav-bar.js') }}"></script>
 <script src="{{ asset('js/carrito.js') }}"></script>

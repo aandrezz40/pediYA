@@ -1,5 +1,5 @@
 <?php
-
+    //./vendor/bin/pest --filter=UserPasswordValidationTest
 use App\Models\User;
 use App\Rules\PasswordComplexity;
 use Illuminate\Support\Facades\Validator;

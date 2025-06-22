@@ -1,5 +1,5 @@
 <?php
-
+//./vendor/bin/pest --filter=PasswordComplexityTest
 use App\Rules\PasswordComplexity;
 
 beforeEach(function () {

@@ -1,0 +1,251 @@
+Test: Validación de barrios válidos en la regla personalizada BarrioValido
+Descripción:
+Este conjunto de pruebas comprueba el funcionamiento correcto de la clase de regla personalizada BarrioValido. Esta regla se encarga de validar si un barrio ingresado por el usuario pertenece a una lista estricta de barrios permitidos.
+Se evalúan tres aspectos fundamentales:
+
+Aceptación de barrios válidos.
+
+Rechazo de barrios no existentes.
+
+Correctitud del mensaje de error cuando la validación falla.
+
+<?php
+// ./vendor/bin/pest --filter=BarrioValidoRuleTest
+
+namespace Tests\Unit;
+
+use App\Rules\BarrioValido;
+use PHPUnit\Framework\TestCase;
+
+class BarrioValidoRuleTest extends TestCase
+{
+    /** @test */
+    public function acepta_barrios_estrictamente_validos(): void
+    {
+        $rule = new BarrioValido();
+
+        $this->assertTrue($rule->passes('barrio', 'Villa Guadalupe'));
+        $this->assertTrue($rule->passes('barrio', 'Pablo VI'));
+    }
+
+    /** @test */
+    public function rechaza_barrios_inexistentes(): void
+    {
+        $rule = new BarrioValido();
+
+        $this->assertFalse($rule->passes('barrio', 'Barrio Inventado'));
+        $this->assertFalse($rule->passes('barrio', 'Castillaa'));
+    }
+
+    /** @test */
+    public function mensaje_de_error_es_correcto(): void
+    {
+        $rule = new BarrioValido();
+
+        $this->assertEquals(
+            'El barrio seleccionado no es válido.',
+            $rule->message()
+        );
+    }
+}
+
+
+
+Test: Cambio del estado de una orden a "completed"
+Descripción:
+Esta prueba unitaria verifica que una instancia del modelo Order puede actualizar correctamente su atributo status desde un valor inicial (por ejemplo, pending) a completed.
+Se asegura que la propiedad status del modelo refleje el nuevo estado después del cambio.
+<?php
+// ./vendor/bin/pest --filter=OrderStatusTest
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use App\Models\Order;
+
+class OrderStatusTest extends TestCase
+{
+    public function test_order_status_can_be_set_to_completed()
+    {
+        $order = new Order();
+        $order->status = 'pending';
+
+        $order->status = 'completed';
+
+        $this->assertEquals('completed', $order->status);
+    }
+}
+
+
+Test: Validación de la complejidad de contraseñas mediante la regla PasswordComplexity
+Descripción:
+Este conjunto de pruebas asegura que la regla personalizada PasswordComplexity funcione correctamente. La validación exige que la contraseña cumpla con los siguientes criterios:
+
+Mínimo 8 caracteres
+
+Al menos una letra mayúscula
+
+Al menos un número
+
+Al menos un carácter especial
+
+Se realizan dos pruebas principales:
+
+Validación de contraseñas que cumplen con todos los criterios.
+
+Rechazo de contraseñas que no cumplen con uno o más requisitos, verificando también el mensaje de error.
+
+<?php
+// ./vendor/bin/pest --filter=PasswordComplexityTest
+
+use App\Rules\PasswordComplexity;
+
+beforeEach(function () {
+    $this->rule = new PasswordComplexity();
+});
+
+test('valid passwords pass the complexity rule', function () {
+    $validPasswords = [
+        'Abcdef1!',
+        'StrongPass123$',
+        'Valid#Pass9',
+        'Test@2025',
+        'Secure!A2',
+    ];
+
+    foreach ($validPasswords as $password) {
+        $called = false;
+
+        $this->rule->validate('password', $password, function ($message) use (&$called) {
+            $called = true;
+        });
+
+        expect($called)->toBeFalse(); 
+    }
+});
+
+test('invalid passwords fail the complexity rule', function () {
+    $invalidPasswords = [
+        'abcdefg',
+        'ABCDEFGH',
+        '12345678',
+        'Abcdefgh',
+        'abc12345',
+        'ABC12345',
+        'Abcdefg1',
+        'A1!',
+    ];
+
+    foreach ($invalidPasswords as $password) {
+        $called = false;
+
+        $this->rule->validate('password', $password, function ($message) use (&$called) {
+            $called = true;
+            expect($message)->toBe('La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.');
+        });
+
+        expect($called)->toBeTrue();
+    }
+});
+
+
+Test: Relación entre un producto y su categoría (belongsTo)
+Descripción:
+Esta prueba unitaria verifica que un producto esté correctamente asociado a una categoría a través de una relación belongsTo.
+Aunque no se persisten en la base de datos, se simula la relación usando setRelation para confirmar que el producto reconoce correctamente su categoría asignada.
+<?php
+// ./vendor/bin/pest --filter=ProductCategoryRelationTest
+
+use App\Models\Product;
+use App\Models\Category;
+
+it('verifies a product belongs to a category (unit test)', function () {
+    // Creamos una categoría manualmente (sin persistir)
+    $category = new Category(['id' => 1, 'name' => 'Bebidas']);
+
+    // Creamos un producto y le asociamos la categoría manualmente
+    $product = new Product(['category_id' => 1]);
+    $product->setRelation('category', $category); // Simulamos la relación
+
+    // Verificaciones unitarias
+    expect($product->category)->toBeInstanceOf(Category::class);
+    expect($product->category->id)->toBe(1);
+    expect($product->category->name)->toBe('Bebidas');
+});
+
+
+Test: Ordenamiento de productos por precio de menor a mayor
+Descripción:
+Esta prueba unitaria valida que el método sortProductsByPrice del modelo Product ordene correctamente una colección de productos desde el más barato hasta el más caro, basándose en el atributo price.
+<?php
+// ./vendor/bin/pest --filter=ProductPriceOrderTest
+
+use App\Models\Product;
+use Illuminate\Support\Collection;
+
+it('orders products from cheapest to most expensive', function () {
+    $productA = new Product(['name' => 'Producto A', 'price' => 100.00]);
+    $productB = new Product(['name' => 'Producto B', 'price' => 50.00]);
+    $productC = new Product(['name' => 'Producto C', 'price' => 75.00]);
+
+    $products = collect([$productA, $productB, $productC]);
+
+    $sorted = Product::sortProductsByPrice($products);
+
+    expect($sorted->pluck('name')->all())->toBe(['Producto B', 'Producto C', 'Producto A']);
+});
+
+
+
+Test: Creación correcta de un usuario con datos válidos
+Descripción:
+Esta prueba unitaria verifica que una instancia del modelo User se cree correctamente cuando se le proporcionan datos válidos. Se comprueba que los atributos como name, email, phone_number, password, role e is_active se asignen correctamente, y que la contraseña se encripte adecuadamente con bcrypt.
+
+<?php
+// ./vendor/bin/pest --filter=UserCreationTest
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use App\Models\User;
+
+class UserCreationTest extends TestCase
+{
+    public function test_user_is_created_correctly_with_valid_data()
+    {
+        $user = new User([
+            'name' => 'Carlos Pérez',
+            'email' => 'carlos@example.com',
+            'phone_number' => '3101234567',
+            'password' => bcrypt('Password123!'),
+            'role' => 'cliente',
+            'is_active' => true,
+        ]);
+
+        $this->assertEquals('Carlos Pérez', $user->name);
+        $this->assertEquals('carlos@example.com', $user->email);
+        $this->assertEquals('3101234567', $user->phone_number);
+        $this->assertTrue(password_verify('Password123!', $user->password));
+        $this->assertEquals('cliente', $user->role);
+        $this->assertTrue($user->is_active);
+    }
+}
+
+
+Test: Verificación del método isAdmin en el modelo User
+Descripción:
+Estas pruebas unitarias validan el comportamiento del método isAdmin() en el modelo User. Este método debe retornar true únicamente cuando el rol del usuario es 'admin', y false en cualquier otro caso.
+<?php
+// ./vendor/bin/pest --filter=UserIsAdminTest
+
+use App\Models\User;
+
+test('isAdmin returns true if user role is admin', function () {
+    $user = new User(['role' => 'admin']);
+    expect($user->isAdmin())->toBeTrue();
+});
+
+test('isAdmin returns false if user role is not admin', function () {
+    $user = new User(['role' => 'client']);
+    expect($user->isAdmin())->toBeFalse();
+});

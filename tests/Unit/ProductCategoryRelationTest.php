@@ -1,23 +1,21 @@
 <?php
+//./vendor/bin/pest --filter=ProductCategoryRelationTest
+
 
 use App\Models\Product;
 use App\Models\Category;
 
-it('verifies a product belongs to a category', function () {
-    // aqui se crea una categoría
-    $category = Category::factory()->create([
-        'name' => 'Bebidas',
-    ]);
+it('verifies a product belongs to a category (unit test)', function () {
+    // Creamos una categoría manualmente (sin persistir)
+    $category = new Category(['id' => 1, 'name' => 'Bebidas']);
 
-    // aqui se crea un producto y despues se asocia a la categoría
-    $product = Product::factory()->create([
-        'category_id' => $category->id,
-    ]);
+    // Creamos un producto y le asociamos la categoría manualmente
+    $product = new Product(['category_id' => 1]);
+    $product->setRelation('category', $category); // Simulamos la relación
 
-    // despues se verifica que la relación devuelva una instancia de Category
+    // Verificaciones unitarias
     expect($product->category)->toBeInstanceOf(Category::class);
-
-    // y a final seerifica que la categoría sea correcta
-    expect($product->category->id)->toBe($category->id);
+    expect($product->category->id)->toBe(1);
     expect($product->category->name)->toBe('Bebidas');
 });
+

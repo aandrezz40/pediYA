@@ -1,5 +1,5 @@
 <?php
-
+    //./vendor/bin/pest --filter=BarrioValidoRuleTest
 namespace Tests\Unit;
 
 use App\Rules\BarrioValido;
@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BarrioValidoRuleTest extends TestCase
 {
+
     /** @test */
     public function acepta_barrios_estrictamente_validos(): void
     {

@@ -1,5 +1,5 @@
 <?php
-
+//./vendor/bin/pest --filter=UserIsAdminTest
 use App\Models\User;
 
 test('isAdmin returns true if user role is admin', function () {

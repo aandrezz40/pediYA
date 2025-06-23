@@ -12,15 +12,15 @@
         <article class="cont-info">
             <h2>{{ $store->name }}</h2>
             <section class="cont-horario">
-                <h3>Actualmente la Tienda está: {{ $store->is_open ? 'Abierto' : 'Cerrado' }}</h3>
+                <h3>Actualmente la Tienda está: {{ $store->is_open ? 'Abierta' : 'Cerrada' }}</h3>
             </section>
             <article class="cont-acciones-tienda">
                 <button type="submit" class="btn-llamar">
                     <img src="{{ asset('img/phone-solid (1).svg') }}" alt="Imagen de teléfono">{{ $store->delivery_contact_phone }}
                 </button>
-                <button type="submit" class="btn-favorito">
+                {{-- <button type="submit" class="btn-favorito">
                     <img src="{{ asset('img/heart-solid.svg') }}" alt="Imagen de corazón">Favorito
-                </button>
+                </button> --}}
                 @if ($store->offers_delivery == 1)
                     <button type="submit" class="btn-mapa">
                         <img src="{{ asset('img/scooter.svg') }}" alt="Imagen de pin de mapa">Domicilio
@@ -28,6 +28,10 @@
                 @endif
             </article>
         </article>
+        <label class="estrella-container">
+            <input type="checkbox" class="toggle-favorito">
+            <span class="estrella">★</span>
+        </label>
     </section>
 
     <!-- MINI NAV-BAR -->
@@ -85,8 +89,8 @@
                 <p class="mensaje-vacio">La tienda no tiene productos disponibles</p>
             @endforelse
         </article>
-        <div id="mensaje-flotante" style="display:none; position:fixed; top:20px; right:20px; background:#28a745; color:white; padding:10px 20px; border-radius:8px; z-index:9999;">
-                Producto agregado
+        <div id="mensaje-flotante" class="mensaje-flotante-confirmacion animate__animated animate__fadeIn">
+                Producto agregado correctamente
         </div>
     </section>
 
@@ -195,7 +199,7 @@ document.querySelectorAll('.form-agregar-producto').forEach(form => {
 function mostrarMensaje(texto, error = false) {
     const mensaje = document.getElementById('mensaje-flotante');
     mensaje.innerText = texto;
-    mensaje.style.background = error ? '#dc3545' : '#28a745';
+    mensaje.style.background = error ? '#dc3545' : '#62238D';
     mensaje.style.display = 'block';
     setTimeout(() => {
         mensaje.style.display = 'none';

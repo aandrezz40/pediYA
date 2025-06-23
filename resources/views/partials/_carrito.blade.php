@@ -5,7 +5,7 @@
                         <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
                         <button type="submit">✔</button>
                         <img class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
-                        <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
+                        <img class="eliminarOrden" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar orden">
                     </section>
 
                     <section class="cont-productos oculto">
@@ -36,6 +36,9 @@
                                 </article>
                             </section>
                         @endforeach
+                        <article class="subtotalTienda">
+                            <p>Total en tienda: <span>18000</span></p>
+                        </article>
                     </section>
                 </article>
             @endforeach

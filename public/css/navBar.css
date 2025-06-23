@@ -443,7 +443,7 @@ aside {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.eliminarProducto{
+.eliminarProducto, .eliminarOrden{
     cursor: pointer;
     width: var(--tamaño-icono3);
 }
@@ -463,11 +463,12 @@ aside {
     flex-direction: column;
     justify-content: start;
     width: 380px;
-    max-height: 180px;
+    max-height: 250px;
     overflow-y: auto;
     overflow-x: hidden;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
     opacity: 1;
+    position: relative;
 }
 .cont-imagen-producto {
     display: flex;
@@ -562,7 +563,16 @@ aside {
     color: var(--color-sexto);
     font-size: 1em;
 }
-
+.subtotalTienda{
+    position: sticky;
+    background-color: white;
+    width: 100%;
+    padding: 5px 0px;
+    bottom: 0;
+}
+.subtotalTienda span{
+    color: var(--color-primario);
+}
 .cont-total{
     display: flex;
     justify-content:space-around;

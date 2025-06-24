@@ -126,3 +126,4 @@ function initCantidadProductoHandlers() {
 
 // Ejecutar al cargar el DOM
 document.addEventListener('DOMContentLoaded', initCantidadProductoHandlers);
+

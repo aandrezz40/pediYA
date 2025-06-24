@@ -5,7 +5,8 @@ cardsPedido.forEach(card => {
     const boton = card.querySelector(".btn-Confirmar-Pedido");
 
     switch (estado.innerText.trim()) {
-        case "En proceso":
+        case "En_proceso":
+            estado.textContent = 'En proceso';
             estado.style.color = "orange";
             break;
         case "Entregado":

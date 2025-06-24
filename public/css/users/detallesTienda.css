@@ -16,6 +16,7 @@
     align-items: center;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    position: relative;
 }
 .cont-baner-detalles-tienda .cont-img-tienda-detalle{
     width: 30%;
@@ -87,7 +88,34 @@
     background-color: white;
     color: var(--color-sexto);
 }
-
+.estrella-container {
+    position: absolute;
+    display: flex;
+    width: 32px;
+    height: 32px;
+    right: 10px;
+    top: 10px;
+    z-index: 2;
+    background-color: white;
+    border-radius: 50%;
+}
+.estrella-container input[type="checkbox"] {
+    display: none;
+}
+.estrella {
+    position: relative;
+    font-size: 24px;
+    margin: -2px 0px;
+    color: transparent;
+    cursor: pointer;
+    text-shadow: 0 0 0 gray;
+    transition: color 0.3s;
+    padding: 0px 6px;
+}
+.estrella-container input[type="checkbox"]:checked + .estrella {
+    color: var(--color-primario);
+    text-shadow: none;
+}
 /*DISEÑO DEL MINI NAV-BAR*/
 .cont-opcion{
     width: 90vw;
@@ -339,6 +367,20 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
+}
+
+/*MENSAJE DE CONFIRMACION DE ADICION DE PRODUCTO*/
+.mensaje-flotante-confirmacion{
+    display:none; 
+    position:fixed; 
+    top:80px; 
+    right:50px; 
+    background: var(--color-primario); 
+    color:white; 
+    padding:10px 20px; 
+    border-radius:8px; 
+    z-index:9999;
+    box-shadow: 0px 0px 5px var(--color-sexto);
 }
 /*DISEÑO DEL CONTENEDOR DE DETALLES*/
 .cont-detalles-tienda{

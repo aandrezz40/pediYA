@@ -1,6 +1,6 @@
 <x-app-layout>
-@section('styles')
-        <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}">
+    @section('styles')
+    <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}">
 @endsection
 <article class="main-historial-pedido">
     <section class="cont-aside-pedidos">

@@ -139,9 +139,9 @@
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>
         <article class="cont-cards-carrito">
-<div id="contenedorCarritoInterno">
-    @include('partials._carrito')
-</div>
+            <div id="contenedorCarritoInterno">
+                @include('partials._carrito')
+            </div>
         </article>
         <article class="cont-total">
             <h3>Total:</h3>

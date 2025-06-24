@@ -3,7 +3,7 @@
                 <article class="card-carrito" data-order-id="{{ $order->id }}">
                     <section class="cont-acciones">
                         <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
-                        <button type="submit">✔</button>
+                        <a href="{{ route('cliente.pedido.detalle', ['order' => $order->id]) }}" class="btn-ver-detalle">✔</a>
                         <img class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
                         <img class="eliminarProducto" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar producto">
                     </section>
@@ -39,3 +39,5 @@
                     </section>
                 </article>
             @endforeach
+
+            

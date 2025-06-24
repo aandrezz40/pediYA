@@ -267,5 +267,25 @@ class ClienteController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function verDetalle($orderId){
+        $order = Order::with(['store', 'orderItems'])->findOrFail($orderId);
+
+        return view('cliente.detallePedido', compact('order'));
+    }
+
+    public function confirmarPedido(Request $request){
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'customer_notes' => 'nullable|string|max:500',
+        ]);
+
+        $order = \App\Models\Order::findOrFail($request->order_id);
+        $order->status = 'pendiente'; // O el valor correspondiente a "pendiente"
+        $order->customer_notes = $request->customer_notes;
+        $order->save();
+
+        return redirect()->route('homeCliente')->with('success', 'Pedido confirmado correctamente.');
+    }
+
 
 }

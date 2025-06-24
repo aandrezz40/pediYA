@@ -152,33 +152,7 @@
 
 
 <script>
-        document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
-        button.addEventListener('click', async function () {
-            const form = this.closest('form');
-            const itemId = form.dataset.id;
-            const quantitySpan = form.querySelector('.cantidad-producto');
-            const quantityInput = form.querySelector('input[name="quantity"]');
 
-            const quantity = parseInt(quantitySpan.textContent.trim());
-            quantityInput.value = quantity; // Actualiza input oculto
-
-            try {
-                const response = await fetch(`/actualizar-cantidad/${itemId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ quantity })
-                });
-
-                const data = await response.json();
-
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        });
-    });
 
 </script>
 

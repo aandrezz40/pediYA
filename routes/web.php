@@ -47,6 +47,11 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/cliente/pedido/eliminar/{order}', [ClienteController::class, 'eliminarOrden'])->name('cliente.pedido.eliminar');
 
+    
+    Route::get('/cliente/pedido/detalle/{order}', [ClienteController::class, 'verDetalle'])->name('cliente.pedido.detalle');
+    Route::post('/cliente/confirmar-pedido', [ClienteController::class, 'confirmarPedido'])->name('cliente.confirmarPedido');
+
+
     Route::get('/perfil', [ClienteController::class, 'perfil'])->middleware('role:cliente')->name('perfil');
     Route::put('updateUser', [ClienteController::class, 'updateUser'])->name('updateUser');
     Route::post('updatePassword', [ClienteController::class, 'updatePassword'])->name('updatePassword');

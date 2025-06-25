@@ -2,8 +2,11 @@ services:
   - type: web
     name: pediya
     env: php
-    buildCommand: "composer install && php artisan key:generate && php artisan migrate --force"
-    startCommand: "php artisan serve --host 0.0.0.0 --port 10000"
+    buildCommand: |
+      composer install
+      php artisan key:generate
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
     routes:
       - type: rewrite
         source: /.*

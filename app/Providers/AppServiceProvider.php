@@ -3,52 +3,42 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
 use App\Models\Order;
 use App\Models\OrderItem;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-public function boot(): void
-{
+    public function boot(): void
+    {
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
 
+        View::composer('layouts.navigation', function ($view) {
+            if (auth()->check()) {
+                $user = auth()->user();
 
-View::composer('layouts.navigation', function ($view) {
-    if (auth()->check()) {
-        $user = auth()->user();
+                $orders = $user->orders()
+                    ->where('status', 'inactive')
+                    ->with(['orderItems.product', 'store'])
+                    ->get();
 
-        // Filtra solo las órdenes con estado 'inactive'
-        $orders = $user->orders()
-            ->where('status', 'inactive')
-            ->with(['orderItems.product', 'store'])
-            ->get();
+                $totalOrdersAmount = $orders->sum('total_amount');
+                $totalOrdersCount = $orders->count();
 
-        // Total en dinero
-        $totalOrdersAmount = $orders->sum('total_amount');
-
-        // Total en cantidad de órdenes
-        $totalOrdersCount = $orders->count();
-
-        // Pasar los datos a la vista
-        $view->with([
-            'orders' => $orders,
-            'totalOrdersAmount' => $totalOrdersAmount,
-            'totalOrdersCount' => $totalOrdersCount,
-        ]);
+                $view->with([
+                    'orders' => $orders,
+                    'totalOrdersAmount' => $totalOrdersAmount,
+                    'totalOrdersCount' => $totalOrdersCount,
+                ]);
+            }
+        });
     }
-});
-
-}
 }

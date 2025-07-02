@@ -48,6 +48,7 @@
                     <input type="text" name="address_line_1" id="address_line_1" placeholder="Dirección" class="input-info" required autocomplete="street-address">
                     <select name="neighborhood" id="neighborhood" class="selectBarrios" required>
                         <option value="" disabled selected>Barrio</option>
+                        <option  value="Las Granjas">Las Granjas</option>
                         @foreach($barrios as $barrio)
                             <option  value="{{ $barrio->nombre_barrio }}">{{ $barrio->nombre_barrio }}</option>
                         @endforeach

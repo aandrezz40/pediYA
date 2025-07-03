@@ -16,8 +16,12 @@
     @csrf
         <section class="bar-search">
             <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
-            <input class="input-search" name="nameStore" type="text" placeholder="Tiendas...">
+            <input class="input-search" name="nameStore" type="text" placeholder="Tiendas..." id="searchInput" autocomplete="off">
             <input class="btn-search" type="submit" value="Buscar">
+            <div class="sugerencias-container" id="sugerenciasContainer" style="display: none;">
+                <ul class="lista-sugerencias" id="listaSugerencias">
+                </ul>
+            </div>
         </section>
     </form>
 
@@ -27,7 +31,12 @@
             <img class="" src="{{ asset('img/bell-regular.svg') }}" alt="" srcset="">
             <section class="num-notificaciones"><span>2</span></section>
         </article>
-        <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
+        <div class="cont-icono-carrito">
+            <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
+            <div class="contador-carrito {{ ($totalOrdersCount ?? 0) > 0 ? '' : 'hidden' }}" id="contadorCarrito">
+                <span>{{ $totalOrdersCount ?? 0 }}</span>
+            </div>
+        </div>
     </section>
 </header>
     <section class="contenedor-notificaciones">
@@ -132,10 +141,6 @@
         <article class="cont-buttons">
             <img src="{{ asset('img/x-fill-12_.png') }}" alt="" id="cerrarCarrito">
             <h2 class="titulo-carrito">PediYÁ</h2>
-            <section class="num-productos">
-                <img class="icono-carrito" src="{{ asset('img/shopping-cart_.png') }}" alt="">
-                <span>{{ $totalOrdersCount }}</span>
-            </section>
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>
         <article class="cont-cards-carrito">
@@ -152,8 +157,95 @@
 
 
 <script>
+// Autocompletado de búsqueda de tiendas
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const sugerenciasContainer = document.getElementById('sugerenciasContainer');
+    const listaSugerencias = document.getElementById('listaSugerencias');
+    let timeoutId;
 
+    // Función para buscar tiendas
+    function buscarTiendas(query) {
+        if (query.length < 2) {
+            sugerenciasContainer.style.display = 'none';
+            return;
+        }
 
+        fetch(`/buscar-tiendas?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(tiendas => {
+                mostrarSugerencias(tiendas);
+            })
+            .catch(error => {
+                console.error('Error al buscar tiendas:', error);
+            });
+    }
+
+    // Función para mostrar sugerencias
+    function mostrarSugerencias(tiendas) {
+        listaSugerencias.innerHTML = '';
+        
+        if (tiendas.length === 0) {
+            sugerenciasContainer.style.display = 'none';
+            return;
+        }
+
+        tiendas.forEach(tienda => {
+            const li = document.createElement('li');
+            li.className = 'sugerencia-item';
+            li.innerHTML = `
+                <div class="sugerencia-nombre">${tienda.name}</div>
+                <div class="sugerencia-descripcion">${tienda.description || 'Sin descripción'}</div>
+            `;
+            
+            li.addEventListener('click', function() {
+                // Redirigir a la página de detalles de la tienda
+                window.location.href = `/detallesTienda/${tienda.id}`;
+            });
+            
+            listaSugerencias.appendChild(li);
+        });
+
+        sugerenciasContainer.style.display = 'block';
+    }
+
+    // Event listener para el input de búsqueda
+    searchInput.addEventListener('input', function() {
+        clearTimeout(timeoutId);
+        const query = this.value.trim();
+        
+        timeoutId = setTimeout(() => {
+            buscarTiendas(query);
+        }, 300); // Debounce de 300ms
+    });
+
+    // Ocultar sugerencias al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !sugerenciasContainer.contains(e.target)) {
+            sugerenciasContainer.style.display = 'none';
+        }
+    });
+
+    // Ocultar sugerencias al presionar Escape
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            sugerenciasContainer.style.display = 'none';
+        }
+    });
+});
+
+// Función global para actualizar el contador del carrito
+window.actualizarContadorCarrito = function(nuevoCount) {
+    const contador = document.getElementById('contadorCarrito');
+    const spanContador = contador.querySelector('span');
+    
+    if (nuevoCount > 0) {
+        spanContador.textContent = nuevoCount;
+        contador.classList.remove('hidden');
+    } else {
+        contador.classList.add('hidden');
+    }
+};
 </script>
 
     

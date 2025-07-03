@@ -40,7 +40,7 @@
             <p>${{ number_format($order->orderItems->sum('subtotal'), 2) }}</p>
         </section>
 
-<form action="{{ route('cliente.confirmarPedido') }}" method="POST">
+<form class="form-cont-nota" action="{{ route('cliente.confirmarPedido') }}" method="POST">
     @csrf
     <input type="hidden" name="order_id" value="{{ $order->id }}">
     

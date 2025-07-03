@@ -1,5 +1,5 @@
 
-            @foreach($orders as $order)
+            @forelse($orders as $order)
                 <article class="card-carrito" data-order-id="{{ $order->id }}">
                     <section class="cont-acciones">
                         <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
@@ -41,6 +41,8 @@
                         </article>
                     </section>
                 </article>
-            @endforeach
+            @empty
+                <p class="mensaje-vacio">No hay productos en el carrito</p>
+            @endforelse
 
             

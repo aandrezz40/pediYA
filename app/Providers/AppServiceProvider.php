@@ -24,19 +24,26 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.navigation', function ($view) {
             if (auth()->check()) {
                 $user = auth()->user();
-
-                $orders = $user->orders()
-                    ->where('status', 'inactive')
-                    ->with(['orderItems.product', 'store'])
+                
+                // Obtener órdenes activas del usuario
+                $orders = Order::with(['store', 'orderItems.product'])
+                    ->where('user_id', $user->id)
+                    ->whereIn('status', ['inactive'])
                     ->get();
 
-                $totalOrdersAmount = $orders->sum('total_amount');
                 $totalOrdersCount = $orders->count();
+                $totalOrdersAmount = $orders->sum('total_amount');
 
                 $view->with([
-                    'orders' => $orders,
-                    'totalOrdersAmount' => $totalOrdersAmount,
                     'totalOrdersCount' => $totalOrdersCount,
+                    'totalOrdersAmount' => $totalOrdersAmount,
+                    'orders' => $orders
+                ]);
+            } else {
+                $view->with([
+                    'totalOrdersCount' => 0,
+                    'totalOrdersAmount' => 0,
+                    'orders' => collect([])
                 ]);
             }
         });

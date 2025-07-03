@@ -60,6 +60,22 @@ class ClienteController extends Controller
         return view('cliente.detallesTienda', compact('store', 'owner', 'products', 'categories'));
     }
 
+    public function buscarTiendas(Request $request)
+    {
+        $query = $request->input('q');
+        
+        if (strlen($query) < 2) {
+            return response()->json([]);
+        }
+
+        $tiendas = Store::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->limit(10)
+            ->get(['id', 'name', 'description']);
+
+        return response()->json($tiendas);
+    }
+
     public function product($id, $idTienda, Request $request){
 
         if ($id == 0) {
@@ -102,14 +118,14 @@ class ClienteController extends Controller
         $storeId = $request->store_id;
         $cantidad = $request->cantidad;
 
-        // Buscar orden activa del usuario con esa tienda
+        // Buscar orden INACTIVE del usuario con esa tienda
         $order = Order::where('user_id', $user->id)
             ->where('store_id', $storeId)
-            ->whereIn('status', ['inactive', 'Pendiente'])
+            ->where('status', 'inactive')
             ->first();
 
+        // Si no hay orden inactive, crear una nueva
         if (!$order) {
-            // Crear nueva orden
             $order = Order::create([
                 'user_id' => $user->id,
                 'store_id' => $storeId,
@@ -121,7 +137,7 @@ class ClienteController extends Controller
 
         $subtotal = $product->price * $cantidad;
 
-        // Verificar si ya existe el producto en los ítems
+        // Verificar si ya existe el producto en los ítems de esta orden
         $item = $order->orderItems()
             ->where('product_id', $product->id)
             ->first();
@@ -143,10 +159,10 @@ class ClienteController extends Controller
         $order->total_amount += $subtotal;
         $order->save();
 
-        // Cargar todas las órdenes activas del usuario para el carrito
+        // Cargar solo las órdenes inactive del usuario para el carrito
         $orders = Order::with(['store', 'orderItems.product'])
             ->where('user_id', $user->id)
-            ->whereIn('status', ['inactive', 'Pendiente'])
+            ->where('status', 'inactive')
             ->get();
 
         $totalOrdersCount = $orders->count();

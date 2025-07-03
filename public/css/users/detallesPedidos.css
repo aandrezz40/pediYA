@@ -37,13 +37,20 @@ body{
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
+    background-color: #f8f9fa;
 }
-.main-detalles-pedido{
+main{
     width: 70vw;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     justify-content: center;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    gap: 20px;
 }
 .cont-encabezado{
     width: 100%;
@@ -52,156 +59,230 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    background-color: var(--color-sexto);
+    background-color: var(--color-primario);
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
+}
+.cont-encabezado h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
 }
 .cont-alerta{
     width: 100%;
-    height: 130px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    margin-top: 20px;
-    background-color:#E4DDE9;
-    padding: 10px 15px;
-    border-radius: 15px;
-    gap: 15px;
-
+    background-color: #E88BFF;
+    padding: 15px;
+    border-radius: 10px;
+    gap: 10px;
 }
 .cont-alerta h3{
-    color: var(--color-primario);
+    color: #000000;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 .cont-alerta p{
-    color: var(--color-text3);
+    color: #000000;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 .titulos{
-    color: var(--color-primario);
-    font-size: .8em;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+.titulos h2{
+    color: var(--color-primario);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+.titulos .nombre-tienda{
+    color: var(--color-sexto);
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 .cont-productos-detalles{
     width: 100%;
-    height: auto;
-    max-height: 400px;
+    max-height: 350px;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    margin-top: 20px;
-    gap: 10px;
+    gap: 12px;
     overflow-y: auto;
+    padding: 10px 0;
 }
 .producto{
     width: 100%;
-    height: 100px;
+    min-height: 80px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid var(--color-borde-claro);
-    padding: 10px;
+    justify-content: space-between;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+.producto:hover{
+    border-color: var(--color-primario);
+    box-shadow: 0 2px 8px rgba(116, 0, 196, 0.1);
+}
+.cont-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .cont-img img{
     width: 50px;
     height: 50px;
     object-fit: cover;
+    border-radius: 6px;
 }
 .cont-info-prducto{
-    width: 50%;
+    flex: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    margin: 0 15px;
+}
+.cont-info-prducto h3{
+    color: var(--color-primario);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 .descripcion-producto{
     color: var(--color-text3);
-    font-size: .8em;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
 }
 .precio-producto{
-    color: var(--color-primario);
+    color: var(--color-sexto);
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 .cont-cantidad{
-    background-color:#F9EFFF;
-    padding: 5px 30px;
+    background-color: var(--color-primario);
+    color: white;
+    padding: 6px 12px;
     border-radius: 15px;
-    color: var(--color-primario);
-}
-.cont-nota{
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-}
-.cont-nota h3{
-    color: var(--color-primario);
-    font-size: 1.1em;
-}
-.cont-nota textarea{
-    width: 100%;
-    height: 100px;
-    border: 1px solid var(--color-borde-claro);
-    border-radius: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    resize: none;
-    outline: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 35px;
+    text-align: center;
 }
 .cont-total{
     width: 100%;
-    height: 80px;
+    min-height: 70px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
-    border-top:  5px solid var(--color-sexto);
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+.cont-total h3{
+    color: var(--color-primario);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.form-cont-nota{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 .cont-total p{
-    color: var(--color-text3);
-    font-size: 1.3em;
+    color: var(--color-sexto);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.cont-nota{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+}
+.cont-nota h3{
+    color: var(--color-primario);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.cont-nota textarea{
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: border-color 0.2s ease;
+}
+.cont-nota textarea:focus{
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 2px rgba(116, 0, 196, 0.1);
 }
 .cont-btns{
     width: 100%;
-    height: 100px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    padding: 15px 0;
 }
 .btn-confirmar-pedido {
-    background-color: var(--color-sexto);
-    text-decoration: none;
+    background-color: var(--color-primario);
     color: white;
-    padding: 10px 30px;
-    border-radius: 15px;
-    transition: all 300ms ease-in-out;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
     border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 180px;
 }
 .btn-confirmar-pedido:hover{
-    scale: 1.05;
+    background-color: var(--color-sexto);
+    transform: translateY(-1px);
+}
+.btn-confirmar-pedido:active{
+    transform: translateY(0);
 }
 #modalDetallesPedido{
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: 320px;
     height: 200px;
     background: white;
-    border-radius: 15px;
-    z-index: 99;
+    border-radius: 12px;
+    z-index: 999;
     border: none;
     text-align: center;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 25px;
 }
 .cont-info-modal{
     width: 100%;
@@ -218,91 +299,165 @@ body{
     object-fit: cover;
 }
 .cont-info-modal p{
-    color: var(--color-text3);
-    font-size: 1em;
+    color: var(--color-primario);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
 }
 /* Reglas responsive */
 @media screen and (max-width: 1200px) {
     main {
         width: 80vw;
+        padding: 25px;
     }
 }
 
 @media screen and (max-width: 992px) {
     main {
         width: 90vw;
+        padding: 20px;
+    }
+    
+    .cont-encabezado h2{
+        font-size: 1.3rem;
+    }
+    
+    .titulos h2{
+        font-size: 1.2rem;
     }
 }
 
 @media screen and (max-width: 768px) {
     main {
         width: 95vw;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .cont-encabezado {
+        height: 60px;
+        padding: 10px;
+    }
+    
+    .cont-encabezado h2{
+        font-size: 1.2rem;
     }
     
     .cont-alerta {
-        height: auto;
-        padding: 15px;
+        padding: 12px;
+        gap: 8px;
+    }
+    
+    .cont-alerta h3{
+        font-size: 1rem;
+    }
+    
+    .cont-alerta p{
+        font-size: 0.85rem;
     }
     
     .producto {
-        height: auto;
-        flex-direction: row;
+        flex-direction: column;
         gap: 10px;
         padding: 15px;
+        text-align: center;
     }
     
     .cont-info-prducto {
         width: 100%;
         align-items: center;
-        text-align: center;
+        margin: 0;
     }
     
     .cont-cantidad {
-        margin-top: 10px;
+        margin-top: 5px;
     }
     
     .cont-total {
         flex-direction: column;
         gap: 10px;
-        height: auto;
-        padding: 15px 0;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .cont-total h3{
+        font-size: 1.1rem;
+    }
+    
+    .cont-total p{
+        font-size: 1.2rem;
+    }
+    
+    .btn-confirmar-pedido {
+        width: 100%;
+        max-width: 200px;
+        padding: 10px 25px;
+        font-size: 0.95rem;
+    }
+    
+    #modalDetallesPedido{
+        width: 280px;
+        height: 180px;
+        padding: 20px;
     }
 }
 
 @media screen and (max-width: 576px) {
+    main {
+        width: 100vw;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
     .cont-encabezado {
-        height: auto;
-        padding: 15px;
+        height: 50px;
+        padding: 8px;
     }
     
     .cont-encabezado h2 {
-        font-size: 1.2em;
-        text-align: center;
+        font-size: 1.1rem;
     }
     
     .titulos h2 {
-        font-size: 1em;
+        font-size: 1rem;
+    }
+    
+    .titulos .nombre-tienda{
+        font-size: 0.9rem;
     }
     
     .cont-alerta h3 {
-        font-size: 1em;
+        font-size: 0.95rem;
     }
     
     .cont-alerta p {
-        font-size: 0.9em;
+        font-size: 0.8rem;
+    }
+    
+    .cont-info-prducto h3{
+        font-size: 0.95rem;
     }
     
     .cont-nota h3 {
-        font-size: 1em;
+        font-size: 0.95rem;
     }
     
     .cont-btns {
-        flex-direction: column;
-        gap: 15px;
+        padding: 10px 0;
     }
     
     .btn-confirmar-pedido {
-        width: 80%;
-        text-align: center;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+    
+    #modalDetallesPedido{
+        width: 260px;
+        height: 160px;
+        padding: 15px;
+    }
+    
+    .cont-info-modal p{
+        font-size: 0.9rem;
     }
 }

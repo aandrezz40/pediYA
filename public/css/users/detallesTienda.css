@@ -112,9 +112,37 @@
     transition: color 0.3s;
     padding: 0px 6px;
 }
-.estrella-container input[type="checkbox"]:checked + .estrella {
+.estrella-container input[type="checkbox"]:checked + .estrella,
+.estrella.favorito {
     color: var(--color-primario);
     text-shadow: none;
+}
+
+.estrella.favorito {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Estilos para el filtrado de productos */
+.card-producto {
+    transition: all 0.3s ease-in-out;
+}
+
+.card-producto.animate__fadeIn {
+    animation-duration: 0.5s;
+}
+
+.mensaje-vacio {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin: 20px 0;
+    width: 100%;
 }
 /*DISEÑO DEL MINI NAV-BAR*/
 .cont-opcion{

@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->name('store.unfavorite');
     Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->name('store.favorite');  
 
-    Route::post('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
-    Route::post('/product/{id}/{idTienda}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
+    Route::get('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
+    // Route::post('/product/{id}/{idTienda}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
     Route::post('/busquedaTienda', [ClienteController::class, 'busquedaTienda'])->middleware('role:cliente')->name('busquedaTienda');
+    Route::get('/buscar-tiendas', [ClienteController::class, 'buscarTiendas'])->name('buscar.tiendas');
     Route::post('/pedido/agregar', [ClienteController::class, 'agregarProducto'])->name('cliente.pedido.agregar');
 
     Route::delete('/cliente/pedido/eliminar/{order}', [ClienteController::class, 'eliminarOrden'])->name('cliente.pedido.eliminar');

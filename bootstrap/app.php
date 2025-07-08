@@ -14,7 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'role' => \App\Http\Middleware\CheckUserRole::class, 
+            'role' => \App\Http\Middleware\CheckUserRole::class,
+            'tendero.status' => \App\Http\Middleware\CheckTenderoStatus::class,
+            'tendero.store.registration' => \App\Http\Middleware\CheckTenderoStoreRegistration::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Barrio;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Notifications\NuevoPedido;
 
 class ClienteController extends Controller
 {
@@ -203,7 +204,12 @@ class ClienteController extends Controller
     public function perfil(){   
         $user = auth()->user();
         $user->load('address');
-        $barrios = Barrio::all();
+        
+        // Solo cargar barrios si es cliente o si el tendero no tiene tienda registrada
+        $barrios = null;
+        if ($user->role === 'cliente' || ($user->role === 'tendero' && !$user->store)) {
+            $barrios = Barrio::all();
+        }
         
         return view('cliente.perfil', compact('user', 'barrios'));
     }
@@ -296,9 +302,13 @@ class ClienteController extends Controller
         ]);
 
         $order = \App\Models\Order::findOrFail($request->order_id);
-        $order->status = 'pendiente'; // O el valor correspondiente a "pendiente"
+        $order->status = 'pending'; // Cambiar a 'pending' para consistencia
         $order->customer_notes = $request->customer_notes;
         $order->save();
+
+        // Enviar notificación al tendero sobre el nuevo pedido
+        $storeOwner = $order->store->user;
+        $storeOwner->notify(new NuevoPedido($order));
 
         return redirect()->route('homeCliente')->with('success', 'Pedido confirmado correctamente.');
     }

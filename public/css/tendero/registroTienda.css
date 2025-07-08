@@ -1,0 +1,861 @@
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "ADLaM Display", serif;
+    font-weight: 300;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+
+}
+html{
+    height: 100vh;
+}
+body{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+.main-registro-tienda{
+    width: 70vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    border-radius: 15px;
+    border: none;
+    margin: 20px 0;
+}
+.encabezado-principal{
+    width: 100%;
+    padding: 10px 20px;
+    background-color: var(--color-sexto);
+    border: none;
+    border-radius: 15px ;
+    color: white;
+}
+.encabezado-principal p{
+    color: rgb(196, 192, 192);
+    font-size: .7em;
+}
+.encabezado-secundario{
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+.encabezado-secundario h3{
+    color: var(--color-primario);
+    letter-spacing: 1px;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.progreso-registro-tienda{
+    width: 100%;
+    height: 5px;
+    background-color: rgb(196, 192, 192);
+    border-radius: 15px;
+    transition: all 300ms ease-in-out ;
+    position: relative;
+}
+.barra-progreso{
+    content: "";
+    position: absolute;
+    width: 33%;
+    height: 5px;
+    background-color: var(--color-primario);
+    border-radius: 15px;
+    transition: width 300ms ease-in-out;
+}
+.indicadorPaso{
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    font-size: .8em;
+}
+.form-registro-tienda{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+/*CONTENEDOR DE INFORMACION BASICA DE REGISTRO DE TIENDA*/
+.cont-form-info-basica{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, auto);
+    column-gap: calc(100% - 80%) ;
+    background-color: white;
+
+}
+.cont-titulo-seccion{
+    grid-column: 1/3;
+    margin-bottom: 15px;
+}
+.cont-input-info-basica{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.cont-input-info-basica label, .cont-input-info-basica p{
+    font-size: .8em;
+    margin-bottom: 5px;
+}
+.cont-input-info-basica input{
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    border: .5px solid rgb(196, 192, 192);
+    padding: 0px 10px;
+    &:focus{
+        outline: 1.5px solid var(--color-primario);
+    }
+}
+.cont-input-info-basica select{
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    padding: 0px 7px;
+    font-size: .8em;
+}
+.cont-input-info-basica select option{
+    font-size: .8em;
+}
+.cont-input-info-basica:nth-child(6){
+    grid-column: 1/3;
+}
+.cont-input-info-basica textarea{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border:.5px solid rgb(196, 192, 192);
+    padding: 5px 10px;
+    resize: none;
+    &:focus{
+        outline: 1.5px solid var(--color-primario);
+    }
+}
+.cont-input-info-basica-img{
+    grid-column: 1/3;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(238, 227, 255);
+    border: 1px dashed var(--color-primario);
+    border-radius: 10px;
+    position: relative;
+}
+.cont-input-info-basica-img img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.cont-input-info-basica-img label{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.input-subir-imagen{
+    display: none;
+}
+#preview{
+    position: absolute;
+    right: 20px;
+}
+/*CONTENEDOR DE REGISTRO PASO 2*/
+.cont-form-info-2{
+    display: none;
+    background-color: white;
+}
+/*CONTENEDOR FORMULARIO DE HORARIOS*/
+.cont-horarios{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto repeat(3, 80px);
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.titulo-hoarios{
+    grid-column: 1/4;
+}
+.cont-checkbox{
+    border: 1px solid var(--color-borde-claro);
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.cont-checkbox label{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.checkbox, .checkboxMetodo{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.checkmark {
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.checkmark:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0;
+    bottom: 0px;
+    top: 0;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+.checkbox:checked + .checkmark {
+    background-color: #6b21a8;
+}
+.checkbox:focus + .checkmark {
+    box-shadow: 0 0 1px #6b21a8;
+}
+.checkbox:checked + .checkmark:before {
+    transform: translateX(30px);
+}
+.cont-select{
+    width: 100%;
+}
+.cont-select select{
+    width: 46%;
+    border-radius: 5px;
+    padding: 2px;
+}
+/*CONTENEDOR FORMULARIO DE SERVICIOS*/
+.cont-servicios{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 80px;
+    column-gap: 15px;
+}
+.titulo-servicios{
+    grid-column: 1/4;
+}
+.cont-service-pago{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    border: 1px solid var(--color-borde-claro);
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.cont-service-pago svg{
+    width: 20px;
+    height: 20px;
+}
+.cont-service-pago label{
+    cursor: pointer;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.cont-service-pago label p{
+    font-size: .8em;
+    color: var(--color-text3);
+}
+.cont-service-pago:has(.checkboxMetodo:checked) {
+    border: 2px solid var(--color-primario);
+}
+.cont-service-pago label:has(.checkboxMetodo:checked) {
+    color: var(--color-primario);
+}
+.cont-service-pago:has(.checkboxMetodo:checked) svg {
+    fill: var(--color-primario);
+}
+/*CONTENEDOR DEL NÚMERO DE DOMICILIO*/
+.cont-contacto-domicilio{
+    width: 100%;
+    border: 1px solid var(--color-borde-claro);
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 15px;
+}
+.cont-domicilio{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+.cont-domicilio label{
+    font-size:.8em;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, 0.582);
+}
+.inputDomicilio{
+    width: 40%;
+    height: 30px;
+    border-radius: 10px;
+    border: .5px solid rgb(196, 192, 192);
+    padding: 0px 10px;
+    &:focus{
+        outline: 1.5px solid var(--color-primario);
+    }
+}
+.cont-advertencia-domicilio{
+    background-color: #FEE3AA;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px 15px;
+    margin-top: 20px;
+}
+.cont-advertencia-domicilio img{
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+}
+.titulo-adevertencia-domicilio{
+    color: #F8B21F;
+}
+.info-adevertencia-domicilio{
+    font-size:.8em;
+}
+
+/*CONTENEDOR DE REGISTRO PASO 3*/
+.cont-form-info-3{
+    width: 100%;
+    display: none;
+    background-color: white;
+}
+.cont-check-metodos-pago{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.cont-documentos-requeridos{
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 15px;
+}
+.cont-documento{
+    width: 100%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    padding: 10px 15px;
+}
+.subir-documento-input{
+    display: none;
+}
+.cont-documento label{
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.sub-cont-documento{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    width: 90%;
+}
+.cont-documento h4{
+    font-size: 1.3em;
+    color: var(--color-primario);
+}
+.info-documento{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 5px;
+}
+.info-documento p:nth-child(2){
+    font-size:.7em;
+    color: var(--color-text3);
+}
+.cont-documento img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+#numeroDeRut{
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border:.5px solid rgb(196, 192, 192);
+    padding: 0px 10px;
+    &:focus{
+        outline: 1.5px solid var(--color-primario);
+    }
+}
+.cont-check-autorizacion{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    font-size: .8em;
+    color: var(--color-text3);
+}
+.cont-informacion-importante img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+.cont-aviso-1, .cont-aviso-2{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-top: 15px;
+}
+.cont-aviso-1{
+    background-color: #FEE3AA;
+}
+.titulo-aviso-1{
+    color: #eca60f;
+}
+.info-aviso-1{
+    font-size:.8em;
+}
+
+.cont-aviso-2{
+    background-color: #C8FCC8;
+}
+.titulo-aviso-2{
+    color: #10B01E;
+}
+.info-aviso-2{
+    font-size:.8em;
+}
+
+/*CONTENEDOR DE ACCIONES DE BOTONES*/
+.cont-acciones-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.btn-siguiente, .btn-input-submit{
+    width: auto;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-terciario);
+    color: white;
+    font-size: .9em;
+    cursor: pointer;
+    padding: 0 15px;
+    transition: all 300ms ease-in-out;
+}
+.btn-volver{
+    width: auto;
+    height: 30px;
+    border-radius: 10px;
+    border: .5px solid black;
+    background-color: white;
+    color: black;
+    font-size: .9em;
+    cursor: pointer;
+    padding: 0 15px;
+    transition: all 300ms ease-in-out;
+}
+.cont-acciones-form button:hover, .btn-input-submit:hover{
+    scale: 1.05;
+}
+/*DISEÑO DEL MODAL*/
+.modalConfirmacionRegistroTienda{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 400px;
+    background: white;
+    border-radius: 15px;
+    z-index: 99;
+    border: none;
+    text-align: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    backdrop-filter: rgba(0, 0, 0, 0.485);
+}
+.modalConfirmacionRegistroTienda::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);          
+}
+.cont-info-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 15px;
+    padding: 10px 20px;
+}
+.cont-info-modal img{
+    width: 50px;
+}
+.cont-info-modal h2{
+    color: var(--color-primario);
+    font-size: 1.8em;
+}
+.cont-info-modal p{
+    color: var(--color-text3);
+    font-size: .8em;
+}
+.cont-info-modal a{
+    color:white;
+    text-decoration: none;
+    background-color: var(--color-primario);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: .8em;
+    transition: all 300ms ease-in-out;
+}
+.cont-info-modal a:hover{
+    scale: 1.05;
+}
+
+/* ===== REGLAS RESPONSIVE ===== */
+@media screen and (max-width: 1200px) {
+    main {
+        width: 80vw;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    main {
+        width: 90vw;
+    }
+    
+    .cont-form-info-basica {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+    
+    .cont-input-info-basica:nth-child(n) {
+        grid-column: 1;
+    }
+    
+    .cont-horarios {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .titulo-hoarios {
+        grid-column: 1/3;
+    }
+    
+    .cont-servicios {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .titulo-servicios {
+        grid-column: 1/3;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        width: 95vw;
+    }
+    
+    .encabezado-principal h2 {
+        font-size: 1.2em;
+    }
+    
+    .encabezado-secundario h3 {
+        font-size: 1.1em;
+    }
+    
+    .indicadorPaso {
+        font-size: 0.7em;
+    }
+    
+    .cont-horarios {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto repeat(7, 80px);
+    }
+
+    .titulo-hoarios {
+        grid-column: 1;
+    }
+    
+    .cont-servicios {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .titulo-servicios {
+        grid-column: 1;
+    }
+    
+    .cont-select {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .cont-select select {
+        width: 45%;
+    }
+    
+    .inputDomicilio {
+        width: 100%;
+    }
+    
+    .cont-check-metodos-pago label {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .cont-documento {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .cont-documento label {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .sub-cont-documento {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    #numeroDeRut {
+        width: 100%;
+    }
+    
+    .cont-advertencia-domicilio,
+    .cont-aviso-1,
+    .cont-aviso-2 {
+        flex-direction: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .cont-advertencia-domicilio img,
+    .cont-aviso-1 img,
+    .cont-aviso-2 img {
+        margin-bottom: 10px;
+    }
+    
+    .modalConfirmacionRegistroTienda {
+        width: 90%;
+        height: auto;
+        padding: 20px 0;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .encabezado-principal {
+        padding: 10px;
+    }
+    
+    .encabezado-principal h2 {
+        font-size: 1em;
+    }
+    
+    .encabezado-principal p {
+        font-size: 0.6em;
+    }
+    
+    .encabezado-secundario {
+        padding: 10px;
+    }
+    
+    .encabezado-secundario h3 {
+        font-size: 0.9em;
+    }
+    
+    .form-registro-tienda {
+        padding: 10px;
+    }
+    
+    .cont-checkbox {
+        padding: 10px;
+    }
+    
+    .cont-checkbox label {
+        font-size: 0.8em;
+    }
+    
+    .checkmark {
+        width: 40px;
+    }
+    .checkmark:before {
+        height: 16px;
+        width: 16px;
+    }
+    
+    .checkbox:checked + .checkmark:before {
+        transform: translateX(24px);
+    }
+    
+    .cont-service-pago {
+        padding: 10px;
+    }
+    
+    .cont-service-pago label p {
+        font-size: 0.7em;
+    }
+    
+    .cont-acciones-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .cont-acciones-form button,
+    .btn-input-submit {
+        width: 90%;
+        height: 40px;
+    }
+    
+    .cont-check-autorizacion {
+        font-size: 0.7em;
+    }
+    
+    .cont-info-modal h2 {
+        font-size: 1.4em;
+    }
+    
+    .cont-info-modal p {
+        font-size: 0.7em;
+    }
+    
+    .cont-info-modal a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media screen and (max-width: 375px) {
+    .encabezado-principal h2 {
+        font-size: 0.9em;
+    }
+    
+    .encabezado-secundario h3 {
+        font-size: 0.8em;
+    }
+    
+    .titulo-seccion {
+        font-size: 0.9em;
+    }
+    
+    .cont-input-info-basica label,
+    .cont-input-info-basica p {
+        font-size: 0.7em;
+    }
+    
+    .cont-checkbox label,
+    .cont-service-pago label {
+        font-size: 0.7em;
+    }
+    
+    .cont-service-pago label p {
+        font-size: 0.6em;
+    }
+    
+    .cont-documento h4 {
+        font-size: 1em;
+    }
+    
+    .info-documento p:nth-child(1) {
+        font-size: 0.8em;
+    }
+    
+    .info-documento p:nth-child(2) {
+        font-size: 0.6em;
+    }
+    
+    .titulo-adevertencia-domicilio,
+    .titulo-aviso-1,
+    .titulo-aviso-2 {
+        font-size: 0.8em;
+    }
+    
+    .info-adevertencia-domicilio,
+    .info-aviso-1,
+    .info-aviso-2 {
+        font-size: 0.7em;
+    }
+}

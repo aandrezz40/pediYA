@@ -5,13 +5,14 @@
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('tenderHome') : url('/'))) : url('/') }}">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }}">
             <h1 class="nombreEmpresa">PediYÁ</h1>
         </a>
         
         
     </section>
 
+    @if(auth()->check() && auth()->user()->role === 'cliente')
     <form class="form-bar-search" action="{{ route('busquedaTienda') }}" method="post">
     @csrf
         <section class="bar-search">
@@ -24,19 +25,24 @@
             </div>
         </section>
     </form>
+    @endif
 
     
     <section class="bar-buttons">
-        <article class="icono-notificacion-view">
+        <article class="icono-notificacion-view" id="notificacionIcon">
             <img class="" src="{{ asset('img/bell-regular.svg') }}" alt="" srcset="">
-            <section class="num-notificaciones"><span>2</span></section>
+            <section class="num-notificaciones" id="notificacionCount" style="display: none;">
+                <span id="notificacionNumber">0</span>
+            </section>
         </article>
+        @if(auth()->check() && auth()->user()->role === 'cliente')
         <div class="cont-icono-carrito">
             <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
             <div class="contador-carrito {{ ($totalOrdersCount ?? 0) > 0 ? '' : 'hidden' }}" id="contadorCarrito">
                 <span>{{ $totalOrdersCount ?? 0 }}</span>
             </div>
         </div>
+        @endif
     </section>
 </header>
     <section class="contenedor-notificaciones">
@@ -66,6 +72,7 @@
                     <h3>Panel principal</h3>
                 </article>
             </div>
+            @if(auth()->check() && auth()->user()->role === 'cliente')
             <div class="cont-icono">
                 <a href="{{ url('/historialPedidos') }}">
                 <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="35" height="40" fill=""
@@ -83,6 +90,7 @@
                     </section> -->
                 </article>
             </div>
+            @endif
             <div class="cont-icono">
                 <a href="{{ url('/nosotros') }}">
                     <svg class="icono-nav"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
@@ -136,6 +144,7 @@
             </form>
         </section>
     </aside>
+@if(auth()->check() && auth()->user()->role === 'cliente')
 <article class="overlay-carrito" id="overlayCarrito">
     <section class="cont-carrito" id="contCarrito">
         <article class="cont-buttons">
@@ -154,6 +163,7 @@
         </article>
     </section>
 </article>
+@endif
 
 
 <script>

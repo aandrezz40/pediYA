@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="none" viewBox="0 0 96 96" id="alert-triangle">
+  <path fill="#FFB800" stroke="#000" stroke-width="5" d="M34.5096 17.5C40.2831 7.5 54.7169 7.5 60.4904 17.5L86.9042 63.25C92.6777 73.25 85.4608 85.75 73.9138 85.75H21.0862C9.53922 85.75 2.32234 73.25 8.09585 63.25L34.5096 17.5Z"></path>
+  <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M48 43L48 54.5"></path>
+  <path fill="#000" d="M50.5 63.1992C50.5 64.5799 49.3807 65.6992 48 65.6992C46.6193 65.6992 45.5 64.5799 45.5 63.1992C45.5 61.8185 46.6193 60.6992 48 60.6992C49.3807 60.6992 50.5 61.8185 50.5 63.1992Z"></path>
+</svg>

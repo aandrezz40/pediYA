@@ -206,12 +206,52 @@ class ClienteController extends Controller
         $user->load('address');
         
         // Solo cargar barrios si es cliente o si el tendero no tiene tienda registrada
-        $barrios = null;
-        if ($user->role === 'cliente' || ($user->role === 'tendero' && !$user->store)) {
-            $barrios = Barrio::all();
-        }
+        $barrios = Barrio::all();
         
-        return view('cliente.perfil', compact('user', 'barrios'));
+        // Obtener la tienda del usuario autenticado (si existe)
+        $store = $user->store ?? null;
+
+        // Construir $horarios a partir del campo schedule de la tienda
+        $horarios = [];
+        if ($store && $store->schedule) {
+            $parsed = \App\Http\Controllers\Roles\TenderoController::parseSchedule($store->schedule);
+            $dias = [
+                'lunes' => 'Lunes',
+                'martes' => 'Martes',
+                'miercoles' => 'Miércoles',
+                'jueves' => 'Jueves',
+                'viernes' => 'Viernes',
+                'sabado' => 'Sábado',
+                'domingo' => 'Domingo',
+            ];
+            foreach ($dias as $key => $nombre) {
+                // Solo checked si existe en $parsed y tiene horas válidas
+                if (isset($parsed[$nombre]) && $parsed[$nombre]['inicio'] && $parsed[$nombre]['fin']) {
+                    $horarios[$key] = [
+                        'checked' => true,
+                        'start' => $parsed[$nombre]['inicio'],
+                        'end' => $parsed[$nombre]['fin'],
+                    ];
+                } else {
+                    $horarios[$key] = [
+                        'checked' => false,
+                        'start' => null,
+                        'end' => null,
+                    ];
+                }
+            }
+        } else {
+            // Si no hay horarios guardados, inicializar todos en false
+            foreach (['lunes','martes','miercoles','jueves','viernes','sabado','domingo'] as $key) {
+                $horarios[$key] = [
+                    'checked' => false,
+                    'start' => null,
+                    'end' => null,
+                ];
+            }
+        }
+
+        return view('cliente.perfil', compact('user', 'barrios', 'store', 'horarios'));
     }
 
     public function updateUser(Request $request)
@@ -236,8 +276,8 @@ class ClienteController extends Controller
         // Actualizar o crear dirección
         if ($user->address) {
             $user->address->update([
-                'address_line_1' => $validatedData['address_line_1'] ?? null,
-                'neighborhood' => $validatedData['neighborhood'] ?? null,
+                'address_line_1' => $validatedData['address_line_1'],
+                'neighborhood' => $validatedData['neighborhood'],
             ]);
         } else {
             $user->address()->create([

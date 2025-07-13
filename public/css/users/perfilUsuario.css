@@ -1,3 +1,42 @@
+
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "ADLaM Display", serif;
+    font-weight: 300;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+
+}
+html{
+    height: 100vh;
+}
+body{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
 .main-perfil-usuario{
     width: 90vw;
     height: 90vh;
@@ -59,7 +98,6 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 20px;
     width: 100%;
     height: 40px;
     font-size: 1rem;
@@ -72,7 +110,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: auto;
+    width: 50%;
     height: 100%;
     text-decoration: none;
     border: none;
@@ -161,7 +199,7 @@
 /*CONTENEDOR DE FORMULARIO INFORMACION PERSONAL*/
 .cont-form-personal{
     border-radius: 15px;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: start;
     justify-content: start;
@@ -223,7 +261,7 @@
 .cont-inputs label{
     font-size: .8em;
 }
-.cont-inputs input, .selectBarrios{
+.cont-inputs input{
     width: 100%;
     font-size: .8em;
     padding: 3px;
@@ -383,42 +421,6 @@
     padding: 20px;
     overflow-y: auto;
 }
-
-.container-form-tienda{
-    border-radius: 15px;
-    display: none;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    width: 70%;
-    height: 90%;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.cont-info-tienda-actual{
-    width: 100%;
-    margin-top: 20px;
-}
-
-.info-tienda{
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.info-tienda p{
-    margin: 10px 0;
-    font-size: 1rem;
-    color: #374151;
-}
-
-.info-tienda p strong{
-    color: #1e293b;
-    font-weight: 600;
-}
 .cont-encabezado-tienda{
     display: flex;
     flex-direction: column;
@@ -577,12 +579,47 @@
         border: none;
     }
 }
+
+.cont-input-info-basica-editar-img{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px dashed var(--color-borde-claro);
+    border-radius: 10px;
+    position: relative;
+}
+.cont-input-info-basica-editar-img img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.cont-input-info-basica-editar-img label{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: .9em;
+}
+.input-subir-imagen{
+    display: none;
+}
+#preview{
+    position: absolute;
+    right: 20px;
+}
 .cont-inputs-tienda label{
     font-family: Arial, Helvetica, sans-serif;
     font-size: .8em;
 }
 .cont-inputs-tienda:nth-child(4){
-    grid-column: 1/4;
+    grid-column: 1/3;
 }
 .formulario-tienda-datos .cont-btn-form{
     grid-column: 3/4;
@@ -604,7 +641,7 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px) 120px;
     margin-top: 20px;
     gap: 10px;
 }
@@ -673,6 +710,64 @@
     width: 46%;
     border-radius: 5px;
     padding: 2px;
+}
+.cont-check-domicilio{
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+}
+.checkbox-Domicilio{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    border: .5px solid var(--color-borde-claro);
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.info-servicio-domicilio{
+    font-size: .7em;
+    color: var(--color-text3);
+}
+.checkbox-Domicilio img{
+    width: 30px;
+    height: 30px;
+}
+.checkboxServicioDomicilio{
+    display: none;
+}
+
+/* Estilos cuando el checkbox está checked */
+.checkboxServicioDomicilio:checked + .checkbox-Domicilio {
+    border: .5px solid var(--color-primario); /* Cambia el color del borde */
+}
+.checkboxServicioDomicilio:checked + .checkbox-Domicilio .sub-titulo-servicio-domicilio {
+    color: var(--color-primario); /* Color normal */
+    /* Cambia el color del texto "Domicilio" */
+}
+
+.cont-telefono-domicilio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.inputNumeroTelfonoDomicilio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.inputNumeroTelfonoDomicilio input{
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: .5px solid var(--color-borde-claro);
 }
 .formulario-tienda-horarios .cont-btn-form{
     grid-column: 3/4;
@@ -773,12 +868,12 @@
     border: none;
     text-align: center;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
-    
 }
 #modalCencelar::backdrop {
     background-color: rgba(0, 0, 0, 0.6); /* Negro con transparencia */
     backdrop-filter: blur(3px);          /* Difuminado opcional */
 }
+  
 #modalCencelar h3{
     font-size: 1.2rem;
     color: black;
@@ -821,10 +916,22 @@
 
 /* DISEÑO RESPONSIVE */
 /* Para tablets (ancho máximo de 992px) */
-@media screen and (max-width: 992px) {
-    .main-perfil-usuario {
-        width: 95vw;
+@media screen and (max-width: 3000px) {
+    main{
+        width: 90vw;
         height: 90vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap:20px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    main {
+        width: 95vw;
+        height: auto;
         flex-direction: column;
     }
     
@@ -977,7 +1084,7 @@
         width: 100vw;
         overflow-x: hidden;
     }
-    .main-perfil-usuario {
+    main {
         width: 100vw;
         padding: 10px;
     }

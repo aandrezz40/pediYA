@@ -198,11 +198,11 @@ class TenderoController extends Controller
         $parts = explode(', ', $schedule);
         
         foreach ($parts as $part) {
-            if (preg_match('/([^:]+):\s*(\d{1,2}:\d{2}\s*[AP]M)\s*-\s*(\d{1,2}:\d{2}\s*[AP]M)/', $part, $matches)) {
+            // Acepta 1 o 2 dígitos, AM/PM en mayúsculas o minúsculas, con o sin puntos
+            if (preg_match('/([^:]+):\s*(\d{1,2}:\d{2}\s*(?:[AaPp]\.?[Mm]\.?)?)\s*-\s*(\d{1,2}:\d{2}\s*(?:[AaPp]\.?[Mm]\.?)?)/', $part, $matches)) {
                 $dia = trim($matches[1]);
                 $horaInicio = trim($matches[2]);
                 $horaFin = trim($matches[3]);
-                
                 $horarios[$dia] = [
                     'inicio' => $horaInicio,
                     'fin' => $horaFin
@@ -412,6 +412,7 @@ class TenderoController extends Controller
      */
     public function updateStoreBasicInfo(Request $request)
     {
+        \Log::info('Entró al método updateStoreBasicInfo');
         $user = auth()->user();
         $store = $user->store;
         
@@ -420,6 +421,7 @@ class TenderoController extends Controller
         }
 
         $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'store_name' => 'required|string|max:255',
             'delivery_contact_phone' => 'nullable|string|max:20',
             'address_line_1' => 'required|string|max:255',
@@ -446,12 +448,12 @@ class TenderoController extends Controller
             'saturday_end' => 'nullable|string',
             'sunday_start' => 'nullable|string',
             'sunday_end' => 'nullable|string',
-            // Validación para métodos de pago
-            'payment_methods' => 'required|array|min:1',
-            'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
+            // // Validación para métodos de pago
+            // 'payment_methods' => 'required|array|min:1',
+            // 'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
         ], [
-            'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
-            'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
+            // 'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
+            // 'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
         ]);
 
         // Actualizar información básica
@@ -461,6 +463,30 @@ class TenderoController extends Controller
             'address_street' => $request->address_line_1,
             'description' => $request->description,
         ]);
+
+        // Actualizar imagen si se subió una nueva
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            // Elimina la imagen anterior si existe y el path es válido
+            if ($store->logo_path && \Storage::disk('public')->exists($store->logo_path)) {
+                \Storage::disk('public')->delete($store->logo_path);
+            }
+
+            // Genera un nombre único para evitar caché y conflictos
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'store_' . $store->id . '_' . time() . '.' . $extension;
+
+            // Guarda la nueva imagen
+            $path = $file->storeAs('store-logos', $filename, 'public');
+
+            // Actualiza el campo logo_path SIEMPRE
+            $store->logo_path = $path;
+            $store->save();
+
+            \Log::info('Imagen guardada en: ' . $path);
+            \Log::info('Campo logo_path actualizado en la base de datos: ' . $store->logo_path);
+        }
 
         // Actualizar horarios
         $schedule = $this->processScheduleFromForm($request);
@@ -477,6 +503,7 @@ class TenderoController extends Controller
      */
     public function updateStoreSchedule(Request $request)
     {
+        \Log::info('Request recibido en updateStoreSchedule', $request->all());
         $user = auth()->user();
         $store = $user->store;
         
@@ -484,56 +511,34 @@ class TenderoController extends Controller
             return redirect()->back()->with('error', 'No tienes una tienda registrada.');
         }
 
+        // Solo validación de horarios y domicilio
         $request->validate([
-            // Validación para información básica
-            'store_name' => 'required|string|max:255',
-            'delivery_contact_phone' => 'nullable|string|max:20',
-            'address_line_1' => 'required|string|max:255',
-            'description' => 'nullable|string|max:500',
+            'offers_delivery' => 'nullable|boolean',
             // Validación para horarios
-            'schedule_monday' => 'nullable|boolean',
-            'schedule_tuesday' => 'nullable|boolean',
-            'schedule_wednesday' => 'nullable|boolean',
-            'schedule_thursday' => 'nullable|boolean',
-            'schedule_friday' => 'nullable|boolean',
-            'schedule_saturday' => 'nullable|boolean',
-            'schedule_sunday' => 'nullable|boolean',
-            'monday_start' => 'nullable|string',
-            'monday_end' => 'nullable|string',
-            'tuesday_start' => 'nullable|string',
-            'tuesday_end' => 'nullable|string',
-            'wednesday_start' => 'nullable|string',
-            'wednesday_end' => 'nullable|string',
-            'thursday_start' => 'nullable|string',
-            'thursday_end' => 'nullable|string',
-            'friday_start' => 'nullable|string',
-            'friday_end' => 'nullable|string',
-            'saturday_start' => 'nullable|string',
-            'saturday_end' => 'nullable|string',
-            'sunday_start' => 'nullable|string',
-            'sunday_end' => 'nullable|string',
-            // Validación para métodos de pago
-            'payment_methods' => 'required|array|min:1',
-            'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
-        ], [
-            'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
-            'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
-        ]);
-
-        // Actualizar información básica
-        $store->update([
-            'name' => $request->store_name,
-            'delivery_contact_phone' => $request->delivery_contact_phone,
-            'address_street' => $request->address_line_1,
-            'description' => $request->description,
+            'dias' => 'nullable|array',
+            'lunes_start' => 'nullable|string',
+            'lunes_end' => 'nullable|string',
+            'martes_start' => 'nullable|string',
+            'martes_end' => 'nullable|string',
+            'miercoles_start' => 'nullable|string',
+            'miercoles_end' => 'nullable|string',
+            'jueves_start' => 'nullable|string',
+            'jueves_end' => 'nullable|string',
+            'viernes_start' => 'nullable|string',
+            'viernes_end' => 'nullable|string',
+            'sabado_start' => 'nullable|string',
+            'sabado_end' => 'nullable|string',
+            'domingo_start' => 'nullable|string',
+            'domingo_end' => 'nullable|string',
         ]);
 
         // Actualizar horarios
         $schedule = $this->processScheduleFromForm($request);
-        $store->update(['schedule' => $schedule]);
-
-        // Sincronizar métodos de pago
-        $store->paymentMethods()->sync($request->payment_methods);
+        $store->update([
+            'schedule' => $schedule,
+            'offers_delivery' => $request->has('offers_delivery') ? 1 : 0,
+        ]);
+        \Log::info('Store actualizado', $store->toArray());
 
         return redirect()->back();
     }
@@ -551,56 +556,16 @@ class TenderoController extends Controller
         }
 
         $request->validate([
-            'payment_methods' => 'required|array|min:1',
+            'payment_methods' => 'nullable|array',
             'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
-            // Validación para información básica
-            'store_name' => 'required|string|max:255',
-            'delivery_contact_phone' => 'nullable|string|max:20',
-            'address_line_1' => 'required|string|max:255',
-            'description' => 'nullable|string|max:500',
-            // Validación para horarios
-            'schedule_monday' => 'nullable|boolean',
-            'schedule_tuesday' => 'nullable|boolean',
-            'schedule_wednesday' => 'nullable|boolean',
-            'schedule_thursday' => 'nullable|boolean',
-            'schedule_friday' => 'nullable|boolean',
-            'schedule_saturday' => 'nullable|boolean',
-            'schedule_sunday' => 'nullable|boolean',
-            'monday_start' => 'nullable|string',
-            'monday_end' => 'nullable|string',
-            'tuesday_start' => 'nullable|string',
-            'tuesday_end' => 'nullable|string',
-            'wednesday_start' => 'nullable|string',
-            'wednesday_end' => 'nullable|string',
-            'thursday_start' => 'nullable|string',
-            'thursday_end' => 'nullable|string',
-            'friday_start' => 'nullable|string',
-            'friday_end' => 'nullable|string',
-            'saturday_start' => 'nullable|string',
-            'saturday_end' => 'nullable|string',
-            'sunday_start' => 'nullable|string',
-            'sunday_end' => 'nullable|string',
-        ], [
-            'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
-            'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
         ]);
-
-        // Actualizar información básica
-        $store->update([
-            'name' => $request->store_name,
-            'delivery_contact_phone' => $request->delivery_contact_phone,
-            'address_street' => $request->address_line_1,
-            'description' => $request->description,
-        ]);
-
-        // Actualizar horarios
-        $schedule = $this->processScheduleFromForm($request);
-        $store->update(['schedule' => $schedule]);
 
         // Sincronizar métodos de pago
-        $store->paymentMethods()->sync($request->payment_methods);
+        // Si no se envía payment_methods, se asume array vacío (eliminar todos)
+        $paymentMethods = $request->input('payment_methods', []);
+        $store->paymentMethods()->sync($paymentMethods);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Métodos de pago actualizados correctamente.');
     }
 
     /**
@@ -609,13 +574,13 @@ class TenderoController extends Controller
     private function processScheduleFromForm($request)
     {
         $dias = [
-            'Lunes' => 'monday',
-            'Martes' => 'tuesday',
-            'Miércoles' => 'wednesday',
-            'Jueves' => 'thursday',
-            'Viernes' => 'friday',
-            'Sábado' => 'saturday',
-            'Domingo' => 'sunday'
+            'Lunes' => 'lunes',
+            'Martes' => 'martes',
+            'Miércoles' => 'miercoles',
+            'Jueves' => 'jueves',
+            'Viernes' => 'viernes',
+            'Sábado' => 'sabado',
+            'Domingo' => 'domingo'
         ];
 
         $scheduleParts = [];

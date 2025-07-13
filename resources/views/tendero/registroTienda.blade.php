@@ -5,61 +5,109 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <style>
+            .error-input {
+                border: 2px solid #dc3545 !important;
+                background-color: #fff5f5 !important;
+                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+            }
+            
+            .error-input:focus {
+                border-color: #dc3545 !important;
+                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+            }
+            
+            .error-message {
+                color: #dc3545 !important;
+                font-size: 0.875rem !important;
+                margin-top: 5px !important;
+                display: block !important;
+                font-weight: 500 !important;
+            }
+            
+            .alert {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                max-width: 400px;
+                animation: slideInRight 0.5s ease-out;
+            }
+            
+            .alert-success {
+                background: #28a745;
+                color: white;
+            }
+            
+            .alert-error {
+                background: #dc3545;
+                color: white;
+            }
+            
+            .alert-warning {
+                background: #ffc107;
+                color: #212529;
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        </style>
     @endsection
 
     <main class="main-registro-tienda">
         <!-- Mensajes de sesión -->
         @if(session('success'))
-            <div class="alert alert-success" style="
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #28a745;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 5px;
-                z-index: 10000;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                max-width: 300px;
-                animation: slideInRight 0.5s ease-out;
-            ">
+            <div class="alert alert-success">
+                <strong>¡Éxito!</strong><br>
                 {{ session('success') }}
             </div>
         @endif
 
         @if(session('error'))
-            <div class="alert alert-error" style="
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #dc3545;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 5px;
-                z-index: 10000;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                max-width: 300px;
-                animation: slideInRight 0.5s ease-out;
-            ">
+            <div class="alert alert-error">
+                <strong>Error:</strong><br>
                 {{ session('error') }}
             </div>
         @endif
 
         @if(session('warning'))
-            <div class="alert alert-warning" style="
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #ffc107;
-                color: #212529;
-                padding: 15px 20px;
-                border-radius: 5px;
-                z-index: 10000;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                max-width: 300px;
-                animation: slideInRight 0.5s ease-out;
-            ">
+            <div class="alert alert-warning">
+                <strong>Advertencia:</strong><br>
                 {{ session('warning') }}
+            </div>
+        @endif
+
+        <!-- Mostrar errores de validación generales -->
+        @if($errors->any())
+            <div class="alert alert-error">
+                <strong>Errores de validación:</strong><br>
+                <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
@@ -83,28 +131,38 @@
                 </article>
                 <article class="cont-input-info-basica">
                     <label for="nombreTienda">Nombre de tu tienda</label>
-                    <input type="text" name="store_name" id="nombreTienda" value="{{ old('store_name') }}" required>
+                    <input type="text" name="store_name" id="nombreTienda" value="{{ old('store_name') }}" required 
+                           class="{{ $errors->has('store_name') ? 'error-input' : '' }}">
                     @error('store_name')
-                        <span class="error-message">{{ $message }}</span>
+                        <span class="error-message">
+                            <strong>Error:</strong> {{ $message }}
+                        </span>
                     @enderror
                 </article>
                 <article class="cont-input-info-basica">
                     <label for="telefonoTienda">Teléfono de contacto tu tienda</label>
-                    <input type="tel" name="delivery_contact_phone" id="telefonoTienda" value="{{ old('delivery_contact_phone') }}">
+                    <input type="tel" name="delivery_contact_phone" id="telefonoTienda" value="{{ old('delivery_contact_phone') }}"
+                           class="{{ $errors->has('delivery_contact_phone') ? 'error-input' : '' }}">
                     @error('delivery_contact_phone')
-                        <span class="error-message">{{ $message }}</span>
+                        <span class="error-message" style="color: #dc3545; font-size: 0.875rem; margin-top: 5px; display: block;">
+                            <strong>Error:</strong> {{ $message }}
+                        </span>
                     @enderror
                 </article>
                 <article class="cont-input-info-basica">
                     <label for="direccionTienda">Dirección de tu tienda</label>
-                    <input type="text" name="address_line_1" id="direccionTienda" value="{{ old('address_line_1') }}" required>
+                    <input type="text" name="address_line_1" id="direccionTienda" value="{{ old('address_line_1') }}" required
+                           class="{{ $errors->has('address_line_1') ? 'error-input' : '' }}">
                     @error('address_line_1')
-                        <span class="error-message">{{ $message }}</span>
+                        <span class="error-message" style="color: #dc3545; font-size: 0.875rem; margin-top: 5px; display: block;">
+                            <strong>Error:</strong> {{ $message }}
+                        </span>
                     @enderror
                 </article>
                 <article class="cont-input-info-basica">
                     <p>Barrio</p>
-                    <select name="neighborhood" id="barrioSelect" required>
+                    <select name="neighborhood" id="barrioSelect" required
+                            class="{{ $errors->has('neighborhood') ? 'error-input' : '' }}">
                         <option value="">Seleccione una opción</option>
                         @foreach($barrios as $barrio)
                             <option value="{{ $barrio->nombre_barrio }}" {{ old('neighborhood') == $barrio->nombre_barrio ? 'selected' : '' }}>
@@ -113,14 +171,19 @@
                         @endforeach
                     </select>
                     @error('neighborhood')
-                        <span class="error-message">{{ $message }}</span>
+                        <span class="error-message" style="color: #dc3545; font-size: 0.875rem; margin-top: 5px; display: block;">
+                            <strong>Error:</strong> {{ $message }}
+                        </span>
                     @enderror
                 </article>
                 <article class="cont-input-info-basica">
                     <p>Descripción breve de la tienda</p>
-                    <textarea name="description" id="descripcionTienda" placeholder="Agrega una breve descripcion de tu tienda">{{ old('description') }}</textarea>
+                    <textarea name="description" id="descripcionTienda" placeholder="Agrega una breve descripcion de tu tienda"
+                              class="{{ $errors->has('description') ? 'error-input' : '' }}">{{ old('description') }}</textarea>
                     @error('description')
-                        <span class="error-message">{{ $message }}</span>
+                        <span class="error-message" style="color: #dc3545; font-size: 0.875rem; margin-top: 5px; display: block;">
+                            <strong>Error:</strong> {{ $message }}
+                        </span>
                     @enderror
                 </article>
                 <article class="cont-titulo-seccion">

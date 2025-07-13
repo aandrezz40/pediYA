@@ -59,16 +59,16 @@ class TenderoController extends Controller
         try {
             // Validar datos del formulario
             $request->validate([
-                'store_name' => 'required|string|max:255',
+                'store_name' => 'required|string|max:255|min:3',
                 'description' => 'nullable|string|max:500',
-                'address_line_1' => 'required|string|max:255',
+                'address_line_1' => 'required|string|max:255|min:10',
                 'neighborhood' => 'required|string|max:255',
-                'delivery_contact_phone' => 'nullable|string|max:20',
+                'delivery_contact_phone' => 'nullable|string|max:20|regex:/^[0-9+\-\s()]+$/',
                 'offers_delivery' => 'boolean',
                 'dias' => 'nullable|array',
                 'payment_methods' => 'required|array|min:1',
                 'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
-                'runt_number' => 'nullable|string|max:100',
+                'runt_number' => 'nullable|string|max:100|regex:/^[0-9\-]+$/',
                 'chamber_of_commerce_registration' => 'nullable|string|max:100',
                 'documento_identidad' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
                 'documento_camara_comercio' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -76,16 +76,21 @@ class TenderoController extends Controller
                 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             ], [
                 'store_name.required' => 'El nombre de la tienda es obligatorio.',
+                'store_name.min' => 'El nombre de la tienda debe tener al menos 3 caracteres.',
                 'store_name.max' => 'El nombre de la tienda no puede tener más de 255 caracteres.',
+                'description.max' => 'La descripción no puede tener más de 500 caracteres.',
                 'address_line_1.required' => 'La dirección de la tienda es obligatoria.',
+                'address_line_1.min' => 'La dirección debe tener al menos 10 caracteres.',
                 'address_line_1.max' => 'La dirección no puede tener más de 255 caracteres.',
                 'neighborhood.required' => 'Debes seleccionar un barrio.',
                 'delivery_contact_phone.max' => 'El teléfono no puede tener más de 20 caracteres.',
+                'delivery_contact_phone.regex' => 'El formato del teléfono no es válido. Solo se permiten números, espacios, guiones y paréntesis.',
                 'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
                 'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
                 'payment_methods.*.integer' => 'Método de pago inválido.',
                 'payment_methods.*.in' => 'Método de pago no válido.',
                 'runt_number.max' => 'El número RUNT no puede tener más de 100 caracteres.',
+                'runt_number.regex' => 'El número RUNT solo puede contener números y guiones.',
                 'chamber_of_commerce_registration.max' => 'El registro de Cámara de Comercio no puede tener más de 100 caracteres.',
                 'documento_identidad.required' => 'Debes subir tu documento de identidad.',
                 'documento_identidad.file' => 'El documento de identidad debe ser un archivo.',
@@ -101,6 +106,9 @@ class TenderoController extends Controller
                 'logo.mimes' => 'El logo debe ser JPG, JPEG, PNG, GIF o WEBP.',
                 'logo.max' => 'El logo no puede superar 2MB.',
             ]);
+
+            // Validaciones adicionales personalizadas
+            $this->validateCustomRules($request);
 
             // Procesar horarios y convertirlos a string
             $schedule = $this->processSchedule($request);
@@ -172,16 +180,154 @@ class TenderoController extends Controller
             // Los errores de validación se manejan automáticamente por Laravel
             // y se redirigen de vuelta al formulario con los errores
             throw $e;
-        } catch (\Exception $e) {
-            Log::error('Error al registrar tienda', [
+        } catch (\Illuminate\Database\QueryException $e) {
+            Log::error('Error de base de datos al registrar tienda', [
                 'user_id' => $user->id,
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'sql' => $e->getSql(),
+                'bindings' => $e->getBindings()
+            ]);
+
+            $errorMessage = 'Error al guardar la información en la base de datos. ';
+            if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                $errorMessage .= 'Ya existe una tienda con ese nombre.';
+            } elseif (str_contains($e->getMessage(), 'foreign key constraint')) {
+                $errorMessage .= 'Error en la relación de datos.';
+            } else {
+                $errorMessage .= 'Por favor, intenta nuevamente.';
+            }
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $errorMessage);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::error('Modelo no encontrado al registrar tienda', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage()
             ]);
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Ha ocurrido un error inesperado al registrar tu tienda. Por favor, intenta nuevamente. Si el problema persiste, contacta al soporte técnico.');
+                ->with('error', 'Error: No se pudo encontrar la información necesaria. Por favor, recarga la página e intenta nuevamente.');
+
+        } catch (\Symfony\Component\HttpFoundation\File\Exception\FileException $e) {
+            Log::error('Error al procesar archivos', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage()
+            ]);
+
+            $errorMessage = 'Error al procesar los archivos subidos. ';
+            if (str_contains($e->getMessage(), 'disk full')) {
+                $errorMessage .= 'El servidor está sin espacio de almacenamiento.';
+            } elseif (str_contains($e->getMessage(), 'permission denied')) {
+                $errorMessage .= 'Error de permisos al guardar archivos.';
+            } else {
+                $errorMessage .= 'Verifica que los archivos sean válidos y no estén corruptos.';
+            }
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $errorMessage);
+
+        } catch (\Illuminate\Mail\Transport\TransportException $e) {
+            Log::error('Error al enviar correo electrónico', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage()
+            ]);
+
+            // La tienda se creó exitosamente, pero falló el envío de correo
+            return redirect()->route('homeTendero')
+                ->with('warning', '¡Tienda registrada exitosamente! Sin embargo, hubo un problema al enviar la notificación por correo. Los administradores serán notificados manualmente.');
+
+        } catch (\Exception $e) {
+            Log::error('Error inesperado al registrar tienda', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            $errorMessage = 'Ha ocurrido un error inesperado: ';
+            
+            // Determinar el tipo de error basado en el mensaje
+            if (str_contains($e->getMessage(), 'storage')) {
+                $errorMessage .= 'Error de almacenamiento. Verifica que los archivos sean válidos.';
+            } elseif (str_contains($e->getMessage(), 'memory')) {
+                $errorMessage .= 'Error de memoria del servidor. Intenta con archivos más pequeños.';
+            } elseif (str_contains($e->getMessage(), 'timeout')) {
+                $errorMessage .= 'Tiempo de espera agotado. Verifica tu conexión a internet.';
+            } elseif (str_contains($e->getMessage(), 'permission')) {
+                $errorMessage .= 'Error de permisos. Contacta al administrador.';
+            } else {
+                $errorMessage .= 'Error técnico. Por favor, intenta nuevamente. Si el problema persiste, contacta al soporte técnico con el código de error: ' . substr(md5($e->getMessage()), 0, 8);
+            }
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $errorMessage);
+        }
+    }
+
+    /**
+     * Validaciones adicionales personalizadas
+     */
+    private function validateCustomRules(Request $request)
+    {
+        $errors = [];
+
+        // Validar que al menos un día esté seleccionado si se ofrece domicilio
+        if ($request->offers_delivery && empty($request->dias)) {
+            $errors['dias'] = 'Si ofreces servicio de domicilio, debes seleccionar al menos un día de atención.';
+        }
+
+        // Validar que si se seleccionan días, tengan horarios válidos
+        if (!empty($request->dias)) {
+            foreach ($request->dias as $dia) {
+                $diaKey = strtolower($dia);
+                $horaInicio = $request->input("hora_inicio_{$diaKey}");
+                $horaFin = $request->input("hora_fin_{$diaKey}");
+
+                if (empty($horaInicio) || empty($horaFin)) {
+                    $errors["hora_inicio_{$diaKey}"] = "Debes especificar horarios completos para {$dia}.";
+                } elseif ($horaInicio >= $horaFin) {
+                    $errors["hora_fin_{$diaKey}"] = "La hora de fin debe ser posterior a la hora de inicio para {$dia}.";
+                }
+            }
+        }
+
+        // Validar que el nombre de la tienda no contenga caracteres especiales inapropiados
+        if (preg_match('/[<>{}]/', $request->store_name)) {
+            $errors['store_name'] = 'El nombre de la tienda no puede contener caracteres especiales como <, >, {, }.';
+        }
+
+        // Validar que la dirección no contenga caracteres especiales inapropiados
+        if (preg_match('/[<>{}]/', $request->address_line_1)) {
+            $errors['address_line_1'] = 'La dirección no puede contener caracteres especiales como <, >, {, }.';
+        }
+
+        // Validar que el teléfono tenga al menos 7 dígitos si se proporciona
+        if (!empty($request->delivery_contact_phone)) {
+            $digitsOnly = preg_replace('/[^0-9]/', '', $request->delivery_contact_phone);
+            if (strlen($digitsOnly) < 7) {
+                $errors['delivery_contact_phone'] = 'El teléfono debe tener al menos 7 dígitos.';
+            }
+        }
+
+        // Validar que el RUNT tenga el formato correcto si se proporciona
+        if (!empty($request->runt_number)) {
+            if (!preg_match('/^\d{9,10}(-\d{1,2})?$/', $request->runt_number)) {
+                $errors['runt_number'] = 'El número RUNT debe tener 9 o 10 dígitos, opcionalmente seguido de un guión y 1 o 2 dígitos.';
+            }
+        }
+
+        // Si hay errores, lanzar excepción de validación
+        if (!empty($errors)) {
+            throw new \Illuminate\Validation\ValidationException(
+                validator([], []),
+                response()->json($errors, 422)
+            );
         }
     }
 

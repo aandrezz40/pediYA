@@ -282,21 +282,6 @@ class TenderoController extends Controller
             $errors['dias'] = 'Si ofreces servicio de domicilio, debes seleccionar al menos un día de atención.';
         }
 
-        // Validar que si se seleccionan días, tengan horarios válidos
-        if (!empty($request->dias)) {
-            foreach ($request->dias as $dia) {
-                $diaKey = strtolower($dia);
-                $horaInicio = $request->input("hora_inicio_{$diaKey}");
-                $horaFin = $request->input("hora_fin_{$diaKey}");
-
-                if (empty($horaInicio) || empty($horaFin)) {
-                    $errors["hora_inicio_{$diaKey}"] = "Debes especificar horarios completos para {$dia}.";
-                } elseif ($horaInicio >= $horaFin) {
-                    $errors["hora_fin_{$diaKey}"] = "La hora de fin debe ser posterior a la hora de inicio para {$dia}.";
-                }
-            }
-        }
-
         // Validar que el nombre de la tienda no contenga caracteres especiales inapropiados
         if (preg_match('/[<>{}]/', $request->store_name)) {
             $errors['store_name'] = 'El nombre de la tienda no puede contener caracteres especiales como <, >, {, }.';

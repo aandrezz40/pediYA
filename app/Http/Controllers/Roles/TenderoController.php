@@ -56,102 +56,133 @@ class TenderoController extends Controller
             return redirect()->route('homeTendero');
         }
 
-        // Validar datos del formulario
-        $request->validate([
-            'store_name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:500',
-            'address_line_1' => 'required|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'delivery_contact_phone' => 'nullable|string|max:20',
-            'offers_delivery' => 'boolean',
-            'dias' => 'nullable|array',
-            'payment_methods' => 'required|array|min:1',
-            'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
-            'runt_number' => 'nullable|string|max:100',
-            'chamber_of_commerce_registration' => 'nullable|string|max:100',
-            'documento_identidad' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documento_camara_comercio' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'authorization' => 'required|accepted',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ], [
-            'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
-            'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
-            'documento_identidad.required' => 'Debes subir tu documento de identidad.',
-            'documento_identidad.file' => 'El documento de identidad debe ser un archivo.',
-            'documento_identidad.mimes' => 'El documento de identidad debe ser PDF, JPG, JPEG o PNG.',
-            'documento_identidad.max' => 'El documento de identidad no puede superar 5MB.',
-            'documento_camara_comercio.required' => 'Debes subir el registro de Cámara de Comercio.',
-            'documento_camara_comercio.file' => 'El registro de Cámara de Comercio debe ser un archivo.',
-            'documento_camara_comercio.mimes' => 'El registro de Cámara de Comercio debe ser PDF, JPG, JPEG o PNG.',
-            'documento_camara_comercio.max' => 'El registro de Cámara de Comercio no puede superar 5MB.',
-            'authorization.required' => 'Debes aceptar la autorización para continuar.',
-            'authorization.accepted' => 'Debes aceptar la autorización para continuar.',
-        ]);
-
-        // Procesar horarios y convertirlos a string
-        $schedule = $this->processSchedule($request);
-
-        // Preparar datos de la tienda
-        $storeData = [
-            'name' => $request->store_name,
-            'description' => $request->description,
-            'address_street' => $request->address_line_1,
-            'address_neighborhood' => $request->neighborhood,
-            'delivery_contact_phone' => $request->delivery_contact_phone,
-            'offers_delivery' => $request->offers_delivery ?? false,
-            'schedule' => $schedule,
-            'runt_number' => $request->runt_number,
-            'chamber_of_commerce_registration' => $request->chamber_of_commerce_registration,
-        ];
-
-        // Procesar imagen si se subió
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('store-logos', 'public');
-            $storeData['logo_path'] = $logoPath;
-        }
-
-        // Crear la tienda
-        $store = $user->store()->create($storeData);
-
-        // Guardar los métodos de pago seleccionados
-        if ($request->has('payment_methods') && is_array($request->payment_methods)) {
-            $store->paymentMethods()->attach($request->payment_methods);
-        }
-
-        // Procesar y guardar documentos
-        $documentos = [];
-        
-        if ($request->hasFile('documento_identidad')) {
-            $documentoIdentidadPath = $request->file('documento_identidad')->store('documentos/identidad', 'public');
-            $documentos['identidad'] = $documentoIdentidadPath;
-        }
-        
-        if ($request->hasFile('documento_camara_comercio')) {
-            $documentoCamaraPath = $request->file('documento_camara_comercio')->store('documentos/camara_comercio', 'public');
-            $documentos['camara_comercio'] = $documentoCamaraPath;
-        }
-
-        // Enviar documentos por correo
         try {
-            $this->enviarDocumentosPorCorreo($user, $store, $documentos);
+            // Validar datos del formulario
+            $request->validate([
+                'store_name' => 'required|string|max:255',
+                'description' => 'nullable|string|max:500',
+                'address_line_1' => 'required|string|max:255',
+                'neighborhood' => 'required|string|max:255',
+                'delivery_contact_phone' => 'nullable|string|max:20',
+                'offers_delivery' => 'boolean',
+                'dias' => 'nullable|array',
+                'payment_methods' => 'required|array|min:1',
+                'payment_methods.*' => 'integer|in:1,2,3,4,5,6',
+                'runt_number' => 'nullable|string|max:100',
+                'chamber_of_commerce_registration' => 'nullable|string|max:100',
+                'documento_identidad' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'documento_camara_comercio' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'authorization' => 'required|accepted',
+                'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            ], [
+                'store_name.required' => 'El nombre de la tienda es obligatorio.',
+                'store_name.max' => 'El nombre de la tienda no puede tener más de 255 caracteres.',
+                'address_line_1.required' => 'La dirección de la tienda es obligatoria.',
+                'address_line_1.max' => 'La dirección no puede tener más de 255 caracteres.',
+                'neighborhood.required' => 'Debes seleccionar un barrio.',
+                'delivery_contact_phone.max' => 'El teléfono no puede tener más de 20 caracteres.',
+                'payment_methods.required' => 'Debes seleccionar al menos un método de pago.',
+                'payment_methods.min' => 'Debes seleccionar al menos un método de pago.',
+                'payment_methods.*.integer' => 'Método de pago inválido.',
+                'payment_methods.*.in' => 'Método de pago no válido.',
+                'runt_number.max' => 'El número RUNT no puede tener más de 100 caracteres.',
+                'chamber_of_commerce_registration.max' => 'El registro de Cámara de Comercio no puede tener más de 100 caracteres.',
+                'documento_identidad.required' => 'Debes subir tu documento de identidad.',
+                'documento_identidad.file' => 'El documento de identidad debe ser un archivo.',
+                'documento_identidad.mimes' => 'El documento de identidad debe ser PDF, JPG, JPEG o PNG.',
+                'documento_identidad.max' => 'El documento de identidad no puede superar 5MB.',
+                'documento_camara_comercio.required' => 'Debes subir el registro de Cámara de Comercio.',
+                'documento_camara_comercio.file' => 'El registro de Cámara de Comercio debe ser un archivo.',
+                'documento_camara_comercio.mimes' => 'El registro de Cámara de Comercio debe ser PDF, JPG, JPEG o PNG.',
+                'documento_camara_comercio.max' => 'El registro de Cámara de Comercio no puede superar 5MB.',
+                'authorization.required' => 'Debes aceptar la autorización para continuar.',
+                'authorization.accepted' => 'Debes aceptar la autorización para continuar.',
+                'logo.image' => 'El logo debe ser una imagen.',
+                'logo.mimes' => 'El logo debe ser JPG, JPEG, PNG, GIF o WEBP.',
+                'logo.max' => 'El logo no puede superar 2MB.',
+            ]);
+
+            // Procesar horarios y convertirlos a string
+            $schedule = $this->processSchedule($request);
+
+            // Preparar datos de la tienda
+            $storeData = [
+                'name' => $request->store_name,
+                'description' => $request->description,
+                'address_street' => $request->address_line_1,
+                'address_neighborhood' => $request->neighborhood,
+                'delivery_contact_phone' => $request->delivery_contact_phone,
+                'offers_delivery' => $request->offers_delivery ?? false,
+                'schedule' => $schedule,
+                'runt_number' => $request->runt_number,
+                'chamber_of_commerce_registration' => $request->chamber_of_commerce_registration,
+            ];
+
+            // Procesar imagen si se subió
+            if ($request->hasFile('logo')) {
+                $logoPath = $request->file('logo')->store('store-logos', 'public');
+                $storeData['logo_path'] = $logoPath;
+            }
+
+            // Crear la tienda
+            $store = $user->store()->create($storeData);
+
+            // Guardar los métodos de pago seleccionados
+            if ($request->has('payment_methods') && is_array($request->payment_methods)) {
+                $store->paymentMethods()->attach($request->payment_methods);
+            }
+
+            // Procesar y guardar documentos
+            $documentos = [];
             
-            Log::info('Documentos de tienda enviados por correo exitosamente', [
-                'user_id' => $user->id,
-                'store_id' => $store->id,
-                'documentos' => array_keys($documentos)
-            ]);
+            if ($request->hasFile('documento_identidad')) {
+                $documentoIdentidadPath = $request->file('documento_identidad')->store('documentos/identidad', 'public');
+                $documentos['identidad'] = $documentoIdentidadPath;
+            }
+            
+            if ($request->hasFile('documento_camara_comercio')) {
+                $documentoCamaraPath = $request->file('documento_camara_comercio')->store('documentos/camara_comercio', 'public');
+                $documentos['camara_comercio'] = $documentoCamaraPath;
+            }
+
+            // Enviar documentos por correo
+            try {
+                $this->enviarDocumentosPorCorreo($user, $store, $documentos);
+                
+                Log::info('Documentos de tienda enviados por correo exitosamente', [
+                    'user_id' => $user->id,
+                    'store_id' => $store->id,
+                    'documentos' => array_keys($documentos)
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Error al enviar documentos por correo', [
+                    'user_id' => $user->id,
+                    'store_id' => $store->id,
+                    'error' => $e->getMessage()
+                ]);
+            }
+
+            // Actualizar estado del usuario a activo (1)
+            $user->update(['is_active' => TenderoStatus::ACTIVE]);
+
+            return redirect()->route('homeTendero')
+                ->with('success', '¡Tienda registrada exitosamente! Los documentos han sido enviados para verificación. Serás notificado por correo cuando tu tienda esté activa.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Los errores de validación se manejan automáticamente por Laravel
+            // y se redirigen de vuelta al formulario con los errores
+            throw $e;
         } catch (\Exception $e) {
-            Log::error('Error al enviar documentos por correo', [
+            Log::error('Error al registrar tienda', [
                 'user_id' => $user->id,
-                'store_id' => $store->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
             ]);
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Ha ocurrido un error inesperado al registrar tu tienda. Por favor, intenta nuevamente. Si el problema persiste, contacta al soporte técnico.');
         }
-
-        // Actualizar estado del usuario a activo (1)
-        $user->update(['is_active' => TenderoStatus::ACTIVE]);
-
-        return redirect()->route('tendero.homeTendero')
-            ->with('success', 'Tienda registrada correctamente. Los documentos han sido enviados para verificación. ¡Bienvenido!');
     }
 
     /**

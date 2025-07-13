@@ -89,38 +89,76 @@ document.addEventListener('DOMContentLoaded', () => {
   renderizarPaso('next'); // 'next' o 'back' no importa en el primer render
 });
 
-
-// Referencias
-const form       = document.querySelector('.form-registro-tienda');
-const modal      = document.getElementById('modalExito');
-const btnCerrar  = document.getElementById('btnCerrarModal');
+// ——— 5. Manejo del envío del formulario ———
+const form = document.querySelector('.form-registro-tienda');
 
 form.addEventListener('submit', function(event) {
-  event.preventDefault(); // 1) Evita el envío sincronous tradicional
-
-  // 2) Empaqueta los datos del formulario
-  const datos = new FormData(form);
-
-  // 3) Envía los datos vía fetch (POST)
-  fetch(form.action, {
-    method: form.method,    // "POST"
-    body: datos
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Hubo un problema al enviar el formulario');
-    }
-    return response.json();  // o response.text(), según tu API
-  })
-  .then(data => {
-    // 4) Aquí ya sabemos que el envío fue exitoso
-    modal.showModal();       // abre el <dialog>
-  })
-  .catch(err => {
-    console.error(err);
-    alert('Error al enviar. Intenta de nuevo.');
-  });
+  // No prevenir el envío por defecto para permitir que Laravel maneje la validación
+  // y redirección automáticamente
+  
+  // Mostrar indicador de carga
+  const submitBtn = document.getElementById('enviarRegistroTienda');
+  const originalText = submitBtn.value;
+  submitBtn.value = 'Enviando...';
+  submitBtn.disabled = true;
+  
+  // El formulario se enviará normalmente y Laravel manejará:
+  // - Validación y errores (redirigirá de vuelta con errores)
+  // - Éxito (redirigirá al home del tendero)
 });
 
-// Cerrar el modal cuando el usuario pulse
-btnCerrar.addEventListener('click', () => modal.close());
+// Función para mostrar mensajes de error personalizados
+function mostrarError(mensaje) {
+  // Crear un elemento de error temporal
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-message-global';
+  errorDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #dc3545;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 300px;
+  `;
+  errorDiv.textContent = mensaje;
+  
+  document.body.appendChild(errorDiv);
+  
+  // Remover después de 5 segundos
+  setTimeout(() => {
+    if (errorDiv.parentNode) {
+      errorDiv.parentNode.removeChild(errorDiv);
+    }
+  }, 5000);
+}
+
+// Función para mostrar mensajes de éxito
+function mostrarExito(mensaje) {
+  const successDiv = document.createElement('div');
+  successDiv.className = 'success-message-global';
+  successDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 300px;
+  `;
+  successDiv.textContent = mensaje;
+  
+  document.body.appendChild(successDiv);
+  
+  setTimeout(() => {
+    if (successDiv.parentNode) {
+      successDiv.parentNode.removeChild(successDiv);
+    }
+  }, 5000);
+}

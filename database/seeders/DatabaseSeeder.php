@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        // Ejecutar el seeder de métodos de pago
+        // Ejecutar los seeders
         $this->call([
             PaymentMethodSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }

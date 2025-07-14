@@ -10,6 +10,7 @@ class NotificationSystem {
     }
 
     init() {
+        console.log('Inicializando sistema de notificaciones...');
         this.loadUnreadCount();
         this.createNotificationsDropdown();
         this.setupEventListeners();
@@ -21,6 +22,7 @@ class NotificationSystem {
     }
 
     createNotificationsDropdown() {
+        console.log('Creando dropdown de notificaciones...');
         // Crear el dropdown de notificaciones
         const dropdown = document.createElement('div');
         dropdown.className = 'notifications-dropdown';
@@ -38,6 +40,7 @@ class NotificationSystem {
             z-index: 1000;
             display: none;
             overflow-y: auto;
+            margin-top: 5px;
         `;
 
         const header = document.createElement('div');
@@ -67,12 +70,14 @@ class NotificationSystem {
         // Insertar después del icono de notificación
         this.notificationIcon.parentNode.insertBefore(dropdown, this.notificationIcon.nextSibling);
         this.notificationsContainer = dropdown;
+        console.log('Dropdown creado y posicionado correctamente');
     }
 
     setupEventListeners() {
         // Toggle dropdown al hacer clic en el icono
         this.notificationIcon.addEventListener('click', (e) => {
-    e.stopPropagation();
+            console.log('Clic en icono de notificación');
+            e.stopPropagation();
             this.toggleDropdown();
         });
 
@@ -204,6 +209,7 @@ document.addEventListener('click', (e) => {
     }
 
     toggleDropdown() {
+        console.log('Toggle dropdown, estado actual:', this.notificationsContainer.style.display);
         if (this.notificationsContainer.style.display === 'none' || !this.notificationsContainer.style.display) {
             this.showDropdown();
         } else {
@@ -212,6 +218,7 @@ document.addEventListener('click', (e) => {
     }
 
     showDropdown() {
+        console.log('Mostrando dropdown de notificaciones');
         this.notificationsContainer.style.display = 'block';
         this.loadNotifications();
     }
@@ -242,5 +249,11 @@ document.addEventListener('click', (e) => {
 
 // Inicializar el sistema de notificaciones cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    new NotificationSystem();
-  });
+    const notificationIcon = document.getElementById('notificacionIcon');
+    if (notificationIcon) {
+        console.log('Icono de notificación encontrado, inicializando sistema...');
+        new NotificationSystem();
+    } else {
+        console.log('Icono de notificación no encontrado, omitiendo inicialización');
+    }
+});

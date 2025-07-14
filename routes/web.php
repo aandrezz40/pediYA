@@ -85,6 +85,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/tendero/update-store-basic', [TenderoController::class, 'updateStoreBasicInfo'])->name('tendero.updateStoreBasic');
         Route::post('/tendero/update-store-schedule', [TenderoController::class, 'updateStoreSchedule'])->name('tendero.updateStoreSchedule');
         Route::post('/tendero/update-store-payment-methods', [TenderoController::class, 'updateStorePaymentMethods'])->name('tendero.updateStorePaymentMethods');
+        
+        // Rutas para gestión de productos
+        Route::post('/tendero/agregar-producto', [TenderoController::class, 'agregarProducto'])->name('tendero.agregarProducto');
+        Route::get('/tendero/producto/{product}', [TenderoController::class, 'obtenerProducto'])->name('tendero.obtenerProducto');
+        Route::post('/tendero/editar-producto', [TenderoController::class, 'editarProducto'])->name('tendero.editarProducto');
+        Route::delete('/tendero/eliminar-producto/{product}', [TenderoController::class, 'eliminarProducto'])->name('tendero.eliminarProducto');
+        
+        // Rutas para gestión de categorías
+        Route::post('/tendero/crear-categoria', [TenderoController::class, 'crearCategoria'])->name('tendero.crearCategoria');
+        
+        // Ruta para cambiar estado de la tienda
+        Route::post('/tendero/cambiar-estado-tienda', [TenderoController::class, 'cambiarEstadoTienda'])->name('tendero.cambiarEstadoTienda');
     });
 
     // Rutas del tendero para registro de tienda

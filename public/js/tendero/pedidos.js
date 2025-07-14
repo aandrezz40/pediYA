@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const contadores = {};
         
         estados.forEach(estado => {
-            contadores[estado] = document.querySelectorAll(`[data-estado="${estado}"]`).length;
+            contadores[estado] = (document.querySelectorAll(`[data-estado="${estado}"]`).length) - 1;
         });
         
         // Actualizar texto de los filtros con contadores

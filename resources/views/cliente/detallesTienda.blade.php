@@ -60,7 +60,7 @@
             @forelse ($products as $product)
                 <article class="card-producto" data-category-id="{{ $product->category_id ?? 0 }}">
                     <section class="cont-img-tienda-producto">
-                        <img src="{{ asset('img/apple-2788616_640.jpg') }}" alt="">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
                     </section>
                     <section class="cont-info-producto">
                         <h3>{{ $product->name }}</h3>

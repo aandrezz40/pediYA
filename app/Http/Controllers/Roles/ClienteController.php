@@ -32,7 +32,7 @@ class ClienteController extends Controller
 
         $store = Store::findOrFail($id);
         $owner = User::findOrFail($store->user_id);
-        $products = Product::where('store_id', $id ?? null)->get();
+        $products = Product::where('store_id', $id ?? null)->with('category')->get();
         $categories = Category::where('store_id', $id ?? null)->get();
 
 
@@ -54,7 +54,7 @@ class ClienteController extends Controller
 
         $categories = Category::where('store_id', $store->id ?? null)->get();
         
-        $products = Product::where('store_id', $store->id ?? null)->get();
+        $products = Product::where('store_id', $store->id ?? null)->with('category')->get();
 
 
 
@@ -82,7 +82,7 @@ class ClienteController extends Controller
         if ($id == 0) {
             $store = Store::findOrFail($idTienda);
             $categories = Category::where('store_id', $idTienda ?? null)->get();
-            $products = Product::where('store_id', $idTienda ?? null)->get();
+            $products = Product::where('store_id', $idTienda ?? null)->with('category')->get();
 
 
             // Opcional: puedes retornar HTML o JSON
@@ -95,7 +95,7 @@ class ClienteController extends Controller
             $category = Category::findOrFail($id);
 
             // Obtiene los productos de esa categoría
-            $products = Product::where('category_id', $category->id)->get();
+            $products = Product::where('category_id', $category->id)->with('category')->get();
 
             // Opcional: puedes retornar HTML o JSON
             return response()->json([

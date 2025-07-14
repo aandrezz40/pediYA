@@ -601,17 +601,35 @@
         <script>
             // Manejo de mensajes de alerta
             document.addEventListener('DOMContentLoaded', function() {
-                // Auto-ocultar mensajes de alerta después de 5 segundos
+                // Agregar botón de cerrar a las alertas
                 const alerts = document.querySelectorAll('.alert');
                 alerts.forEach(alert => {
-                    setTimeout(() => {
+                    // Agregar botón de cerrar
+                    const closeButton = document.createElement('button');
+                    closeButton.innerHTML = '&times;';
+                    closeButton.style.cssText = `
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+                        background: none;
+                        border: none;
+                        color: inherit;
+                        font-size: 20px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    `;
+                    closeButton.onclick = function() {
                         alert.style.animation = 'slideOutRight 0.5s ease-out';
                         setTimeout(() => {
                             if (alert.parentNode) {
                                 alert.parentNode.removeChild(alert);
                             }
                         }, 500);
-                    }, 5000);
+                    };
+                    
+                    // Hacer la alerta relativa para posicionar el botón
+                    alert.style.position = 'relative';
+                    alert.appendChild(closeButton);
                 });
 
                 // Si hay un mensaje de éxito, redirigir al home del tendero después de 3 segundos

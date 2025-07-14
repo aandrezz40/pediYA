@@ -29,12 +29,14 @@
 
     
     <section class="bar-buttons">
+        @if(auth()->check())
         <article class="icono-notificacion-view" id="notificacionIcon">
             <img class="" src="{{ asset('img/bell-regular.svg') }}" alt="" srcset="">
             <section class="num-notificaciones" id="notificacionCount" style="display: none;">
                 <span id="notificacionNumber">0</span>
             </section>
         </article>
+        @endif
         @if(auth()->check() && auth()->user()->role === 'cliente')
         <div class="cont-icono-carrito">
             <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
@@ -45,21 +47,6 @@
         @endif
     </section>
 </header>
-    <section class="contenedor-notificaciones">
-        <h2>Notificaciones</h2>
-        <section class="cont-cards-notificacion">
-            <article class="card-notificacion">
-                <p class="texto-notificacion">Tu pedido realizado en la tienda: <span>Don Julio</span>, listo para recoger</p>
-                <svg class="cerrar-notificacion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#7400C4" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-            </article>
-            <article class="card-notificacion">
-                <p class="texto-notificacion">Tu pedido realizado en la tienda: <span>Don Julio</span>, listo para recoger</p>
-                <svg class="cerrar-notificacion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#7400C4" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-            </article>
-    
-        </section>
-        <button type="submit">Limpiar notificaciones</button>
-    </section>
     <aside id="cont-nav-bar">
         <section class="nav-bar">
             <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
@@ -83,11 +70,6 @@
                 </a>
                 <article class="container-links">
                     <h3>Pedidos</h3>
-                    <!-- <section class="links">
-                        <a href="" class="link">Tiendas</a>
-                        <a href="" class="link">Favoritos</a>
-                        <a href="" class="link">Historial</a>
-                    </section> -->
                 </article>
             </div>
             @endif

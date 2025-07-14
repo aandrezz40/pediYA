@@ -29,7 +29,15 @@ class TenderoController extends Controller
                 ->with('warning', TenderoStatus::getStatusMessage($user));
         }
 
-        return view('tendero.homeTendero');
+        // Obtener la tienda del usuario con sus productos y categorías
+        $store = $user->store()->with(['product.category', 'category'])->first();
+        
+        if (!$store) {
+            return redirect()->route('tendero.registroTienda')
+                ->with('error', 'No se encontró información de tu tienda. Por favor, completa el registro.');
+        }
+
+        return view('tendero.homeTendero', compact('store'));
     }
 
     public function registroTienda()
@@ -134,6 +142,27 @@ class TenderoController extends Controller
 
             // Crear la tienda
             $store = $user->store()->create($storeData);
+
+            // Crear categorías básicas para la tienda
+            $categoriasBasicas = [
+                'Frutas y Verduras',
+                'Carnes',
+                'Lácteos',
+                'Panadería',
+                'Bebidas',
+                'Snacks',
+                'Condimentos',
+                'Limpieza',
+                'Higiene Personal',
+                'Otros'
+            ];
+
+            foreach ($categoriasBasicas as $categoria) {
+                Category::create([
+                    'store_id' => $store->id,
+                    'name' => $categoria
+                ]);
+            }
 
             // Guardar los métodos de pago seleccionados
             if ($request->has('payment_methods') && is_array($request->payment_methods)) {
@@ -728,6 +757,341 @@ class TenderoController extends Controller
         $store->paymentMethods()->sync($paymentMethods);
 
         return redirect()->back()->with('success', 'Métodos de pago actualizados correctamente.');
+    }
+
+    /**
+     * Cambiar estado de la tienda (abierta/cerrada)
+     */
+    public function cambiarEstadoTienda(Request $request)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store) {
+            return response()->json(['success' => false, 'message' => 'Tienda no encontrada'], 404);
+        }
+
+        $request->validate([
+            'is_open' => 'required|boolean'
+        ]);
+
+        try {
+            $store->update(['is_open' => $request->is_open]);
+            
+            return response()->json([
+                'success' => true, 
+                'message' => 'Estado de tienda actualizado correctamente',
+                'is_open' => $store->is_open
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error al cambiar estado de tienda', [
+                'user_id' => $user->id,
+                'store_id' => $store->id,
+                'error' => $e->getMessage()
+            ]);
+            
+            return response()->json([
+                'success' => false, 
+                'message' => 'Error al actualizar el estado de la tienda'
+            ], 500);
+        }
+    }
+
+    /**
+     * Agregar nuevo producto
+     */
+    public function agregarProducto(Request $request)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes una tienda registrada.'
+            ], 400);
+        }
+
+
+
+        $request->validate([
+            'producto_id' => 'nullable|prohibited', // No debe estar presente para crear
+            'name' => 'required|string|max:255|min:3',
+            'description' => 'nullable|string|max:500',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'nullable|exists:categories,id',
+            'stock' => 'nullable|integer|min:0',
+            'is_available' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ], [
+            'name.required' => 'El nombre del producto es obligatorio.',
+            'name.min' => 'El nombre del producto debe tener al menos 3 caracteres.',
+            'name.max' => 'El nombre del producto no puede tener más de 255 caracteres.',
+            'price.required' => 'El precio del producto es obligatorio.',
+            'price.numeric' => 'El precio debe ser un número válido.',
+            'price.min' => 'El precio no puede ser negativo.',
+            'category_id.exists' => 'La categoría seleccionada no existe.',
+            'stock.integer' => 'El stock debe ser un número entero.',
+            'stock.min' => 'El stock no puede ser negativo.',
+            'image.image' => 'El archivo debe ser una imagen.',
+            'image.mimes' => 'La imagen debe ser JPG, JPEG, PNG, GIF o WEBP.',
+            'image.max' => 'La imagen no puede superar 2MB.',
+        ]);
+
+        try {
+            $productData = [
+                'store_id' => $store->id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'category_id' => $request->category_id,
+                'stock' => $request->stock ?? 0,
+                'is_available' => $request->has('is_available'),
+            ];
+
+            // Procesar imagen si se subió
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('product-images', 'public');
+                $productData['image_path'] = $imagePath;
+            }
+
+            $product = Product::create($productData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Producto agregado correctamente.',
+                'product' => $product->load('category')
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error al agregar producto', [
+                'user_id' => $user->id,
+                'store_id' => $store->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al agregar el producto. Por favor, intenta nuevamente.'
+            ], 500);
+        }
+    }
+
+    /**
+     * Obtener datos de un producto para edición
+     */
+    public function obtenerProducto(Product $product)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store || $product->store_id !== $store->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permisos para editar este producto.'
+            ], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'product' => [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'category_id' => $product->category_id,
+                'stock' => $product->stock,
+                'is_available' => $product->is_available,
+                'image_url' => $product->image_url
+            ]
+        ]);
+    }
+
+    /**
+     * Editar producto existente
+     */
+    public function editarProducto(Request $request)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes una tienda registrada.'
+            ], 400);
+        }
+
+
+
+        $request->validate([
+            'producto_id' => 'required|exists:products,id',
+            'name' => 'required|string|max:255|min:3',
+            'description' => 'nullable|string|max:500',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'nullable|exists:categories,id',
+            'stock' => 'nullable|integer|min:0',
+            'is_available' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        try {
+            $product = Product::where('id', $request->producto_id)
+                ->where('store_id', $store->id)
+                ->first();
+
+            if (!$product) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Producto no encontrado.'
+                ], 404);
+            }
+
+            $productData = [
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'category_id' => $request->category_id,
+                'stock' => $request->stock ?? 0,
+                'is_available' => $request->has('is_available'),
+            ];
+
+            // Procesar imagen si se subió una nueva
+            if ($request->hasFile('image')) {
+                // Eliminar imagen anterior si existe
+                if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
+                    Storage::disk('public')->delete($product->image_path);
+                }
+
+                $imagePath = $request->file('image')->store('product-images', 'public');
+                $productData['image_path'] = $imagePath;
+            }
+
+            $product->update($productData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Producto actualizado correctamente.',
+                'product' => $product->load('category')
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error al editar producto', [
+                'user_id' => $user->id,
+                'store_id' => $store->id,
+                'product_id' => $request->producto_id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el producto. Por favor, intenta nuevamente.'
+            ], 500);
+        }
+    }
+
+    /**
+     * Crear nueva categoría
+     */
+    public function crearCategoria(Request $request)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes una tienda registrada.'
+            ], 400);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255|min:2',
+        ], [
+            'name.required' => 'El nombre de la categoría es obligatorio.',
+            'name.min' => 'El nombre de la categoría debe tener al menos 2 caracteres.',
+            'name.max' => 'El nombre de la categoría no puede tener más de 255 caracteres.',
+        ]);
+
+        try {
+            // Verificar que no exista una categoría con el mismo nombre en esta tienda
+            $categoriaExistente = Category::where('store_id', $store->id)
+                ->where('name', $request->name)
+                ->first();
+
+            if ($categoriaExistente) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ya existe una categoría con ese nombre en tu tienda.'
+                ], 400);
+            }
+
+            $categoria = Category::create([
+                'store_id' => $store->id,
+                'name' => $request->name
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Categoría creada correctamente.',
+                'category' => $categoria
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error al crear categoría', [
+                'user_id' => $user->id,
+                'store_id' => $store->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al crear la categoría. Por favor, intenta nuevamente.'
+            ], 500);
+        }
+    }
+
+    /**
+     * Eliminar producto
+     */
+    public function eliminarProducto(Product $product)
+    {
+        $user = auth()->user();
+        $store = $user->store;
+        
+        if (!$store || $product->store_id !== $store->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permisos para eliminar este producto.'
+            ], 403);
+        }
+
+        try {
+            // Eliminar imagen si existe
+            if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
+                Storage::disk('public')->delete($product->image_path);
+            }
+
+            $product->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Producto eliminado correctamente.'
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error al eliminar producto', [
+                'user_id' => $user->id,
+                'store_id' => $store->id,
+                'product_id' => $product->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el producto. Por favor, intenta nuevamente.'
+            ], 500);
+        }
     }
 
     /**

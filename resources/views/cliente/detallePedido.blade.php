@@ -21,7 +21,7 @@
             @foreach($order->orderItems as $item)
                 <article class="producto">
                     <article class="cont-img">
-                        <img src="{{ asset('img/rice-ball_.png') }}" alt="">
+                        <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product_name }}">
                     </article>
                     <article class="cont-info-prducto">
                         <h3>{{ $item->product_name }}</h3>

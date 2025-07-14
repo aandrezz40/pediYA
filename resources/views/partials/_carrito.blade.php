@@ -12,7 +12,7 @@
                         @foreach ($order->orderItems as $item)
                             <section class="cont-imagen-producto" id="cont-imagen-producto">
                                 <section class="cont-datos-producto">
-                                    <img src="{{ asset('img/rice-ball_.png') }}" alt="">
+                                    <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product_name }}">
                                     <article class="contDescripcion">
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">

@@ -39,7 +39,7 @@ class Store extends Model
     }
 
     public function category(){
-        return $this->hasMany(category::class);
+        return $this->hasMany(Category::class);
     }
 
     public function orders()

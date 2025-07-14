@@ -38,7 +38,30 @@
                 @else
                     <p>La tienda no ofrece servicio a domicilio.</p>
                 @endif
-                <p id="infoProceso" class="info-proceso">{{ ucfirst($order->status) }}</p>
+                <p id="infoProceso" class="info-proceso">
+                @switch($order->status)
+                                    @case('pending')
+                                        Pendiente
+                                        @break
+                                    @case('confirmed')
+                                        Confirmado
+                                        @break
+                                    @case('preparing')
+                                        En proceso
+                                        @break
+                                    @case('ready')
+                                        Pedido listo
+                                        @break
+                                    @case('delivered')
+                                        Entregado
+                                        @break
+                                    @case('cancelled')
+                                        Cancelado
+                                        @break
+                                    @default
+                                        {{ ucfirst($order->status) }}
+                                @endswitch
+                </p>
             </section>
 
             <section class="cont-productos-pedido">
@@ -57,7 +80,7 @@
 
                         @foreach ($items as $item)
                             <article class="producto-pedido">
-                                <img src="{{ asset('img/rice-ball_.png') }}" alt="Producto">
+                                <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product->name }}">
                                 <section>
                                     <p>{{ $item->product->name }}</p>
                                     <p>${{ number_format($item->product->price, 2) }}</p>

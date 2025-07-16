@@ -34,7 +34,7 @@
             <section class="cont-info-pedido">
                 <h3>{{ $order->store->name }}</h3>
                 @if ($order->store->offers_delivery == 1)
-                    <p class="info-pedido-domicilio">Comunicate con la tienda para el domicilio: {{ $order->store->delivery_contact_phone }}</p>
+                    <p class="info-pedido-domicilio">Domicilio: {{ $order->store->delivery_contact_phone }}</p>
                 @else
                     <p>La tienda no ofrece servicio a domicilio.</p>
                 @endif
@@ -104,12 +104,10 @@
                 </section>
                 <article class="btns-historial-pedidos">
                     <button type="submit" id="btnConfirmarPedido" class="btn-Confirmar-Pedido">Confirmar compra</button>
-                    <article class="cont-soporte">
-                        <a href="{{ url('contacto') }}">
+                        <a class="cont-soporte" href="{{ url('contacto') }}">
                             <p>Soporte</p>
                             <img src="{{ asset('img/headset-solid.svg') }}" alt="Icono de soporte">
                         </a>
-                    </article>
                 </article>
             </article>
         </article>

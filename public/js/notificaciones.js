@@ -131,31 +131,53 @@ document.addEventListener('click', (e) => {
             content.innerHTML = data.notifications.data.map(notification => {
                 const isRead = notification.read_at !== null;
                 const timeAgo = this.getTimeAgo(notification.created_at);
-                
+
                 let message = '';
                 if (notification.data.type === 'cambio_estado_pedido') {
-                    message = `Tu pedido ${notification.data.order_code} cambió de estado`;
-                } else if (notification.data.type === 'nuevo_pedido') {
-                    message = `Nuevo pedido recibido de ${notification.data.customer_name}`;
-                }
-
-                return `
-                    <div class="notification-item ${isRead ? 'read' : 'unread'}" 
-                         data-id="${notification.id}"
-                         style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; ${!isRead ? 'background-color: #f8f9fa;' : ''}">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <div style="flex: 1;">
-                                <div style="font-weight: ${isRead ? '400' : '600'}; margin-bottom: 5px;">
-                                    ${message}
-                                </div>
-                                <div style="font-size: 12px; color: #666;">
-                                    ${timeAgo}
+                    message = `Cambió de estado tu pedido en la tienda: ${notification.data.store_name} `;
+                    return `
+                        <a href="/historialPedidos" style="color: black;">
+                            <div class="notification-item ${isRead ? 'read' : 'unread'}" 
+                                data-id="${notification.id}"
+                                style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; ${!isRead ? 'background-color: #f8f9fa;' : ''}">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: ${isRead ? '400' : '600'}; margin-bottom: 5px;">
+                                            ${message}
+                                        </div>
+                                        <div style="font-size: 12px; color: #666;">
+                                            ${timeAgo}
+                                        </div>
+                                    </div>
+                                    ${!isRead ? '<div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-left: 10px;"></div>' : ''}
                                 </div>
                             </div>
-                            ${!isRead ? '<div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-left: 10px;"></div>' : ''}
-                        </div>
-                    </div>
-                `;
+                        </a>
+                    `;
+                } else if (notification.data.type === 'nuevo_pedido') {
+                    message = `Nuevo pedido recibido de ${notification.data.customer_name}`;
+                    return `
+                        <a href="/tendero/pedidos" style="color: black;">
+                            <div class="notification-item ${isRead ? 'read' : 'unread'}" 
+                                data-id="${notification.id}"
+                                style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; ${!isRead ? 'background-color: #f8f9fa;' : ''}">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: ${isRead ? '400' : '600'}; margin-bottom: 5px;">
+                                            ${message}
+                                        </div>
+                                        <div style="font-size: 12px; color: #666;">
+                                            ${timeAgo}
+                                        </div>
+                                    </div>
+                                    ${!isRead ? '<div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-left: 10px;"></div>' : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                }
+                // Si no es ninguno de los dos tipos, puedes retornar un string vacío o un mensaje por defecto
+                return '';
             }).join('');
 
             // Agregar event listeners a los items

@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para buscar tiendas
     function buscarTiendas(query) {
-        if (query.length < 2) {
+        if (query.length < 1) {
             sugerenciasContainer.style.display = 'none';
             return;
         }

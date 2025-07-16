@@ -314,6 +314,7 @@ class ClienteController extends Controller
         $orders = $user->Orders()
             ->where('status', '!=', 'inactive')
             ->with(['orderItems.product.category', 'store'])
+            ->orderBy('created_at', 'desc') 
             ->get();
 
         return view('cliente.historialPedido', compact('user', 'orders'));

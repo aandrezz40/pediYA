@@ -103,7 +103,7 @@ function inicializarEventosCarrito() {
         let cantidadActual = parseInt(cantidadSpan.textContent) || 0;
 
         let cantidad = parseInt(cantidadSpan.textContent) || 0;
-        confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+        confirmarBtn.style.display =  'none';
 
         form.addEventListener('submit', e => {
             if (e.submitter === aumentarBtn || e.submitter === disminuirBtn) {
@@ -115,7 +115,7 @@ function inicializarEventosCarrito() {
             e.preventDefault();
             cantidad++;
             cantidadSpan.textContent = cantidad;
-            confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+            confirmarBtn.style.display = cantidad != cantidadActual ? 'inline-block' : 'none';
         });
 
         disminuirBtn.addEventListener('click', e => {
@@ -123,7 +123,7 @@ function inicializarEventosCarrito() {
             if (cantidad > 0) {
                 cantidad--;
                 cantidadSpan.textContent = cantidad;
-                confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+                confirmarBtn.style.display = cantidad != cantidadActual ? 'inline-block' : 'none';
             }
         });
     });

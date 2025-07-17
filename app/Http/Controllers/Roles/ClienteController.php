@@ -322,7 +322,13 @@ class ClienteController extends Controller
 
     public function actualizarCantidad(Request $request, $id){
 
+
         $orderItem = OrderItem::findOrFail($id);
+        $order = Order::findOrFail($orderItem->order_id);
+
+        $order->total_amount = $order->total_amount + (($orderItem->unit_price * $request->quantity)-$orderItem->subtotal  );
+        $order->save();
+
         $orderItem->quantity = $request->quantity;
         $orderItem->subtotal = $orderItem->unit_price * $request->quantity;
         $orderItem->save();

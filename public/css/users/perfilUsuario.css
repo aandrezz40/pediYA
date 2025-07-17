@@ -926,6 +926,7 @@ body{
         justify-content: center;
         gap:20px;
     }
+
 }
 
 @media screen and (max-width: 992px) {
@@ -959,7 +960,7 @@ body{
     }
     
     .card-config {
-        width: 48%;
+        width: 100%;
     }
     
     .cont-form-personal form {
@@ -1079,7 +1080,7 @@ body{
 }
 
 /* Para móviles pequeños (ancho máximo de 576px) */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 630px) {
     body {
         width: 100vw;
         overflow-x: hidden;
@@ -1087,6 +1088,9 @@ body{
     main {
         width: 100vw;
         padding: 10px;
+    }
+    .main-perfil-usuario{
+        flex-direction: column;
     }
     .cont-titulo-perfil h2 {
         font-size: 1rem;

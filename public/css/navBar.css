@@ -44,7 +44,6 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
 }
 /*BAR-LOGO*/
 .icono-hamburguesa{
@@ -165,9 +164,10 @@ header{
 }
 .cont-icono-carrito {
     position: relative;
-    height: 47px;
-    display: inline-block;
-    margin: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px 0px 5px;
 }
 
 .icono-carrito-view{
@@ -441,6 +441,7 @@ aside {
     right: 0;
 }
 .cont-buttons{
+    position: relative;
     width:100%;
     margin-top: 15px;
     display: flex;
@@ -448,6 +449,8 @@ aside {
     align-items: center;
 }
 .cont-buttons img{
+    position: absolute;
+    left: 15px;
     width: 40px;
     cursor: pointer;
 }

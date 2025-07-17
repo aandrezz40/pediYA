@@ -37,7 +37,7 @@
                             </section>
                         @endforeach
                         <article class="subtotalTienda">
-                            <p>Total en tienda: <span>18000</span></p>
+                            <p>Total en tienda: <span>{{ $order->total_amount }}</span></p>
                         </article>
                     </section>
                 </article>

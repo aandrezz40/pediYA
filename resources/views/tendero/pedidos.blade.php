@@ -28,7 +28,7 @@
                         <div class="pedido-info">
                             <h3>Pedido #{{ $order->order_code }}</h3>
                             <p class="cliente">Cliente: {{ $order->user->name }}</p>
-                            <p class="fecha">{{ $order->created_at->format('d/m/Y - h:i A') }}</p>
+                            <p class="fecha">{{ $order->created_at->setTimezone('America/Bogota')->format('d/m/Y - h:i A') }}</p>
                         </div>
                         <div class="estado-actual">
                             <span class="estado-badge estado-{{ $order->status }}">

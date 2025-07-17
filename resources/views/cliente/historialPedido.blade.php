@@ -100,7 +100,7 @@
             <article class="cont-info-pedido">
                 <section class="cont-total-pedido">
                     <p>Total: ${{ number_format($order->total_amount, 2) }}</p>
-                    <p>{{ $order->created_at->format('d/m/Y - h:i A') }}</p>
+                    <p>{{ $order->created_at->setTimezone('America/Bogota')->format('d/m/Y - h:i A') }}</p>
                 </section>
                 <article class="btns-historial-pedidos">
                     <button type="submit" id="btnConfirmarPedido" class="btn-Confirmar-Pedido">Confirmar compra</button>

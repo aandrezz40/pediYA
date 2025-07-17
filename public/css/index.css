@@ -105,7 +105,7 @@ header{
     border: 1px solid var(--color-borde-claro);
     border-radius: 10px;
     padding: 12px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .icono-carrito-view{
     width: 62px;
@@ -1045,8 +1045,8 @@ footer{
     }
     .cont-links-footer{
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
         width: 100%;
         height: 200px;
         margin-top: 20px;

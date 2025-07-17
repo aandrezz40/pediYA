@@ -43,6 +43,7 @@
                 <p>Cambia tu contraseña</p>
             </section>
 
+            @if(auth()->check() && auth()->user()->role === 'tendero')
             <section class="card-config" id="abirContInfoTienda">
                 <article class="cont-titulo-card">
                     <img src="{{ asset('img/logo-v1.1.png') }}" alt="">
@@ -50,6 +51,7 @@
                 </article>
                 <p>Actualiza los datos referentes a tu tienda</p>
             </section>
+            @endif
         </article>
     </section>
 
@@ -175,6 +177,7 @@
         </form>
     </section>
     <!--CONTENEDOR PARA EDITAR LA TIENDA-->
+    @if(auth()->check() && auth()->user()->role === 'tendero')
     <section class="container-info-tienda animate__animated  animate__fadeInRight">
         <article class="cont-encabezado-tienda">
             <section>
@@ -599,7 +602,7 @@
         </article>
         
     </section>
-
+    @endif
     <dialog id="modalCencelar" closedby="any">
         <article class="cont-info-modal">
             <h3>¿Estás seguro que quieres cancelar esta acción?</h3>

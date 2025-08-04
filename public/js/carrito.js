@@ -1,3 +1,35 @@
+// Función para mostrar mensajes
+function mostrarMensaje(texto, error = false) {
+    // Crear elemento de mensaje si no existe
+    let mensaje = document.getElementById('mensaje-flotante');
+    if (!mensaje) {
+        mensaje = document.createElement('div');
+        mensaje.id = 'mensaje-flotante';
+        mensaje.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 10000;
+            display: none;
+            max-width: 300px;
+            word-wrap: break-word;
+        `;
+        document.body.appendChild(mensaje);
+    }
+    
+    mensaje.innerText = texto;
+    mensaje.style.background = error ? '#dc3545' : '#62238D';
+    mensaje.style.display = 'block';
+    
+    setTimeout(() => {
+        mensaje.style.display = 'none';
+    }, 2500);
+}
+
 function inicializarEventosCarrito() {
     const contCarrito      = document.getElementById('contCarrito');
     const cerrarCarrito    = document.getElementById('cerrarCarrito');
@@ -98,7 +130,7 @@ function inicializarEventosCarrito() {
 
     console.log('✅ Carrito: Eventos asignados');
 
-    document.querySelectorAll('.eliminarProducto').forEach(btn => {
+    document.querySelectorAll('.eliminarOrden').forEach(btn => {
     btn.addEventListener('click', () => {
         const card = btn.closest('.card-carrito');
         const orderId = card.dataset.orderId;
@@ -118,6 +150,33 @@ function inicializarEventosCarrito() {
             if (data.mensaje) {
                 mostrarMensaje(data.mensaje);
                 card.remove(); // Elimina el HTML del carrito
+                
+                // Actualizar contador del carrito
+                const contadorCarrito = document.getElementById('contadorCarrito');
+                const spanContador = contadorCarrito.querySelector('span');
+                const totalTexto = document.querySelector('.cont-total p');
+                
+                // Reducir el contador en 1
+                const contadorActual = parseInt(spanContador.textContent) || 0;
+                const nuevoContador = Math.max(0, contadorActual - 1);
+                spanContador.textContent = nuevoContador;
+                
+                // Ocultar contador si no hay órdenes
+                if (nuevoContador === 0) {
+                    contadorCarrito.classList.add('hidden');
+                }
+                
+                // Verificar si no quedan órdenes en el carrito
+                const ordenesRestantes = document.querySelectorAll('.card-carrito');
+                if (ordenesRestantes.length === 0) {
+                    const contenedor = document.getElementById('contenedorCarritoInterno');
+                    contenedor.innerHTML = '<p class="mensaje-vacio">No hay productos en el carrito</p>';
+                    
+                    // Actualizar total a 0
+                    if (totalTexto) {
+                        totalTexto.innerHTML = '$0';
+                    }
+                }
             }
         })
         .catch(error => {
@@ -125,9 +184,53 @@ function inicializarEventosCarrito() {
             mostrarMensaje('Error al eliminar la orden', true);
         });
     });
-});
+    });
+
+            document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
+        button.addEventListener('click', async function () {
+            const form = this.closest('form');
+            const itemId = form.dataset.id;
+            const quantitySpan = form.querySelector('.cantidad-producto');
+            const quantityInput = form.querySelector('input[name="quantity"]');
+
+            const quantity = parseInt(quantitySpan.textContent.trim());
+            quantityInput.value = quantity; // Actualiza input oculto
+
+            try {
+                const response = await fetch(`/actualizar-cantidad/${itemId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ quantity })
+                });
+
+                const data = await response.json();
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
 }
 
+
+// Función global para actualizar contador del carrito
+window.actualizarContadorCarrito = function(nuevoContador) {
+    const contadorCarrito = document.getElementById('contadorCarrito');
+    const spanContador = contadorCarrito.querySelector('span');
+    
+    if (spanContador) {
+        spanContador.textContent = nuevoContador;
+        
+        if (nuevoContador > 0) {
+            contadorCarrito.classList.remove('hidden');
+        } else {
+            contadorCarrito.classList.add('hidden');
+        }
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     const abrirCarrito = document.getElementById('abrirCarrito');

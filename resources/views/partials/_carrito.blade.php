@@ -1,9 +1,9 @@
 
-            @foreach($orders as $order)
+            @forelse($orders as $order)
                 <article class="card-carrito" data-order-id="{{ $order->id }}">
                     <section class="cont-acciones">
                         <h3 class="nombreTienda"><span></span>{{ $order->store->name }}</h3>
-                        <button type="submit">✔</button>
+                        <a href="{{ route('cliente.pedido.detalle', ['order' => $order->id]) }}" class="btn-ver-detalle">✔</a>
                         <img class="desplegarProducto esconderProducto" src="{{ asset('img/arrow-up-circle.svg') }}" alt="Desplegar producto">
                         <img class="eliminarOrden" src="{{ asset('img/x-fill-12_.png') }}" alt="Eliminar orden">
                     </section>
@@ -12,7 +12,7 @@
                         @foreach ($order->orderItems as $item)
                             <section class="cont-imagen-producto" id="cont-imagen-producto">
                                 <section class="cont-datos-producto">
-                                    <img src="{{ asset('img/rice-ball_.png') }}" alt="">
+                                    <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product_name }}">
                                     <article class="contDescripcion">
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">
@@ -41,4 +41,8 @@
                         </article>
                     </section>
                 </article>
-            @endforeach
+            @empty
+                <p class="mensaje-vacio">No hay productos en el carrito</p>
+            @endforelse
+
+            

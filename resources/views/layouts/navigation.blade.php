@@ -5,46 +5,48 @@
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('tenderHome') : url('/'))) : url('/') }}">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }}">
             <h1 class="nombreEmpresa">PediYÁ</h1>
         </a>
         
         
     </section>
 
+    @if(auth()->check() && auth()->user()->role === 'cliente')
     <form class="form-bar-search" action="{{ route('busquedaTienda') }}" method="post">
     @csrf
         <section class="bar-search">
             <img class="icono-search" src="{{ asset('img/search_.png') }}" alt="">
-            <input class="input-search" name="nameStore" type="text" placeholder="Tiendas...">
+            <input class="input-search" name="nameStore" type="text" placeholder="Tiendas..." id="searchInput" autocomplete="off">
             <input class="btn-search" type="submit" value="Buscar">
+            <div class="sugerencias-container" id="sugerenciasContainer" style="display: none;">
+                <ul class="lista-sugerencias" id="listaSugerencias">
+                </ul>
+            </div>
         </section>
     </form>
+    @endif
 
     
     <section class="bar-buttons">
-        <article class="icono-notificacion-view">
+        @if(auth()->check())
+        <article class="icono-notificacion-view" id="notificacionIcon">
             <img class="" src="{{ asset('img/bell-regular.svg') }}" alt="" srcset="">
-            <section class="num-notificaciones"><span>2</span></section>
+            <section class="num-notificaciones" id="notificacionCount" style="display: none;">
+                <span id="notificacionNumber">0</span>
+            </section>
         </article>
-        <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
+        @endif
+        @if(auth()->check() && auth()->user()->role === 'cliente')
+        <div class="cont-icono-carrito">
+            <img class="icono-carrito-view" src="{{ asset('img/shopping-cart_.png') }}" alt="" id="abrirCarrito">
+            <div class="contador-carrito {{ ($totalOrdersCount ?? 0) > 0 ? '' : 'hidden' }}" id="contadorCarrito">
+                <span>{{ $totalOrdersCount ?? 0 }}</span>
+            </div>
+        </div>
+        @endif
     </section>
 </header>
-    <section class="contenedor-notificaciones">
-        <h2>Notificaciones</h2>
-        <section class="cont-cards-notificacion">
-            <article class="card-notificacion">
-                <p class="texto-notificacion">Tu pedido realizado en la tienda: <span>Don Julio</span>, listo para recoger</p>
-                <svg class="cerrar-notificacion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#7400C4" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-            </article>
-            <article class="card-notificacion">
-                <p class="texto-notificacion">Tu pedido realizado en la tienda: <span>Don Julio</span>, listo para recoger</p>
-                <svg class="cerrar-notificacion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#7400C4" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-            </article>
-    
-        </section>
-        <button type="submit">Limpiar notificaciones</button>
-    </section>
     <aside id="cont-nav-bar">
         <section class="nav-bar">
             <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
@@ -57,6 +59,7 @@
                     <h3>Panel principal</h3>
                 </article>
             </div>
+            @if(auth()->check() && auth()->user()->role === 'cliente')
             <div class="cont-icono">
                 <a href="{{ url('/historialPedidos') }}">
                 <svg class="icono-nav" xmlns="http://www.w3.org/2000/svg" width="35" height="40" fill=""
@@ -67,13 +70,9 @@
                 </a>
                 <article class="container-links">
                     <h3>Pedidos</h3>
-                    <!-- <section class="links">
-                        <a href="" class="link">Tiendas</a>
-                        <a href="" class="link">Favoritos</a>
-                        <a href="" class="link">Historial</a>
-                    </section> -->
                 </article>
             </div>
+            @endif
             <div class="cont-icono">
                 <a href="{{ url('/nosotros') }}">
                     <svg class="icono-nav"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="envelope">
@@ -127,15 +126,12 @@
             </form>
         </section>
     </aside>
+@if(auth()->check() && auth()->user()->role === 'cliente')
 <article class="overlay-carrito" id="overlayCarrito">
     <section class="cont-carrito" id="contCarrito">
         <article class="cont-buttons">
             <img src="{{ asset('img/x-fill-12_.png') }}" alt="" id="cerrarCarrito">
             <h2 class="titulo-carrito">PediYÁ</h2>
-            <section class="num-productos">
-                <img class="icono-carrito" src="{{ asset('img/shopping-cart_.png') }}" alt="">
-                <span>{{ $totalOrdersCount }}</span>
-            </section>
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>
         <article class="cont-cards-carrito">
@@ -149,37 +145,99 @@
         </article>
     </section>
 </article>
+@endif
 
 
 <script>
-        document.querySelectorAll('.btn-confirmar-cantidad').forEach(button => {
-        button.addEventListener('click', async function () {
-            const form = this.closest('form');
-            const itemId = form.dataset.id;
-            const quantitySpan = form.querySelector('.cantidad-producto');
-            const quantityInput = form.querySelector('input[name="quantity"]');
+// Autocompletado de búsqueda de tiendas
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const sugerenciasContainer = document.getElementById('sugerenciasContainer');
+    const listaSugerencias = document.getElementById('listaSugerencias');
+    let timeoutId;
 
-            const quantity = parseInt(quantitySpan.textContent.trim());
-            quantityInput.value = quantity; // Actualiza input oculto
+    // Función para buscar tiendas
+    function buscarTiendas(query) {
+        if (query.length < 2) {
+            sugerenciasContainer.style.display = 'none';
+            return;
+        }
 
-            try {
-                const response = await fetch(`/actualizar-cantidad/${itemId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ quantity })
-                });
+        fetch(`/buscar-tiendas?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(tiendas => {
+                mostrarSugerencias(tiendas);
+            })
+            .catch(error => {
+                console.error('Error al buscar tiendas:', error);
+            });
+    }
 
-                const data = await response.json();
+    // Función para mostrar sugerencias
+    function mostrarSugerencias(tiendas) {
+        listaSugerencias.innerHTML = '';
+        
+        if (tiendas.length === 0) {
+            sugerenciasContainer.style.display = 'none';
+            return;
+        }
 
-            } catch (error) {
-                console.error('Error:', error);
-            }
+        tiendas.forEach(tienda => {
+            const li = document.createElement('li');
+            li.className = 'sugerencia-item';
+            li.innerHTML = `
+                <div class="sugerencia-nombre">${tienda.name}</div>
+                <div class="sugerencia-descripcion">${tienda.description || 'Sin descripción'}</div>
+            `;
+            
+            li.addEventListener('click', function() {
+                // Redirigir a la página de detalles de la tienda
+                window.location.href = `/detallesTienda/${tienda.id}`;
+            });
+            
+            listaSugerencias.appendChild(li);
         });
+
+        sugerenciasContainer.style.display = 'block';
+    }
+
+    // Event listener para el input de búsqueda
+    searchInput.addEventListener('input', function() {
+        clearTimeout(timeoutId);
+        const query = this.value.trim();
+        
+        timeoutId = setTimeout(() => {
+            buscarTiendas(query);
+        }, 300); // Debounce de 300ms
     });
 
+    // Ocultar sugerencias al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !sugerenciasContainer.contains(e.target)) {
+            sugerenciasContainer.style.display = 'none';
+        }
+    });
+
+    // Ocultar sugerencias al presionar Escape
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            sugerenciasContainer.style.display = 'none';
+        }
+    });
+});
+
+// Función global para actualizar el contador del carrito
+window.actualizarContadorCarrito = function(nuevoCount) {
+    const contador = document.getElementById('contadorCarrito');
+    const spanContador = contador.querySelector('span');
+    
+    if (nuevoCount > 0) {
+        spanContador.textContent = nuevoCount;
+        contador.classList.remove('hidden');
+    } else {
+        contador.classList.add('hidden');
+    }
+};
 </script>
 
     

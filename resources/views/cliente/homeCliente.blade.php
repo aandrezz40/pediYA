@@ -34,8 +34,7 @@
                         <h3>{{ $store->name }}</h3>
                         <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
                         <p>{{ $store->address_street }}, {{ $store->address_neighborhood }}</p>
-                        <form action="{{ route('detallesTienda', ['id' => $store->id]) }}" method="post">
-                            @csrf
+                        <form action="{{ route('detallesTienda', ['id' => $store->id]) }}" method="get">
                             <button type="submit">Ver tienda</button>
                         </form>
                     </section>
@@ -72,8 +71,7 @@
                         <h3>{{ $store->name }}</h3>
                         <p>{{ $store->is_open ? 'Abierto' : 'Cerrado' }}</p>
                         <p>{{ $store->address_street }}, {{ $store->address_neighborhood }}</p>
-                        <form action="{{ route('detallesTienda', ['id' => $store->id]) }}" method="post">
-                            @csrf
+                        <form action="{{ route('detallesTienda', ['id' => $store->id]) }}" method="get">
                             <button type="submit">Ver tienda</button>
                         </form>
                     </section>
@@ -128,6 +126,13 @@
                     mensaje.classList.add('mensaje-vacio');
                     mensaje.innerText = 'Aún no tienes tiendas favoritas. ¡Explora!';
                     favContainer.appendChild(mensaje);
+                }
+
+                // Actualizar contador del carrito si existe la función
+                if (window.actualizarContadorCarrito) {
+                    // Obtener el nuevo conteo de órdenes activas
+                    const ordenesActivas = document.querySelectorAll('.card-carrito').length;
+                    window.actualizarContadorCarrito(ordenesActivas);
                 }
 
                 // Reactivar checkbox en tiendas cercanas o crearlo si no existe

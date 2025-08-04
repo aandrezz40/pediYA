@@ -41,15 +41,27 @@ class RegisteredUserController extends Controller
             'password' => ['required', new PasswordComplexity()],
             'role' => ['required', 'in:cliente,tendero'],
         ]);
+        if($request->role == 'tendero'){
+            $user = User::create([
+                'name' => $request->name,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'is_active' => 2,
+            ]);
+        }else{
+            $user = User::create([
+                'name' => $request->name,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'is_active' => true,
+            ]);
+        }
 
-        $user = User::create([
-            'name' => $request->name,
-            'phone_number' => $request->phone_number,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'is_active' => true,
-        ]);
+
 
         Address::create([
             'user_id' => $user->id,

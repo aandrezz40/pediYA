@@ -59,7 +59,7 @@ document.addEventListener('click', function (e) {
                     productosContenedor.innerHTML += `
                         <article class="card-producto">
                             <section class="cont-img-tienda-producto">
-                                <img src="/img/apple-2788616_640.jpg" alt="">
+                                <img src="${product.image_url || '/img/apple-2788616_640.jpg'}" alt="${product.name}">
                             </section>
                             <section class="cont-info-producto">
                                 <h3>${product.name}</h3>

@@ -1,3 +1,20 @@
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
 
 .main-historial-pedido{
     width: 90vw;
@@ -8,6 +25,7 @@
     justify-content: center;
     gap:20px;
 }
+
 /*CONTEDOR DEL ASIDE DE PEDIDOS*/
 .cont-aside-pedidos{
     border-radius: 15px;
@@ -19,6 +37,7 @@
     height: 90%;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
 }
+
 .cont-info-usuario{
     display: flex;
     flex-direction: column;
@@ -29,20 +48,24 @@
     border-radius: 15px 15px 0px 0px;
     border-bottom: 2px solid var(--color-borde-claro);
 }
+
 .cont-info-usuario section{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .cont-info-usuario section h2{
     font-size: 1.2rem;
     color: var(--color-primario);
 }
+
 .cont-info-usuario p{
     font-size: .9rem;
     width: 80%;
     text-align: center;
 }
+
 .aside-navBar{
     display: flex;
     flex-direction: column;
@@ -50,6 +73,7 @@
     justify-content: center;
     width: 100%;
 }
+
 .aside-navBar ul{
     display: flex;
     flex-direction: column;
@@ -60,6 +84,7 @@
     list-style: none;
     gap: 10px;
 }
+
 .aside-navBar ul li{
     display: flex;
     align-items: center;
@@ -70,8 +95,8 @@
     cursor: pointer;
     border: none;
     transition: all 0.3s ease-in-out;
-
 }
+
 .aside-navBar ul li a{
     display: flex;
     align-items: center;
@@ -83,26 +108,33 @@
     color: black;
     cursor: pointer;
 }
+
 .aside-navBar ul svg{
     width: var(--tamaño-icono3);
     height: var(--tamaño-icono3);
 }
+
 .aside-navBar ul li:hover {
     background-color: var(--color-sexto);
     color: white;
 }
+
 .aside-navBar ul li:hover a{
     color: white;
 }
+
 .aside-navBar ul li:hover svg{
     fill: white;
 }
+
 .aside-navBar ul li:nth-child(2){
     background-color: var(--color-sexto);
 }
+
 .aside-navBar ul li:nth-child(2) a{
     color: white;
 }
+
 /*CONTENEDOR DE PEDIDOS*/
 .cont-pedidos{
     border-radius: 15px;
@@ -117,10 +149,12 @@
     gap: 20px;
     overflow-y: auto;
 }
+
 .tituloSecundario{
     font-size: 1.8rem;
     margin-bottom: 10px;
 }
+
 .cont-card-pedido{
     width: 100%;
     height: 360px;
@@ -132,6 +166,7 @@
     align-items: start;
     justify-content: space-between;
 }
+
 .cont-info-pedido{
     display: flex;
     flex-direction: row;
@@ -139,74 +174,120 @@
     justify-content: space-between;
     width: 100%;
 }
+
 .cont-info-pedido h3{
     font-size: 1.1rem;
 }
+
 #infoProceso{
     font-size: .9rem;
 }
+
 .cont-productos-pedido img{
     width: var(--tamaño-icono3);
     height: var(--tamaño-icono3);
 }
+
 .cont-productos-pedido{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     gap: 10px;
     width: 100%;
     height: 260px;
     overflow-y: auto;
+    padding-top: 10px;
 }
+
+/* MEJORAS SOLO PARA CATEGORÍAS Y PRODUCTOS */
 .cont-categoria-producto{
     width: 100%;
-    height: 120px;
+    min-height: 120px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     justify-content: start;
-    flex-wrap: wrap;
-    gap: 10px;
-    overflow-y: auto;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(116, 0, 196, 0.05);
+    border-radius: 12px;
+    margin-bottom: 15px;
 }
+
 .cont-titulo-categoria{
     width: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-quinto);
 }
+
+.cont-titulo-categoria h3{
+    font-size: 1.1rem;
+    color: var(--color-sexto);
+    font-weight: 600;
+    margin: 0;
+}
+
 .producto-pedido{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    gap: 10px;
-    width: 28%;
-    height: 70px;
-    background-color: rgb(235, 235, 235);
-    border-radius: 15px;
-    padding: 5px;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    height: 75px;
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(116, 0, 196, 0.1);
+    transition: all 0.3s ease;
 }
+
+.producto-pedido:hover{
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.producto-pedido img{
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
 .producto-pedido section{
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    flex: 1;
 }
+
 .producto-pedido section p:nth-child(1){
-    font-size: .9em;
-    font-weight: 100;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    margin-bottom: 4px;
 }
+
 .producto-pedido section p:nth-child(2){
-    font-size: .9em;
-    font-weight: 100;
-    color: var(--color-text1);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-sexto);
 }
+
 .producto-pedido span{
     color: white;
-    background-color: var(--color-primario);
-    padding: 3px 5px;
-    border-radius: 3px;
-    font-size: .7em;
+    background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-sexto) 100%);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 35px;
+    text-align: center;
 }
+
 /*Mensaje cliente*/
 .cont-mensaje-cliente{
     display: flex;
@@ -217,21 +298,25 @@
     height: 50px;
     gap: 15px;
 }
+
 .cont-mensaje-cliente img{
     width: var(--tamaño-icono3);
     height: var(--tamaño-icono3);
 }
+
 .cont-mensaje-cliente p{
     font-size:.8em;
     font-weight: 100;
     color: var(--color-text1);
 }
+
 .cont-info-pedido{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
+
 .cont-total-pedido{
     display: flex;
     flex-direction: column;
@@ -240,15 +325,18 @@
     width: auto;
     height: 35px;
 }
+
 .cont-total-pedido p{
     color: rgba(128, 128, 128, 0.671);
     font-weight: 100;
     font-size: .7em;
 }
+
 .cont-total-pedido p:first-child{
     color: var(--color-primario);
     font-size: 1em;
 }
+
 .btns-historial-pedidos{
     display: flex;
     flex-direction: row;
@@ -258,17 +346,20 @@
     width: 50%;
     height: 35px;
 }
+
 .cont-soporte{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
+
 .cont-soporte img{
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
+
 .btn-Confirmar-Pedido{
     background-color: var(--color-primario);
     color: white;
@@ -280,9 +371,11 @@
     transition: all 0.3s ease-in-out;
     display: none;
 }
+
 .btn-Confirmar-Pedido:hover{
     scale: 1.05;
 }
+
 @media (width >= 370px) and (width <= 720px){
     .main-historial-pedido{
         width: 90vw;
@@ -377,6 +470,7 @@
         font-size: .7em;
     }
 }
+
 @media (width >= 720px) and (width <= 1280px){
     .main-historial-pedido{
         width: 90vw;

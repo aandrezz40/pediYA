@@ -86,11 +86,74 @@ header{
     border-left: 1px solid var(--color-borde-claro);
     background-color: transparent;
 }
+
+/* Estilos para el autocompletado */
+.bar-search {
+
+    position: relative;
+}
+
+.sugerencias-container {
+    margin-top: 10px;
+    position: absolute;
+    top: 99%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--color-primario);
+    border-top: none;
+    border-radius:  10px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lista-sugerencias {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lista-sugerencias li {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.lista-sugerencias li:last-child {
+    border-bottom: none;
+}
+
+.lista-sugerencias li:hover {
+    background-color: var(--color-quinto);
+}
+
+.lista-sugerencias li.sugerencia-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.sugerencia-nombre {
+    font-weight: bold;
+    color: var(--color-primario);
+    margin-bottom: 4px;
+}
+
+.sugerencia-descripcion {
+    font-size: 0.9em;
+    color: var(--color-text1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 /*BAR-BUTTONS */
 .bar-buttons{
     width: 15%;
     justify-content: end;
     margin-right: 10px;
+    position: relative;
 }
 .button-ingreso{
     text-decoration: none;
@@ -100,12 +163,34 @@ header{
     border-radius: 10px;
     padding: 12px;
 }
+.cont-icono-carrito {
+    position: relative;
+    height: 47px;
+    display: inline-block;
+    margin: 0px 10px;
+}
+
 .icono-carrito-view{
     width: 62px;
     border: 1px solid var(--color-borde-claro) ;
     border-radius: 10px;
     padding: 5px 10px 1px 10px;
     cursor: pointer;
+}
+
+.contador-carrito {
+    position: absolute;
+    right: -4px;
+    top: -5px;
+    background-color: var(--color-cuarto);
+    color: white;
+    font-size: .8em;
+    border-radius: 25px;
+    padding: 0px 5px 0px 5px;
+}
+
+.contador-carrito.hidden {
+    display: none;
 }
 .icono-notificacion-view{
     width: 50px;
@@ -424,15 +509,42 @@ aside {
     align-items: center;
 }
 .cont-acciones button{
-    width: 50px;
-    height: 30px;
-    background-color: var(--color-sexto);
+    width: 60px;
+    height: 35px;
+    background-color: var(--color-negro);
     color: white;
     border: none;
-    font-size: 1em;
+    font-size: 1.1em;
     border-radius: 10px;
     margin-right: 4px;
     cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.cont-acciones button:hover{
+    background-color: #333333;
+    transform: scale(1.05);
+}
+
+.btn-ver-detalle{
+    display: inline-block;
+    background-color: transparent;
+    color: var(--color-negro);
+    border: none;
+    font-size: 1.5em;
+    border-radius: 10px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    line-height: 35px;
+    transition: all 0.3s ease;
+}
+.btn-ver-detalle:hover{
+    transform: scale(1.05);
+    color: var(--color-negro);
+    text-decoration: none;
 }
 .nombreTienda{
     font-weight: 300;
@@ -587,6 +699,14 @@ aside {
     color: var(--color-text1);
 }
 
+.mensaje-vacio {
+    text-align: center;
+    color: var(--color-text1);
+    font-style: italic;
+    padding: 20px;
+    font-size: 0.9em;
+}
+
 @media (width >= 370px) and (width <= 720px){
     /*DISEÑO DE BARRA DE NAVEGACION*/
     /*BAR-LOGO*/
@@ -630,6 +750,13 @@ aside {
         width: var(--tamaño-icono4);
         padding: 2px 5px 1px 5px;
         margin: 0 0 0 0;
+    }
+
+    .contador-carrito {
+        right: -4px;
+        top: -5px;
+        font-size: .7em;
+        padding: 0px 4px 0px 4px;
     }
     .icono-notificacion-view{
         width: 40px;
@@ -691,5 +818,12 @@ aside {
     /*BAR-BUTTONS */
     .bar-buttons{
         width: 30%;
+    }
+
+    .contador-carrito {
+        right: -4px;
+        top: -5px;
+        font-size: .75em;
+        padding: 0px 4px 0px 4px;
     }
 }

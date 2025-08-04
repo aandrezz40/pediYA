@@ -121,7 +121,7 @@
                 <img src="{{ asset('img/credit-card-solid.svg') }}" alt="">
                 <article class="sect-info">
                     <h3>Métodos de pago</h3>
-                    <p>Efectivo, Tarjetas de crédito, Transferencia, Nequi, Daviplata</p>
+                    <p>{{ $store->payment_methods_formatted }}</p>
                 </article>
             </section>
         </article>

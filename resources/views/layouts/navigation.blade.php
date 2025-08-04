@@ -12,7 +12,7 @@
         
     </section>
 
-    @if(auth()->check() && auth()->user()->role === 'cliente')
+    @if(auth()->check() && (auth()->user()->role === 'cliente' || auth()->user()->role === 'admin'))
     <form class="form-bar-search" action="{{ route('busquedaTienda') }}" method="post">
     @csrf
         <section class="bar-search">

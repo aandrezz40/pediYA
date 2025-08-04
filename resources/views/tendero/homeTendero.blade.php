@@ -32,114 +32,153 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="alert alert-error">
+                <strong>Error:</strong><br>
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(isset($statusMessage))
+            <div class="alert alert-error store-status-alert">
+                <strong>Estado de Tienda:</strong><br>
+                {{ $statusMessage }}
+            </div>
+        @endif
+
         <section class="cont-encabezado-principal-tendero">
             <article class="cont-titulo-encabezado-tendero">
                 <h1 class="titulo-encabezado-tendero">¡Hola, {{ auth()->user()->name }}!</h1>
                 <h3>Bienvenido al panel de control</h3>
             </article>
             <article class="cont-check-estado-tienda">
-                <label for="checkboxEstadoTienda">
-                    <p id="mensajeEstadoTienda">
-                        Tu tienda está actualmente {{ $store->is_open ? 'abierta' : 'cerrada' }}
-                    </p>
-                    <input type="checkbox" id="checkboxEstadoTienda" class="checkbox" 
-                           {{ $store->is_open ? 'checked' : '' }}>
-                    <span class="checkmark"></span>
-                </label>
+                @if($store->is_active && $store->status === 'approved')
+                    <label for="checkboxEstadoTienda">
+                        <p id="mensajeEstadoTienda">
+                            Tu tienda está actualmente {{ $store->is_open ? 'abierta' : 'cerrada' }}
+                        </p>
+                        <input type="checkbox" id="checkboxEstadoTienda" class="checkbox" 
+                               {{ $store->is_open ? 'checked' : '' }}>
+                        <span class="checkmark"></span>
+                    </label>
+                @else
+                    <div class="disabled-store-status">
+                        <p>Estado de tienda: <span class="status-badge {{ $store->status }}">{{ ucfirst($store->status) }}</span></p>
+                        <p class="status-message">No puedes cambiar el estado de tu tienda en este momento.</p>
+                    </div>
+                @endif
             </article>
         </section>
 
         <section class="cont-botones-principal-tendero">
-            <a href="{{ route('tendero.pedidos') }}" class="btn-accion-tendero">
-                <img src="{{ asset('img/factura.svg') }}" alt="">
-                <article class="info-accion">
-                    <h4>Ver solicitudes de pedido</h4>
-                    <p>Gestiona los pedidos pendientes y en proceso</p>
-                </article>
-            </a>
+            @if($store->is_active && $store->status === 'approved')
+                <a href="{{ route('tendero.pedidos') }}" class="btn-accion-tendero">
+                    <img src="{{ asset('img/factura.svg') }}" alt="">
+                    <article class="info-accion">
+                        <h4>Ver solicitudes de pedido</h4>
+                        <p>Gestiona los pedidos pendientes y en proceso</p>
+                    </article>
+                </a>
 
-            <a href="#" class="btn-accion-tendero" id="btnGestionarProductos">
-                <img src="{{ asset('img/dairy-product.svg') }}" alt="">
-                <article class="info-accion">
-                    <h4>Crear producto</h4>
-                    <p>Gestiona tu nuevo producto</p>
-                </article>
-            </a>
+                <a href="#" class="btn-accion-tendero" id="btnGestionarProductos">
+                    <img src="{{ asset('img/dairy-product.svg') }}" alt="">
+                    <article class="info-accion">
+                        <h4>Crear producto</h4>
+                        <p>Gestiona tu nuevo producto</p>
+                    </article>
+                </a>
 
-            <a href="{{ url('/perfil') }}" class="btn-accion-tendero">
-                <img src="{{ asset('img/logo-v1.1.png') }}" alt="">
-                <article class="info-accion">
-                    <h4>Configurar tienda</h4>
-                    <p>Modifica horarios y datos de contacto</p>
-                </article>
-            </a>
+                <a href="{{ url('/perfil') }}" class="btn-accion-tendero">
+                    <img src="{{ asset('img/logo-v1.1.png') }}" alt="">
+                    <article class="info-accion">
+                        <h4>Configurar tienda</h4>
+                        <p>Modifica horarios y datos de contacto</p>
+                    </article>
+                </a>
+            @else
+                <div class="disabled-actions-message">
+                    <p>Las funcionalidades de gestión están deshabilitadas debido al estado de tu tienda.</p>
+                    <p>Contacta al administrador para más información.</p>
+                </div>
+            @endif
         </section>
 
         <section class="cont-vista-principal-productos">
             <div class="header-productos">
                 <h3>Productos de tu tienda</h3>
             </div>
-            <!-- Filtros de categorías -->
-            <div class="cont-categorias-filtro">
-                <button type="button" class="btn-categoria-filtro active" data-category-id="0">Todos</button>
-                @foreach($store->category as $category)
-                    <button type="button" class="btn-categoria-filtro" data-category-id="{{ $category->id }}">{{ $category->name }}</button>
-                @endforeach
-                <button class="btn-crear-categoria" id="btnCrearCategoria" onclick="abrirModalCategoria()">
-                    <img src="{{ asset('img/plus.svg') }}" alt="+" style="width: 16px; height: 16px;">
-                </button>
-            </div>
-
-            @if($store->product->count() > 0)
-                <div class="cont-cards-productos-tendero">
-                    @foreach($store->product as $product)
-                        <article class="card-producto-tendero" data-category-id="{{ $product->category_id ?? 0 }}">
-                            <section class="cont-img-producto-tendero">
-                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
-                                <span class="estado-producto-badge {{ $product->is_available ? 'disponible' : 'agotado' }}">
-                                    {{ $product->is_available ? 'Disponible' : 'Agotado' }}
-                                </span>
-                            </section>
-                            <section class="cont-info-producto-tendero">
-                                <h3>{{ $product->name }}</h3>
-                                <p class="descripcion-producto-tendero">{{ $product->description ?? 'Sin descripción' }}</p>
-                                <p class="categoria-producto-tendero">{{ $product->category->name ?? 'Sin categoría' }}</p>
-                                <p class="precio-producto-tendero">${{ number_format($product->price, 0, ',', '.') }}</p>
-                                <p class="stock-producto-tendero">Stock: {{ $product->stock ?? 0 }}</p>
-                                <article class="cont-acciones-producto-tendero">
-                                    <button class="btn-editar-producto" data-product-id="{{ $product->id }}">
-                                        Editar
-                                    </button>
-                                    <button type="button" class="btn-eliminar-producto" data-product-id="{{ $product->id }}">
-                                        Eliminar
-                                    </button>
-                                </article>
-                            </section>
-                        </article>
+            
+            @if($store->is_active && $store->status === 'approved')
+                <!-- Filtros de categorías -->
+                <div class="cont-categorias-filtro">
+                    <button type="button" class="btn-categoria-filtro active" data-category-id="0">Todos</button>
+                    @foreach($store->category as $category)
+                        <button type="button" class="btn-categoria-filtro" data-category-id="{{ $category->id }}">{{ $category->name }}</button>
                     @endforeach
+                    <button class="btn-crear-categoria" id="btnCrearCategoria" onclick="abrirModalCategoria()">
+                        <img src="{{ asset('img/plus.svg') }}" alt="+" style="width: 16px; height: 16px;">
+                    </button>
                 </div>
             @else
-                <div class="sin-productos">
-                    <p>No tienes productos registrados aún.</p>
-                    <button class="btn-agregar-producto" id="btnAgregarProducto" onclick="abrirModalAgregar()">
-                        Agregar primer producto
-                    </button>
+                <div class="disabled-products-message">
+                    <p>La gestión de productos está deshabilitada debido al estado de tu tienda.</p>
                 </div>
             @endif
 
-            <!-- Sección de categorías disponibles -->
-            <div class="categorias-disponibles">
-                <h4>Categorías disponibles en tu tienda:</h4>
-                @if($store->category->count() > 0)
-                    <div class="lista-categorias">
-                        @foreach($store->category as $category)
-                            <span class="categoria-tag">{{ $category->name }}</span>
+            @if($store->is_active && $store->status === 'approved')
+                @if($store->product->count() > 0)
+                    <div class="cont-cards-productos-tendero">
+                        @foreach($store->product as $product)
+                            <article class="card-producto-tendero" data-category-id="{{ $product->category_id ?? 0 }}">
+                                <section class="cont-img-producto-tendero">
+                                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                                    <span class="estado-producto-badge {{ $product->is_available ? 'disponible' : 'agotado' }}">
+                                        {{ $product->is_available ? 'Disponible' : 'Agotado' }}
+                                    </span>
+                                </section>
+                                <section class="cont-info-producto-tendero">
+                                    <h3>{{ $product->name }}</h3>
+                                    <p class="descripcion-producto-tendero">{{ $product->description ?? 'Sin descripción' }}</p>
+                                    <p class="categoria-producto-tendero">{{ $product->category->name ?? 'Sin categoría' }}</p>
+                                    <p class="precio-producto-tendero">${{ number_format($product->price, 0, ',', '.') }}</p>
+                                    <p class="stock-producto-tendero">Stock: {{ $product->stock ?? 0 }}</p>
+                                    <article class="cont-acciones-producto-tendero">
+                                        <button class="btn-editar-producto" data-product-id="{{ $product->id }}">
+                                            Editar
+                                        </button>
+                                        <button type="button" class="btn-eliminar-producto" data-product-id="{{ $product->id }}">
+                                            Eliminar
+                                        </button>
+                                    </article>
+                                </section>
+                            </article>
                         @endforeach
                     </div>
                 @else
-                    <p class="sin-categorias">No tienes categorías creadas. Crea una categoría para organizar mejor tus productos.</p>
+                    <div class="sin-productos">
+                        <p>No tienes productos registrados aún.</p>
+                        <button class="btn-agregar-producto" id="btnAgregarProducto" onclick="abrirModalAgregar()">
+                            Agregar primer producto
+                        </button>
+                    </div>
                 @endif
-            </div>
+            @endif
+
+            @if($store->is_active && $store->status === 'approved')
+                <!-- Sección de categorías disponibles -->
+                <div class="categorias-disponibles">
+                    <h4>Categorías disponibles en tu tienda:</h4>
+                    @if($store->category->count() > 0)
+                        <div class="lista-categorias">
+                            @foreach($store->category as $category)
+                                <span class="categoria-tag">{{ $category->name }}</span>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="sin-categorias">No tienes categorías creadas. Crea una categoría para organizar mejor tus productos.</p>
+                    @endif
+                </div>
+            @endif
         </section>
 
         <!-- Modal para crear categorías -->
@@ -227,7 +266,7 @@
 
     @section('scripts')
         <script src="{{ asset('js/tendero/principalTendero.js') }}"></script>
-
+        <script src="{{ asset('js/tendero/storeStatusHandler.js') }}"></script>
     @endsection
 </x-app-layout>
  

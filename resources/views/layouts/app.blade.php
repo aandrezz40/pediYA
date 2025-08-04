@@ -17,11 +17,11 @@
         <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 
-        {{-- <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
+        <!-- {{-- <link rel="stylesheet" href="{{ asset('css/users/perfilUsuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/principalUsuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/detallesTienda.css') }}">
         <link rel="stylesheet" href="{{ asset('css/users/detallesPedidos.css') }}"> 
-        <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('css/users/historialPedidos.css') }}"> --}} -->
         @yield('styles')
     </head>
     <body class="font-sans antialiased">

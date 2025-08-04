@@ -1,0 +1,476 @@
+:root{
+    --color-primario: #7400C4;
+    --color-secundario: #E88BFF;
+    --color-terciario: #3F1650;
+    --color-cuarto: #270D32;
+    --color-quinto: #DDBFE3;
+    --color-sexto: #62238D;
+    --color-negro: #000000;
+    --color-borde-claro:#999999;
+    --color-text1:#757575;
+    --color-text2:#B032E7;
+    --color-text3: #9A9898;
+    --tamaño-icono1: 8px;
+    --tamaño-icono2: 16px;
+    --tamaño-icono3: 32px;
+    --tamaño-icono4: 48px;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "ADLaM Display", serif;
+    font-weight: 300;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+
+}
+html{
+    height: 100vh;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+.container-body-dashboard-admin{
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
+    border-radius: 10px;
+}
+.nav-bar-lateral-dashboard{
+    height: 90%;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+    border-radius: 10px;
+    padding: 10px 20px;
+    gap: 50px;
+}
+.nombre-empresa-dashboard-admin{
+    color: var(--color-primario);
+    font-size: 3em;
+}
+.list-opciones-nav-bar-admin{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.opcion-nav-bar-admin{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.opcion-nav-bar-admin img{
+    width: var(--tamaño-icono4);
+}
+.opcion-nav-bar-admin:hover{
+    color: var(--color-primario);
+}
+.container-cerrar-sesion{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 236, 236);
+    border-radius: 10px;
+    padding: 10px 5px;
+
+}
+.container-cerrar-sesion p{
+    font-size: .9em;
+}
+.container-cerrar-sesion a{
+    text-decoration: none;
+    color: red;
+    font-size: .8em;
+
+}
+.main-dashboard-admin{
+    height: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+    border-radius: 10px;
+    position: relative;
+}
+
+.section-principal-dashboard-admin{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+.titulo-section-dashboard-admin{
+    font-size: 3em;
+    color: var(--color-primario);
+}
+.opcion-dashboard img{
+    width: 100px;
+}
+.container-opciones-dashboard{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.opcion-dashboard{
+    width: 300px;
+    height: 200px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    text-align: center;
+    gap: 10px;
+}
+.opcion-dashboard p{
+    font-size: .8em;
+    color: var(--color-text3);
+}
+
+/*SECCION TIENDAS*/
+.section-gestion-tienda-admin{
+    height: 100%;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.titulo-section-gestion-tienda-admin{
+    font-size: 2.5em;
+}
+.enunciado-section{
+    color: var(--color-text3);
+}
+.container-table-tiendas-admin{
+    width: 100%;
+    overflow-y: auto;
+}
+.titulo-tabla-admin{
+    padding: 10px;
+    color: white;
+    background-color: var(--color-primario);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.tabla-tiendas-admin{
+    width: 100%;
+    overflow-y:auto;
+    border-collapse: collapse;
+}
+.tabla-tiendas-admin thead{
+    background-color: whitesmoke;
+}
+.nombre-tienda{
+    color: var(--color-primario);
+}
+.tabla-tiendas-admin th,
+.tabla-tiendas-admin td {
+  padding: 12px 16px;
+  vertical-align: top;
+}
+.tabla-tiendas-admin td{
+    text-align: center;
+    vertical-align: middle;
+}
+.btns-acciones-gestion-tienda-admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px   ;
+}
+.btns-acciones-gestion-tienda-admin button{
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: scale 300ms ease-in-out;
+}
+.btn-info-tienda{
+    background-color: rgb(82, 160, 223);
+    color: white;
+    border: none;
+}
+.btn-desactivar-tienda{
+    background-color: red;
+    color: white;
+    border: none;
+}
+.btn-desaprobar-tienda{
+    background-color: white;
+    border: 1px solid var(--color-sexto);
+    color: var(--color-sexto);
+
+}
+.btn-aprobar-tienda{
+    background-color: white;
+    border: 1px solid #2AA711;
+    color: #2AA711;
+}
+.btn-activar-tienda{
+    background-color: white;
+    border: 1px solid var(--color-sexto);
+    color: var(--color-sexto);
+}
+.btns-acciones-gestion-tienda-admin button:hover{
+    scale: 1.05;
+}
+/*MODAL DETALLES DE TIENDA*/
+.overlay-section-detalle-tienda-admin{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background-color: transparent;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-detalles-tienda-admin{
+    width: 80%;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+}
+.encabezado-info-tienda-admin{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:  .5px solid var(--color-borde-claro);
+    padding: 10px 0px;
+
+}
+.encabezado-info-tienda-admin img{
+    width: var(--tamaño-icono3);
+}
+.cont-info-tienda-admin{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    padding-top: 20px;
+    gap:10px;
+}
+.card-info-tienda-admin{
+    border: .5px solid rgb(214, 214, 214);
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.titulo-card-info-tienda-admin{
+    font-size: 1em;
+    color: var(--color-primario);
+}
+.descripcion-card-tienda-admin{
+    font-size: .8em;
+}
+.descripcion-card-tienda-admin p{
+    color: var(--color-text3);
+}
+.descripcion-card-tienda-admin span{
+    color: black;
+}
+/*SECCION USUARIOS*/
+.section-gestion-usuarios-admin{
+    height: 100%;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.titulo-section-gestion-usuarios-admin{
+    font-size: 2.5em;
+}
+.enunciado-section{
+    color: var(--color-text3);
+}
+.container-table-usuarios-admin{
+    width: 100%;
+    overflow-y: auto;
+
+}
+.titulo-tabla-admin{
+    padding: 10px;
+    color: white;
+    background-color: var(--color-primario);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.tabla-usuarios-admin{
+    width: 100%;
+    overflow-y: auto;
+    border-collapse: collapse;
+}
+.tabla-usuarios-admin thead{
+    background-color: whitesmoke;
+}
+.nombre-tienda{
+    color: var(--color-primario);
+}
+.tabla-usuarios-admin th,
+.tabla-usuarios-admin td {
+  padding: 12px 16px;
+  vertical-align: top;
+}
+.tabla-usuarios-admin td{
+    text-align: center;
+    vertical-align: middle;
+}
+.rol-usuarios{
+    color: var(--color-primario);
+}
+.btns-acciones-gestion-usuarios-admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px   ;
+}
+.btns-acciones-gestion-usuarios-admin button{
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: scale 300ms ease-in-out;
+}
+.btn-info-usuarios{
+    background-color: rgb(82, 160, 223);
+    color: white;
+    border: none;
+}
+.btn-desactivar-usuarios{
+    background-color: red;
+    color: white;
+    border: none;
+}
+.btn-desaprobar-usuarios{
+    background-color: white;
+    border: 1px solid var(--color-sexto);
+    color: var(--color-sexto);
+
+}
+.btn-aprobar-usuarios{
+    background-color: white;
+    border: 1px solid #2AA711;
+    color: #2AA711;
+}
+.btn-activar-usuarios{
+    background-color: #2AA711;
+    border: none;
+    color: white;
+}
+.btns-acciones-gestion-usuarios-admin button:hover{
+    scale: 1.05;
+}
+/*MODAL DETALLES DEL USUARIO*/
+.overlay-section-detalle-usuario-admin{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-detalles-usuario-admin{
+    width: 80%;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+}
+.encabezado-info-usuario-admin{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:  .5px solid var(--color-borde-claro);
+    padding: 10px 0px;
+
+}
+.encabezado-info-usuario-admin img{
+    width: var(--tamaño-icono3);
+}
+.cont-info-usuario-admin{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    padding-top: 20px;
+    gap:10px;
+}
+.card-info-usuario-admin{
+    border: .5px solid rgb(214, 214, 214);
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.titulo-card-info-usuario-admin{
+    font-size: 1em;
+    color: var(--color-primario);
+}
+.descripcion-card-usuario-admin{
+    font-size: .8em;
+}
+.descripcion-card-usuario-admin p{
+    color: var(--color-text3);
+}
+.descripcion-card-usuario-admin span{
+    color: black;
+}

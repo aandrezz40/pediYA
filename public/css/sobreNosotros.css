@@ -35,7 +35,11 @@ body{
     justify-content: center;
     background: var(--color-cuarto);
 }
-
+.icono-salir-nosotros{
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
 .icono-nav{
     width: 40px;
     cursor: pointer;
@@ -48,7 +52,7 @@ body{
     width: 90vw;
     height: 80vh;
     background-color:white;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 20px;
     position: relative;
     overflow: hidden;
@@ -69,7 +73,7 @@ body{
 
 .timeline-card-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around   ;
     margin-bottom: 10px;
     position: relative;
     z-index: 5;
@@ -80,10 +84,11 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: calc(33.33% - 30px);
+    width: calc(30% - 30px);
+    height: 300px;
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(126, 63, 211, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
     padding: 25px;
     opacity: 0.5;
     transition: all 0.6s ease;
@@ -196,7 +201,7 @@ body{
     .timeline-container {
         width: 90vw;
         height: 90vh;
-        padding: 20px 20px 20px;
+        padding: 20px;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -211,12 +216,12 @@ body{
         height: 100%;
     }
     .timeline-header {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     .timeline-card-container {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         width: 100%;
         margin-bottom: 0;
@@ -224,11 +229,12 @@ body{
     .timeline-card {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-        width: calc(90% - 30px);
+        width: calc(95% - 30px);
+        height: auto;
         background: white;
-        border-radius: 15px;
+        border-radius: 10px;
         padding: 8px;
     }
     
@@ -239,13 +245,12 @@ body{
     }
     .timeline-card h2 {
         color: var(--color-primario);
-        margin-bottom: 15px;
         font-size: 1.2rem;
         font-weight: 700;
     }
     .timeline-card p {
         color: var(--text-color);
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         line-height: 1.6;
     }
     
@@ -345,9 +350,10 @@ body{
         justify-content: center;
         align-items: center;
         width: calc(90% - 30px);
+        height: auto;
         background: white;
-        border-radius: 15px;
-        padding: 8px;
+        border-radius: 10px;
+        padding: 15px;
     }
     
     .timeline-card.active {

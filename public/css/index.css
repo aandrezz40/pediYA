@@ -164,7 +164,6 @@ aside {
     width: auto;
     padding: 10px 20px 10px 20px;
     height: 80px;
-    background-color: var(--color-quinto);
     clip-path: polygon(50% 0%, 84% 0%, 93% 50%, 84% 100%, 51% 100%, 0% 100%, 0% 50%, 0% 0%, 50% 0%);
     display: flex;
     flex-direction: column;
@@ -173,14 +172,15 @@ aside {
     opacity: 0;
     transform: translateX(-10px);
     pointer-events: none;
-    
+    color: white;
     /* Transición suave */
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 300ms ease-in-out;
 }
 .activeContainerLinks{
     opacity: 1;
     transform: translateX(0);
     pointer-events: auto;
+    background-color: var(--color-primario);
 }
 .container-links h3{
     text-align: center;
@@ -209,8 +209,8 @@ aside {
     cursor: pointer;
 }
 .cont-icono:hover{
-    background-color: var(--color-quinto);
-    fill: var(--color-primario);
+    background-color: var(--color-primario);
+    fill: white;
 }
 .logo-nav-bar{
     width: 60px;

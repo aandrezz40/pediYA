@@ -20,9 +20,9 @@ document.querySelectorAll('.fila-tabla-gestion-tienda').forEach(fila => {
 
     // Botón Activar/Desactivar según estado
     if (estado === 'Activa') {
-        acciones.appendChild(crearBoton('Desactivar', 'btn-desactivar-tienda'));
+        acciones.appendChild(crearBoton('Desactivar', 'btn-desactivar-tienda-admin'));
     } else {
-        acciones.appendChild(crearBoton('Activar', 'btn-activar-tienda'));
+        acciones.appendChild(crearBoton('Actsivar', 'btn-activar-tienda'));
     }
 
     // Botón Aprobar/Desaprobar según aprobación

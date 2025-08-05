@@ -154,6 +154,9 @@ header{
     justify-content: end;
     margin-right: 10px;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .button-ingreso{
     text-decoration: none;
@@ -165,9 +168,8 @@ header{
 }
 .cont-icono-carrito {
     position: relative;
-    height: 47px;
+    height: 100%;
     display: inline-block;
-    margin: 0px 10px;
 }
 
 .icono-carrito-view{
@@ -746,10 +748,16 @@ aside {
         padding: 10px;
         font-size: 0.8em;
     }
+    .cont-icono-carrito{
+        height: 100%;
+        border: .5px solid var(--color-borde-claro);
+        border-radius: 5px;
+    }
     .icono-carrito-view{
-        width: var(--tamaño-icono4);
+        width: var(--tamaño-icono3);
         padding: 2px 5px 1px 5px;
         margin: 0 0 0 0;
+        border: none;
     }
 
     .contador-carrito {

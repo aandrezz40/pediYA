@@ -43,14 +43,14 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    border-radius: 15px;
+    border-radius: 10px;
     position: relative;
 }
 main::before {
     content: "";
     position: absolute;
     top: 0px;
-    left: -0.5px;
+    left: 0px;
     width: 250px;
     height: 250px;
     background: linear-gradient(
@@ -80,6 +80,7 @@ form{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 .cont-input input, .cont-input select{
     width: 48%;
@@ -226,7 +227,7 @@ form button{
     bottom: 20px;
     cursor: pointer;
 }
-img{
+.img{
     width: var(--tamaño-icono4);
 }
 @media (width >= 370px) and (width <= 760px){
@@ -272,11 +273,11 @@ img{
     }
     .img{
         position: absolute;
-        left: 10px;
+        right: 10px;
         bottom: 10px;
         cursor: pointer;
     }
-    img{
+    .img{
         width: var(--tamaño-icono3);
     }
 }
@@ -318,7 +319,7 @@ img{
         height: 100%;
     }
     .cont-info article img{
-        width: var(--tamaño-icono2);
+        width: var(--tamaño-icono3);
     }
     .img{
         position: absolute;
@@ -326,7 +327,7 @@ img{
         bottom: 10px;
         cursor: pointer;
     }
-    img{
+    .img{
         width: var(--tamaño-icono3);
     }
 }

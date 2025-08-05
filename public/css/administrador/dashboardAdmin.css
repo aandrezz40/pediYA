@@ -45,7 +45,6 @@ body{
     align-items: center;
     justify-content: center;
     gap:20px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.356);
     border-radius: 10px;
 }
 .nav-bar-lateral-dashboard{
@@ -316,7 +315,7 @@ body{
 .descripcion-card-tienda-admin span{
     color: black;
 }
-/*SECCION USUARIOS*/
+/* SECCION USUARIOS */
 .section-gestion-usuarios-admin{
     height: 100%;
     width: 100%;
@@ -407,7 +406,7 @@ body{
 .btns-acciones-gestion-usuarios-admin button:hover{
     scale: 1.05;
 }
-/*MODAL DETALLES DEL USUARIO*/
+/* MODAL DETALLES DEL USUARIO */
 .overlay-section-detalle-usuario-admin{
     position: absolute;
     width: 100%;
@@ -473,4 +472,12 @@ body{
 }
 .descripcion-card-usuario-admin span{
     color: black;
+}
+
+/* Estilos para estados de tienda */
+.estado-detalles-tienda-admin,
+.estado-apertura-tienda-admin,
+.aprobacion-detalles-tienda-admin {
+    font-weight: bold;
+    color: var(--color-text2);
 }

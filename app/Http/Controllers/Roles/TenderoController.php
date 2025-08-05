@@ -37,7 +37,32 @@ class TenderoController extends Controller
                 ->with('error', 'No se encontró información de tu tienda. Por favor, completa el registro.');
         }
 
+        // Verificar estado de la tienda
+        if (!$store->is_active || $store->status === 'disapproved' || $store->status === 'pending_approval') {
+            $statusMessage = $this->getStoreStatusMessage($store);
+            return view('tendero.homeTendero', compact('store', 'statusMessage'));
+        }
+
         return view('tendero.homeTendero', compact('store'));
+    }
+
+    /**
+     * Obtener mensaje de estado de la tienda
+     */
+    private function getStoreStatusMessage($store): string
+    {
+        if (!$store->is_active) {
+            return 'Tu tienda está inactiva. Contacta al administrador para más información.';
+        }
+        
+        switch ($store->status) {
+            case 'disapproved':
+                return 'Tu tienda fue desaprobada. Contacta al administrador para más información.';
+            case 'pending_approval':
+                return 'Tu tienda está pendiente de aprobación. Serás notificado cuando sea aprobada.';
+            default:
+                return 'Tu tienda tiene un estado no válido. Contacta al administrador.';
+        }
     }
 
     public function registroTienda()
@@ -142,27 +167,6 @@ class TenderoController extends Controller
 
             // Crear la tienda
             $store = $user->store()->create($storeData);
-
-            // Crear categorías básicas para la tienda
-            $categoriasBasicas = [
-                'Frutas y Verduras',
-                'Carnes',
-                'Lácteos',
-                'Panadería',
-                'Bebidas',
-                'Snacks',
-                'Condimentos',
-                'Limpieza',
-                'Higiene Personal',
-                'Otros'
-            ];
-
-            foreach ($categoriasBasicas as $categoria) {
-                Category::create([
-                    'store_id' => $store->id,
-                    'name' => $categoria
-                ]);
-            }
 
             // Guardar los métodos de pago seleccionados
             if ($request->has('payment_methods') && is_array($request->payment_methods)) {

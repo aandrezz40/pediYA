@@ -77,6 +77,10 @@ Route::middleware('auth')->group(function () {
     // Rutas del tendero que requieren tienda registrada
     Route::middleware(['role:tendero', 'tendero.store.registration'])->group(function () {
         Route::get('/homeTendero', [TenderoController::class, 'index'])->name('homeTendero');
+    });
+
+    // Rutas del tendero que requieren tienda activa y aprobada
+    Route::middleware(['role:tendero', 'tendero.store.registration', 'tendero.store.status'])->group(function () {
         Route::get('/tendero/pedidos', [TenderoController::class, 'pedidos'])->name('tendero.pedidos');
         Route::get('/tendero/pedido/{order}', [TenderoController::class, 'verPedido'])->name('tendero.verPedido');
         Route::patch('/tendero/pedido/{order}/estado', [TenderoController::class, 'cambiarEstadoPedido'])->name('tendero.cambiarEstadoPedido');
@@ -106,6 +110,20 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/homeAdmin', [AdminController::class, 'index'])->middleware('role:admin')->name('homeAdmin');
+    
+    // Rutas para obtener datos de tiendas y usuarios
+    Route::get('/admin/tienda/{id}', [AdminController::class, 'getTienda'])->middleware('role:admin')->name('admin.tienda.show');
+    Route::get('/admin/usuario/{id}', [AdminController::class, 'getUsuario'])->middleware('role:admin')->name('admin.usuario.show');
+    
+    // Rutas para gestión de tiendas
+    Route::post('/admin/tienda/{id}/aprobar', [AdminController::class, 'aprobarTienda'])->middleware('role:admin')->name('admin.tienda.aprobar');
+    Route::post('/admin/tienda/{id}/desaprobar', [AdminController::class, 'desaprobarTienda'])->middleware('role:admin')->name('admin.tienda.desaprobar');
+    Route::post('/admin/tienda/{id}/activar', [AdminController::class, 'activarTienda'])->middleware('role:admin')->name('admin.tienda.activar');
+    Route::post('/admin/tienda/{id}/desactivar', [AdminController::class, 'desactivarTienda'])->middleware('role:admin')->name('admin.tienda.desactivar');
+    
+    // Rutas para gestión de usuarios
+    Route::post('/admin/usuario/{id}/activar', [AdminController::class, 'activarUsuario'])->middleware('role:admin')->name('admin.usuario.activar');
+    Route::post('/admin/usuario/{id}/desactivar', [AdminController::class, 'desactivarUsuario'])->middleware('role:admin')->name('admin.usuario.desactivar');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

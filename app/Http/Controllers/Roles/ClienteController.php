@@ -30,7 +30,7 @@ class ClienteController extends Controller
     public function detallesTienda($id){ 
         
 
-        $store = Store::findOrFail($id);
+        $store = Store::with('paymentMethods')->findOrFail($id);
         $owner = User::findOrFail($store->user_id);
         $products = Product::where('store_id', $id ?? null)->with('category')->get();
         $categories = Category::where('store_id', $id ?? null)->get();
@@ -43,7 +43,7 @@ class ClienteController extends Controller
 
         $nombre = $request->input('nameStore');
 
-        $store = Store::whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", ["%{$nombre}%"])->first();
+        $store = Store::with('paymentMethods')->whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", ["%{$nombre}%"])->first();
 
 
         if (!$store) {

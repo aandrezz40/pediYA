@@ -1,6 +1,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+
     
 <header>
     <section class="bar-logo">
@@ -47,7 +48,7 @@
         @endif
     </section>
 </header>
-    <aside id="cont-nav-bar">
+    <aside id="cont-nav-bar" class="cont-nav-bar">
         <section class="nav-bar">
             <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
             <div class="cont-icono">

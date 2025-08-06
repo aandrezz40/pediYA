@@ -2,7 +2,7 @@
 @section('styles')
         <link rel="stylesheet" href="{{ asset('css/users/detallesPedidos.css') }}">
 @endsection
-    <main>
+    <main class="main-detalles-pedido">
         <section class="cont-encabezado">
             <h2>Confirmación de pedido</h2>
         </section>

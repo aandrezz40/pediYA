@@ -6,7 +6,7 @@ const estadoConfig = {
     "En proceso":   { text: "En proceso", color: "#1e40af", showBtn: false },
     "Entregado":    { color: "#22c55e", showBtn: true },   // Verde
     "Cancelado":    { color: "#ef4444", showBtn: false },  // Rojo
-    "Pendiente":    { color: "#a21caf", showBtn: false },  // Morado
+    "Pendiente":    { color: "#FEA405", showBtn: false },  // Naranja
     "Pedido listo": { color: "#2563eb", showBtn: false },  // Azul medio
 };
 

@@ -69,22 +69,23 @@
                             <p class="precioProducto">${{ $product->price }}</p>
 
                             <!-- FORMULARIO INDIVIDUAL DE CADA PRODUCTO -->
-                            <form method="POST" action="{{ route('cliente.pedido.agregar') }}" class="form-agregar-producto">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="store_id" value="{{ $store->id }}">
-                                <input type="hidden" name="cantidad" class="input-cantidad-producto" value="0">
 
-                                
-
-                                <article class="cont-boton-cantidad-producto">
-                                    <input type="submit" value="✔" class="btn-confirmar-cantidad-producto">
-                                    <button type="button" class="disminuir-cantidad-producto">-</button>
-                                    <span class="cantidad-producto-detalles-tienda">0</span>
-                                    <button type="button" class="aumentar-cantidad-producto">+</button>
-                                </article>
-                            </form>
                         </article>
+                        <form method="POST" action="{{ route('cliente.pedido.agregar') }}" class="form-agregar-producto">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="store_id" value="{{ $store->id }}">
+                            <input type="hidden" name="cantidad" class="input-cantidad-producto" value="0">
+
+                            
+
+                            <article class="cont-boton-cantidad-producto">
+                                <input type="submit" value="✔" class="btn-confirmar-cantidad-producto">
+                                <button type="button" class="disminuir-cantidad-producto">-</button>
+                                <span class="cantidad-producto-detalles-tienda">0</span>
+                                <button type="button" class="aumentar-cantidad-producto">+</button>
+                            </article>
+                        </form>
                     </section>
                 </article>
             @empty

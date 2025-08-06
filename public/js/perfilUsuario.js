@@ -19,10 +19,13 @@ abrirContSeguridad.addEventListener('click', function() {
   contenedorPrincipalPerfil.style.display = 'none';
 });
 
-abrirContInfoTienda.addEventListener('click', function() {
-  contenedorInfoTienda.style.display = 'flex';
-  contenedorPrincipalPerfil.style.display = 'none';
-});
+// Solo agregar event listener si el elemento existe (para tendero)
+if (abrirContInfoTienda) {
+    abrirContInfoTienda.addEventListener('click', function() {
+        contenedorInfoTienda.style.display = 'flex';
+        contenedorPrincipalPerfil.style.display = 'none';
+    });
+}
 
 
 // Función para verificar si un elemento está oculto
@@ -112,6 +115,13 @@ function openConfirm(onAccept) {
     onAccept();
     modal.close();
     btnAceptarModal.removeEventListener('click', handler);
+    // Retornar al menú principal después de aceptar
+    contenedorPrincipalPerfil.style.display = 'flex';
+    contenedorInformacionPersonal.style.display = 'none';
+    contenedorSeguridad.style.display = 'none';
+    if (contenedorInfoTienda) {
+      contenedorInfoTienda.style.display = 'none';
+    }
   };
   btnAceptarModal.addEventListener('click', handler);
 }
@@ -130,7 +140,7 @@ btnCancelarModal.addEventListener('click', closeConfirm);
 if (btnCancelarContrasena) {
   btnCancelarContrasena.addEventListener('click', () => {
     openConfirm(() => {
-      // Aquí puedes resetear o limpiar el formulario de seguridad si quieres
+      // El retorno al menú principal se maneja en openConfirm
       console.log('Formulario de seguridad cancelado por el usuario.');
     });
   });
@@ -140,7 +150,7 @@ if (btnCancelarContrasena) {
 if (btnCancelarInfoPersonal) {
   btnCancelarInfoPersonal.addEventListener('click', () => {
     openConfirm(() => {
-      // Aquí puedes resetear o limpiar el formulario de información personal
+      // El retorno al menú principal se maneja en openConfirm
       console.log('Formulario de info personal cancelado por el usuario.');
     });
   });
@@ -150,7 +160,7 @@ if (btnCancelarInfoPersonal) {
 if (btnCancelarInfoTiendaBasica) {
   btnCancelarInfoTiendaBasica.addEventListener('click', () => {
     openConfirm(() => {
-      // Aquí puedes resetear o limpiar el formulario de información personal
+      // El retorno al menú principal se maneja en openConfirm
       console.log('Cancelar en formulario de información basica de la tienda.');
     });
   });
@@ -160,7 +170,7 @@ if (btnCancelarInfoTiendaBasica) {
 if (btnCancelarHorariosTienda) {
   btnCancelarHorariosTienda.addEventListener('click', () => {
     openConfirm(() => {
-      // Aquí puedes resetear o limpiar el formulario de información personal
+      // El retorno al menú principal se maneja en openConfirm
       console.log('Cancelar en formulario de información de los horarios de la tienda');
     });
   });
@@ -170,7 +180,7 @@ if (btnCancelarHorariosTienda) {
 if (btnCancelarMetodosPagoTienda) {
   btnCancelarMetodosPagoTienda.addEventListener('click', () => {
     openConfirm(() => {
-      // Aquí puedes resetear o limpiar el formulario de información personal
+      // El retorno al menú principal se maneja en openConfirm
       console.log('Cancelar en formulario de información de los metodos de pago de la tienda.');
     });
   });
@@ -190,14 +200,8 @@ if (btnAjusteCuenta) {
   });
 }
 
-if(btnAceptarModal){
-  btnAceptarModal.addEventListener('click', function() {
-    contenedorSeguridad.style.display = 'none';
-    contenedorInformacionPersonal.style.display   = 'none';
-    contenedorInfoTienda.style.display   = 'none';
-    contenedorPrincipalPerfil.style.display = 'flex';
-  });
-}
+// Removido el event listener duplicado que causaba conflictos
+// El btnAceptarModal ya se maneja en la función openConfirm()
 
 
 //LOGICA DEL CONTENEDOR PARA ACTUALIZAR LA INFORMACIÓN DE LA TIENDA

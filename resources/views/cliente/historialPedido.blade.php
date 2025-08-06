@@ -34,9 +34,9 @@
             <section class="cont-info-pedido">
                 <h3>{{ $order->store->name }}</h3>
                 @if ($order->store->offers_delivery == 1)
-                    <p class="info-pedido-domicilio">Comunicate con la tienda para el domicilio: {{ $order->store->delivery_contact_phone }}</p>
+                    <p class="info-pedido-domicilio">Domicilio: {{ $order->store->delivery_contact_phone }}</p>
                 @else
-                    <p>La tienda no ofrece servicio a domicilio.</p>
+                    <p class="info-pedido-domicilio">La tienda no ofrece servicio a domicilio.</p>
                 @endif
                 <p id="infoProceso" class="info-proceso">
                 @switch($order->status)
@@ -77,17 +77,18 @@
                         <article class="cont-titulo-categoria">
                             <h3>{{ $categoryName }}</h3>
                         </article>
-
-                        @foreach ($items as $item)
-                            <article class="producto-pedido">
-                                <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product->name }}">
-                                <section>
-                                    <p>{{ $item->product->name }}</p>
-                                    <p>${{ number_format($item->product->price, 2) }}</p>
-                                </section>
-                                <span>x{{ $item->quantity }}</span>
-                            </article>
-                        @endforeach
+                        <article class="cont-card-productos-por-categoria">
+                            @foreach ($items as $item)
+                                <article class="producto-pedido">
+                                    <img src="{{ $item->product ? $item->product->image_url : asset('img/rice-ball_.png') }}" alt="{{ $item->product->name }}">
+                                    <section>
+                                        <p>{{ $item->product->name }}</p>
+                                        <p>${{ number_format($item->product->price, 2) }}</p>
+                                    </section>
+                                    <span>x{{ $item->quantity }}</span>
+                                </article>
+                            @endforeach
+                        </article>
                     </section>
                 @endforeach
             </section>

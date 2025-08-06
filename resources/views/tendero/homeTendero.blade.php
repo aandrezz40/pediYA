@@ -40,7 +40,7 @@
         @endif
 
         @if(isset($statusMessage))
-            <div class="alert alert-error store-status-alert">
+            <div class="alert store-status-alert">
                 <strong>Estado de Tienda:</strong><br>
                 {{ $statusMessage }}
             </div>
@@ -63,7 +63,7 @@
                     </label>
                 @else
                     <div class="disabled-store-status">
-                        <p>Estado de tienda: <span class="status-badge {{ $store->status }}">{{ ucfirst($store->status) }}</span></p>
+                        <p>Estado de tienda: <span class="status-badge {{ $store->status }}">No disponible</span></p>
                         <p class="status-message">No puedes cambiar el estado de tu tienda en este momento.</p>
                     </div>
                 @endif
@@ -98,32 +98,32 @@
             @else
                 <div class="disabled-actions-message">
                     <p>Las funcionalidades de gestión están deshabilitadas debido al estado de tu tienda.</p>
-                    <p>Contacta al administrador para más información.</p>
+                    @if(!$store->is_active)
+                        <p>Contacta a soporte para más información.</p>
+                    @else
+                        <p>Debes esperar a que tu tienda sea aprobada para poder gestionar productos.</p>
+                    @endif
                 </div>
             @endif
         </section>
-
+        @if($store->is_active && $store->status === 'approved')
         <section class="cont-vista-principal-productos">
             <div class="header-productos">
                 <h3>Productos de tu tienda</h3>
             </div>
             
-            @if($store->is_active && $store->status === 'approved')
-                <!-- Filtros de categorías -->
-                <div class="cont-categorias-filtro">
-                    <button type="button" class="btn-categoria-filtro active" data-category-id="0">Todos</button>
-                    @foreach($store->category as $category)
-                        <button type="button" class="btn-categoria-filtro" data-category-id="{{ $category->id }}">{{ $category->name }}</button>
-                    @endforeach
-                    <button class="btn-crear-categoria" id="btnCrearCategoria" onclick="abrirModalCategoria()">
-                        <img src="{{ asset('img/plus.svg') }}" alt="+" style="width: 16px; height: 16px;">
-                    </button>
-                </div>
-            @else
-                <div class="disabled-products-message">
-                    <p>La gestión de productos está deshabilitada debido al estado de tu tienda.</p>
-                </div>
-            @endif
+          
+            <!-- Filtros de categorías -->
+            <div class="cont-categorias-filtro">
+                <button type="button" class="btn-categoria-filtro active" data-category-id="0">Todos</button>
+                @foreach($store->category as $category)
+                    <button type="button" class="btn-categoria-filtro" data-category-id="{{ $category->id }}">{{ $category->name }}</button>
+                @endforeach
+                <button class="btn-crear-categoria" id="btnCrearCategoria" onclick="abrirModalCategoria()">
+                    <img src="{{ asset('img/plus.svg') }}" alt="+" style="width: 16px; height: 16px;">
+                </button>
+            </div>
+        @endif
 
             @if($store->is_active && $store->status === 'approved')
                 @if($store->product->count() > 0)

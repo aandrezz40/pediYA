@@ -27,8 +27,8 @@
             
             .alert {
                 position: fixed;
-                top: 20px;
-                right: 20px;
+                top: 2px;
+                right: 2px;
                 padding: 15px 20px;
                 border-radius: 5px;
                 z-index: 10000;
@@ -38,18 +38,42 @@
             }
             
             .alert-success {
-                background: #28a745;
+                position: fixed;
+                top: 2px;
+                right: 2px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                background: #B032E7;
                 color: white;
+                max-width: 400px;
+                animation: slideInRight 0.5s ease-out;
             }
             
             .alert-error {
-                background: #dc3545;
+                position: fixed;
+                top: 2px;
+                right: 2px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                background: #B032E7;
                 color: white;
+                max-width: 400px;
+                animation: slideInRight 0.5s ease-out;
             }
             
             .alert-warning {
-                background: #ffc107;
-                color: #212529;
+                position: fixed;
+                top: 2px;
+                right: 2px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                background: #B032E7;
+                color: white;
+                max-width: 400px;
+                animation: slideInRight 0.5s ease-out;
             }
             
             @keyframes slideInRight {
@@ -628,7 +652,6 @@
                     };
                     
                     // Hacer la alerta relativa para posicionar el botón
-                    alert.style.position = 'relative';
                     alert.appendChild(closeButton);
                 });
 

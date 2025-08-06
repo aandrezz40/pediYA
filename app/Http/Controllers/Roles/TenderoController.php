@@ -59,7 +59,7 @@ class TenderoController extends Controller
             case 'disapproved':
                 return 'Tu tienda fue desaprobada. Contacta al administrador para más información.';
             case 'pending_approval':
-                return 'Tu tienda está pendiente de aprobación. Serás notificado cuando sea aprobada.';
+                return 'Podrás acceder a las funcionalidades cuando sea aprobada.';
             default:
                 return 'Tu tienda tiene un estado no válido. Contacta al administrador.';
         }

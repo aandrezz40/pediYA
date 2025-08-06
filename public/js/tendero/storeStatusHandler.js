@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (storeStatusAlert) {
         // Hacer que la alerta sea más prominente
         storeStatusAlert.style.position = 'fixed';
-        storeStatusAlert.style.top = '20px';
-        storeStatusAlert.style.left = '50%';
-        storeStatusAlert.style.transform = 'translateX(-50%)';
+        storeStatusAlert.style.top = '5px';
+        storeStatusAlert.style.right = '2px';
         storeStatusAlert.style.zIndex = '10001';
         storeStatusAlert.style.minWidth = '400px';
         storeStatusAlert.style.maxWidth = '600px';

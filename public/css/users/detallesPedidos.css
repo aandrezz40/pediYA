@@ -39,7 +39,7 @@ body{
     overflow-x: hidden;
     background-color: #f8f9fa;
 }
-main{
+.main-detalles-pedido{
     width: 70vw;
     max-width: 800px;
     display: flex;
@@ -47,7 +47,7 @@ main{
     align-items: center;
     justify-content: center;
     background: white;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
     gap: 20px;
@@ -65,7 +65,7 @@ main{
 }
 .cont-encabezado h2{
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 300;
     text-align: center;
 }
 .cont-alerta{
@@ -75,18 +75,18 @@ main{
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    background-color: #E88BFF;
+    background-color: #E4DDE9;
     padding: 15px;
     border-radius: 10px;
     gap: 10px;
 }
 .cont-alerta h3{
-    color: #000000;
+    color: var(--color-primario);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 300;
 }
 .cont-alerta p{
-    color: #000000;
+    color: var(--color-text1);
     font-size: 0.9rem;
     line-height: 1.4;
 }
@@ -101,13 +101,13 @@ main{
 .titulos h2{
     color: var(--color-primario);
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 300;
     margin: 0;
 }
 .titulos .nombre-tienda{
     color: var(--color-sexto);
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 300;
 }
 .cont-productos-detalles{
     width: 100%;
@@ -127,7 +127,7 @@ main{
     align-items: center;
     justify-content: space-between;
     background: white;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 15px;
     border: 1px solid #e9ecef;
     transition: all 0.2s ease;
@@ -145,7 +145,7 @@ main{
     width: 50px;
     height: 50px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 5px;
 }
 .cont-info-prducto{
     flex: 1;
@@ -157,9 +157,9 @@ main{
     margin: 0 15px;
 }
 .cont-info-prducto h3{
-    color: var(--color-primario);
+    color: black;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: 5px;
 }
 .descripcion-producto{
@@ -170,17 +170,20 @@ main{
 .precio-producto{
     color: var(--color-sexto);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 300;
 }
 .cont-cantidad{
-    background-color: var(--color-primario);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-weight: 600;
+    background-color: #F9EFFF;
+    color: var(--color-primario);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 300;
     font-size: 0.85rem;
     min-width: 35px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cont-total{
     width: 100%;
@@ -197,7 +200,7 @@ main{
 .cont-total h3{
     color: var(--color-primario);
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 300;
 }
 .form-cont-nota{
     width: 100%;
@@ -210,7 +213,7 @@ main{
 .cont-total p{
     color: var(--color-sexto);
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 300;
 }
 .cont-nota{
     width: 100%;
@@ -223,13 +226,13 @@ main{
 .cont-nota h3{
     color: var(--color-primario);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 300;
 }
 .cont-nota textarea{
     width: 100%;
     min-height: 80px;
     border: 1px solid #ced4da;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 12px;
     resize: vertical;
     outline: none;
@@ -254,9 +257,9 @@ main{
     background-color: var(--color-primario);
     color: white;
     padding: 12px 30px;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 300;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -277,7 +280,7 @@ main{
     width: 320px;
     height: 200px;
     background: white;
-    border-radius: 12px;
+    border-radius: 10px;
     z-index: 999;
     border: none;
     text-align: center;
@@ -301,19 +304,21 @@ main{
 .cont-info-modal p{
     color: var(--color-primario);
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 300;
     line-height: 1.4;
 }
 /* Reglas responsive */
 @media screen and (max-width: 1200px) {
-    main {
+    
+.main-detalles-pedido {
         width: 80vw;
         padding: 25px;
     }
 }
 
 @media screen and (max-width: 992px) {
-    main {
+    
+.main-detalles-pedido {
         width: 90vw;
         padding: 20px;
     }
@@ -328,7 +333,8 @@ main{
 }
 
 @media screen and (max-width: 768px) {
-    main {
+    
+.main-detalles-pedido {
         width: 95vw;
         padding: 15px;
         gap: 15px;
@@ -357,7 +363,7 @@ main{
     }
     
     .producto {
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
         padding: 15px;
         text-align: center;
@@ -403,7 +409,8 @@ main{
 }
 
 @media screen and (max-width: 576px) {
-    main {
+    
+.main-detalles-pedido {
         width: 100vw;
         padding: 10px;
         border-radius: 10px;

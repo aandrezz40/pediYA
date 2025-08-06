@@ -131,7 +131,7 @@
 <article class="overlay-carrito" id="overlayCarrito">
     <section class="cont-carrito" id="contCarrito">
         <article class="cont-buttons">
-            <img src="{{ asset('img/x-fill-12_.png') }}" alt="" id="cerrarCarrito">
+            <img src="{{ asset('img/x-fill-12_.png') }}" alt="" id="cerrarCarrito" class="cerrarCarrito">
             <h2 class="titulo-carrito">PediYÁ</h2>
         </article>
         <h2 class="tituloSecundario">¡Tú carrito!</h2>

@@ -147,7 +147,7 @@ body{
 }
 .cont-cards-config{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: start;
@@ -916,8 +916,8 @@ body{
 
 /* DISEÑO RESPONSIVE */
 /* Para tablets (ancho máximo de 992px) */
-@media screen and (max-width: 3000px) {
-    main{
+@media screen and (max-width: 1200px) {
+    .main-perfil-usuario{
         width: 90vw;
         height: 90vh;
         display: flex;
@@ -925,11 +925,12 @@ body{
         align-items: center;
         justify-content: center;
         gap:20px;
+        padding: 20px 0;
     }
 }
 
 @media screen and (max-width: 992px) {
-    main {
+    .main-perfil-usuario {
         width: 95vw;
         height: auto;
         flex-direction: column;
@@ -956,10 +957,11 @@ body{
     
     .cont-cards-config {
         justify-content: space-between;
+        padding: 0;
     }
     
     .card-config {
-        width: 48%;
+        width: 100%;
     }
     
     .cont-form-personal form {

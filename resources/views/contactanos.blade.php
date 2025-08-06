@@ -90,7 +90,7 @@
             </article>
         </section>
 
-        <a href="{{ url('/') }}" class="img">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }} class="img">
             <img src="{{ asset('img/home.svg') }}" alt="Inicio">
         </a>
     </main>

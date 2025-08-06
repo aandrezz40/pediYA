@@ -11,7 +11,7 @@
 </head>
 <body>
     <main class="timeline-container">
-        <a href="{{ url('/') }}" class="icono-salir-nosotros">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }}" class="icono-salir-nosotros">
             <div class=""><img class="icono-nav cerrar-nav" src="{{ asset('img/x-fill-12_.png') }}" alt="" id="close-nav-bar"></div>
         </a>
         

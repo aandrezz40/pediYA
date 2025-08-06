@@ -77,6 +77,8 @@ header{
     border: none;
     outline: none;
     font-size: 1.1em;
+    background-color: transparent;
+
 }
 .btn-search{
     cursor: pointer;
@@ -89,7 +91,6 @@ header{
 
 /* Estilos para el autocompletado */
 .bar-search {
-
     position: relative;
 }
 
@@ -269,7 +270,7 @@ header{
     width: auto;
     padding: 10px 20px 10px 20px;
     height: 80px;
-    background-color: var(--color-quinto);
+    background-color: var(--color-primario);
     clip-path: polygon(50% 0%, 84% 0%, 93% 50%, 84% 100%, 51% 100%, 0% 100%, 0% 50%, 0% 0%, 50% 0%);
     display: flex;
     flex-direction: column;
@@ -293,7 +294,7 @@ header{
 .container-links h3{
     text-align: center;
     width: 80%;
-    color: black;
+    color: white;
 }
 .links{
     width: 80%;
@@ -317,8 +318,8 @@ header{
     background-size: cover;
 }
 .cont-icono:hover{
-    background-color: var(--color-quinto);
-    fill: var(--color-primario);
+    background-color: var(--color-primario);
+    fill: white;
 }
 .logo-nav-bar{
     width: 60px;
@@ -446,12 +447,15 @@ header{
     width:100%;
     margin-top: 15px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
-.cont-buttons img{
+.cerrarCarrito {
     width: 40px;
     cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 15px;
 }
 .icono-carrito{
     width: 70px;
@@ -755,7 +759,7 @@ header{
     }
     .icono-carrito-view{
         width: var(--tamaño-icono3);
-        padding: 2px 5px 1px 5px;
+        padding: 0px 0px 0px 0px;
         margin: 0 0 0 0;
         border: none;
     }
@@ -769,6 +773,8 @@ header{
     .icono-notificacion-view{
         width: 40px;
         height: 40px;
+        border-radius: 5px;
+
     }
     .icono-notificacion-view img{
         width: 20px;
@@ -791,8 +797,8 @@ header{
         cursor: pointer;
     }
     .cont-icono:hover{
-        background-color: var(--color-quinto);
-        fill: var(--color-primario);
+        background-color: var(--color-primario);
+        fill: white;
     }
     .logo-nav-bar{
         width: 40px;

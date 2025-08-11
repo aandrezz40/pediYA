@@ -52,16 +52,16 @@ class TenderoController extends Controller
     private function getStoreStatusMessage($store): string
     {
         if (!$store->is_active) {
-            return 'Tu tienda está inactiva. Contacta al administrador para más información.';
+            return 'Tu tienda está inactiva. Contacta a soporte para más información.';
         }
         
         switch ($store->status) {
             case 'disapproved':
-                return 'Tu tienda fue desaprobada. Contacta al administrador para más información.';
+                return 'Tu tienda fue desaprobada. Contacta a soporte para más información.';
             case 'pending_approval':
                 return 'Podrás acceder a las funcionalidades cuando sea aprobada.';
             default:
-                return 'Tu tienda tiene un estado no válido. Contacta al administrador.';
+                return 'Tu tienda tiene un estado no válido. Contacta al soporte.';
         }
     }
 

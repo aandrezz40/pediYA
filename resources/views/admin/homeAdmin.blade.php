@@ -24,14 +24,6 @@
                     <p>Usuarios</p>
                 </li>
             </ul>
-            <article class="container-cerrar-sesion">
-                <p>{{ auth()->user()->name }}</p>
-                <p>Administrador</p>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </article>
         </aside>
         <main class="main-dashboard-admin">
             <section class="section-principal-dashboard-admin">

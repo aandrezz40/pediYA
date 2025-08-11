@@ -195,8 +195,11 @@
 }
 
 .alert-success {
-    background: #28a745;
+    background: #B032E7;
     color: white;
+    bottom: 2px !important;
+    right: 2px !important;
+    top: auto !important;
 }
 
 .alert-error {

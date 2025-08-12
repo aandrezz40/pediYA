@@ -109,7 +109,6 @@ if(navTiendas){
         contTiendas.classList.add(animation, nameAnimation1)
         contTiendas.style.display = 'flex';
 
-        console.log('Elemento no encontrado en el DOM');
     });
 }else{
     console.log('Elemento no encontrado en el DOM');

@@ -110,7 +110,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 80%;
     height: 100%;
     text-decoration: none;
     border: none;
@@ -148,7 +148,7 @@ body{
 .cont-cards-config{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: start;
     width: 100%;
@@ -539,6 +539,14 @@ body{
 .dato h4{
     font-size: .7em;
     color: var(--color-text3);
+}
+.dato:nth-child(2) p{
+    width: 40ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /*CONTENEDOR FORMULARIO DE DATOS BASICOS*/

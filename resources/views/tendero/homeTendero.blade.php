@@ -126,7 +126,7 @@
 
             @if($store->is_active && $store->status === 'approved')
                 @if($store->product->count() > 0)
-                    <div class="cont-cards-productos-tendero">
+                    <div class="cont-cards-productos-tendero cont-cards-productos-tendero-productos">
                         @foreach($store->product as $product)
                             <article class="card-producto-tendero" data-category-id="{{ $product->category_id ?? 0 }}">
                                 <section class="cont-img-producto-tendero">
@@ -154,12 +154,14 @@
                         @endforeach
                     </div>
                 @else
+                <div class="cont-cards-productos-tendero" style="height: auto;">
                     <div class="sin-productos">
                         <p>No tienes productos registrados aún.</p>
                         <button class="btn-agregar-producto" id="btnAgregarProducto" onclick="abrirModalAgregar()">
                             Agregar primer producto
                         </button>
                     </div>
+                </div>
                 @endif
             @endif
 

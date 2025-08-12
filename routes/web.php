@@ -32,6 +32,16 @@ Route::get('/nosotros', function () {
         Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unreadCount');
     });
 
+    Route::get('/notificacionPedido', function () {
+        $user = Auth::user();
+    
+        return match ($user->role) {
+            'cliente' => redirect()->route('historialPedidos'),
+            'tendero' => redirect()->route('tendero.pedidos'),
+            default   => abort(403, 'Acceso no autorizado'),
+        };
+    })->middleware(['auth', 'verified'])->name('home');
+    
 
 
 Route::get('/home', function () {
@@ -52,10 +62,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->middleware('role:cliente')->name('store.unfavorite');
     Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->middleware('role:cliente')->name('store.favorite');  
 
-    Route::get('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente')->name('detallesTienda');
+    Route::get('/detallesTienda/{id}', [ClienteController::class, 'detallesTienda'])->middleware('role:cliente,admin')->name('detallesTienda');
     // Route::post('/product/{id}/{idTienda}', [ClienteController::class, 'product'])->middleware('role:cliente')->name('product');
-    Route::post('/busquedaTienda', [ClienteController::class, 'busquedaTienda'])->middleware('role:cliente')->name('busquedaTienda');
-    Route::get('/buscar-tiendas', [ClienteController::class, 'buscarTiendas'])->middleware('role:cliente')->name('buscar.tiendas');
+    Route::post('/busquedaTienda', [ClienteController::class, 'busquedaTienda'])->middleware('role:cliente,admin')->name('busquedaTienda');
+    Route::get('/buscar-tiendas', [ClienteController::class, 'buscarTiendas'])->middleware('role:cliente,admin')->name('buscar.tiendas');
     Route::post('/pedido/agregar', [ClienteController::class, 'agregarProducto'])->middleware('role:cliente')->name('cliente.pedido.agregar');
 
     Route::delete('/cliente/pedido/eliminar/{order}', [ClienteController::class, 'eliminarOrden'])->middleware('role:cliente')->middleware('role:cliente')->name('cliente.pedido.eliminar');

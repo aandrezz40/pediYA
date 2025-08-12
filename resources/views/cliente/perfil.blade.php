@@ -257,7 +257,15 @@
                 <!-- Barrio -->
                 <section class="cont-inputs-tienda">
                     <label for="barrioTienda">Barrio</label>
-                    <input type="text" id="barrioTienda" name="address_neighborhood" value="{{ old('address_neighborhood', $store->address_neighborhood ?? '') }}">
+                    <select name="address_neighborhood" id="barrioSelect" required
+                            class="{{ $errors->has('neighborhood') ? 'error-input' : '' }}">
+                        <option value="{{ old('address_neighborhood', $store->address_neighborhood ?? '') }}">{{$store->address_neighborhood}}</option>
+                        @foreach($barrios as $barrio)
+                            <option value="{{ $barrio->nombre_barrio }}" {{ old('neighborhood') == $barrio->nombre_barrio ? 'selected' : '' }}>
+                                {{ $barrio->nombre_barrio }}
+                            </option>
+                        @endforeach
+                    </select>
                 </section>
                 <section class="cont-btn-form">
                     <button type="button" class="btn-cancelar" id="btnCancelarInfoTienda">Cancelar</button>

@@ -819,10 +819,8 @@ body{
     color: white;
 }
 
-/* ========================================
-   CARDS DE PRODUCTOS
-   ======================================== */
-.cont-cards-productos-tendero {
+/* Estilos para las tarjetas de productos */
+.cont-cards-productos-tendero-productos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 220px));
     gap: 20px;
@@ -1038,7 +1036,7 @@ body{
     }
 
     /* Cards de productos */
-    .cont-cards-productos-tendero {
+    .cont-cards-productos-tendero-productos {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 15px;
     }
@@ -1130,8 +1128,7 @@ body{
 }
 
 @media (max-width: 480px) {
-    /* Cards de productos */
-    .cont-cards-productos-tendero {
+    .cont-cards-productos-tendero-productos {
         grid-template-columns: 1fr;
         gap: 15px;
     }

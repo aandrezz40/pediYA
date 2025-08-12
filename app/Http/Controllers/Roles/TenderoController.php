@@ -52,16 +52,16 @@ class TenderoController extends Controller
     private function getStoreStatusMessage($store): string
     {
         if (!$store->is_active) {
-            return 'Tu tienda está inactiva. Contacta al administrador para más información.';
+            return 'Tu tienda está inactiva. Contacta a soporte para más información.';
         }
         
         switch ($store->status) {
             case 'disapproved':
-                return 'Tu tienda fue desaprobada. Contacta al administrador para más información.';
+                return 'Tu tienda fue desaprobada. Contacta a soporte para más información.';
             case 'pending_approval':
                 return 'Podrás acceder a las funcionalidades cuando sea aprobada.';
             default:
-                return 'Tu tienda tiene un estado no válido. Contacta al administrador.';
+                return 'Tu tienda tiene un estado no válido. Contacta al soporte.';
         }
     }
 
@@ -656,6 +656,7 @@ class TenderoController extends Controller
             'name' => $request->store_name,
             'delivery_contact_phone' => $request->delivery_contact_phone,
             'address_street' => $request->address_line_1,
+            'address_neighborhood' => $request->address_neighborhood,
             'description' => $request->description,
         ]);
 
@@ -684,8 +685,7 @@ class TenderoController extends Controller
         }
 
         // Actualizar horarios
-        $schedule = $this->processScheduleFromForm($request);
-        $store->update(['schedule' => $schedule]);
+
 
         // Sincronizar métodos de pago
         $store->paymentMethods()->sync($request->payment_methods);

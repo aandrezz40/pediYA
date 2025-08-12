@@ -47,7 +47,7 @@
                                         Confirmado
                                         @break
                                     @case('preparing')
-                                        En proceso
+                                        En preparación
                                         @break
                                     @case('ready')
                                         Pedido listo

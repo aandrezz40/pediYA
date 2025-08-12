@@ -12,8 +12,8 @@ function showAlert(message, type = 'success') {
     closeButton.innerHTML = '&times;';
     closeButton.style.cssText = `
         position: absolute;
-        top: 5px;
-        right: 10px;
+        top: 2px;
+        right: 5px;
         background: none;
         border: none;
         color: inherit;
@@ -30,7 +30,7 @@ function showAlert(message, type = 'success') {
         }, 500);
     };
     
-    alert.style.position = 'relative';
+    alert.style.position = 'fixed';
     alert.appendChild(closeButton);
     
     document.body.appendChild(alert);
@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Si es un producto nuevo, agregarlo dinámicamente
                     if (!isEditing && data.product) {
                         agregarProductoAlDOM(data.product);
+
                     } else if (isEditing && data.product) {
                         // Si es edición, actualizar el producto existente
                         actualizarProductoEnDOM(data.product);
@@ -268,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Agregar la nueva categoría al filtro dinámicamente
                     if (data.category) {
                         agregarCategoriaAlFiltro(data.category);
+
                     }
                 } else {
                     showAlert(data.message || 'Error al crear la categoría', 'error');
@@ -453,9 +455,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // Funciones para actualizar el DOM dinámicamente
 function agregarProductoAlDOM(product) {
     const contenedor = document.querySelector('.cont-cards-productos-tendero');
-    if (!contenedor) return;
+
+    if (!contenedor.classList.contains('cont-cards-productos-tendero-productos')) {
+        contenedor.classList.add('cont-cards-productos-tendero-productos');
+        console.log('Clase agregada');
+    }
     
-    const productHTML = `
+
+
+        const productHTML = `
         <article class="card-producto-tendero" data-category-id="${product.category_id || 0}">
             <section class="cont-img-producto-tendero">
                 <img src="${product.image_url || '/img/default-product.jpg'}" alt="${product.name}">
@@ -503,7 +511,11 @@ function agregarProductoAlDOM(product) {
     if (sinProductos) {
         sinProductos.remove();
     }
-}
+    };
+    
+    
+
+
 
 function actualizarProductoEnDOM(product) {
     // Buscar la card por el botón de editar que contiene el product ID
@@ -591,6 +603,15 @@ function agregarCategoriaAlFiltro(category) {
     if (sinCategorias) {
         sinCategorias.remove();
     }
+
+    const select = document.getElementById('categoriaProducto');
+    if (!select) return;
+
+    const option = document.createElement('option');
+    option.value = category.id;
+    option.textContent = category.name;
+    option.selected = true;
+    select.appendChild(option);
 }
 
 // Funciones globales para usar desde el HTML

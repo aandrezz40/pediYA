@@ -140,6 +140,7 @@ document.addEventListener('click', (e) => {
                 }
 
                 return `
+                <a href="/notificacionPedido" style="text-decoration: none; color: inherit;">
                     <div class="notification-item ${isRead ? 'read' : 'unread'}" 
                          data-id="${notification.id}"
                          style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; ${!isRead ? 'background-color: #f8f9fa;' : ''}">
@@ -155,7 +156,8 @@ document.addEventListener('click', (e) => {
                             ${!isRead ? '<div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-left: 10px;"></div>' : ''}
                         </div>
                     </div>
-                `;
+                </a>
+            `;
             }).join('');
 
             // Agregar event listeners a los items

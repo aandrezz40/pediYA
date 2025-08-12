@@ -61,7 +61,7 @@ body{
 }
 .nombre-empresa-dashboard-admin{
     color: var(--color-primario);
-    font-size: 3em;
+    font-size: 2.8em;
 }
 .list-opciones-nav-bar-admin{
     width: 100%;
@@ -155,6 +155,7 @@ body{
     padding: 10px 20px;
     text-align: center;
     gap: 10px;
+    cursor: pointer;
 }
 .opcion-dashboard p{
     font-size: .8em;

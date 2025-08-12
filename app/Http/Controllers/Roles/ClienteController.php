@@ -319,16 +319,31 @@ class ClienteController extends Controller
         return view('cliente.historialPedido', compact('user', 'orders'));
     }
 
-    public function actualizarCantidad(Request $request, $id){
-
+    public function actualizarCantidad(Request $request, $id)
+    {
         $orderItem = OrderItem::findOrFail($id);
+    
+        // Actualizar cantidad y subtotal
         $orderItem->quantity = $request->quantity;
         $orderItem->subtotal = $orderItem->unit_price * $request->quantity;
         $orderItem->save();
-
-        return response()->json(['success' => true]);
+    
+        // Obtener la orden asociada y recalcular el total
+        $order = $orderItem->order;
+        $nuevoTotal = $order->orderItems()->sum('subtotal');
+        $order->total_amount = $nuevoTotal;
+        $order->save();
+    
+        return response()->json([
+            'precio'=> $request->precio,
+            'cantidad'=> $request->quantity,
+            'id_item'=> $id,
+            'success' => true,
+            'nuevo_total' => $nuevoTotal,
+            'nuevo_subtotal' => $orderItem->subtotal
+        ]);
     }
-
+    
     public function verDetalle($orderId){
         $order = Order::with(['store', 'orderItems'])->findOrFail($orderId);
 

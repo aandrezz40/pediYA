@@ -27,17 +27,19 @@
                                                     <button type="button" class="aumentar-cantidad">+</button>
                                                 </article>
                                                 <input type="hidden" name="quantity" value="{{ $item->quantity }}">
+                                                <input type="hidden" name="id_order" value="{{ $order->id }}">
+                                                <input type="hidden" name="precio" value="{{ $item->unit_price }}">
                                             </form>
                                         </article>
                                     </article>
                                 </section>
                                 <article class="cont-confirmar">
-                                    <p>Subtotal: <span>{{ $item->subtotal }}</span></p>
+                                    <p>Subtotal: <span class='spanSubTotal' id="subtotal-{{ $item->id }}">{{ $item->subtotal }}</span></p>
                                 </article>
                             </section>
                         @endforeach
                         <article class="subtotalTienda">
-                            <p>Total en tienda: <span>18000</span></p>
+                            <p>Total en tienda: <span id="totalTienda-{{ $item->id }}">{{$order->total_amount}}</span></p>
                         </article>
                     </section>
                 </article>

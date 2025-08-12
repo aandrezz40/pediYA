@@ -57,7 +57,7 @@ Route::get('/home', function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth' , 'active')->group(function () {
     Route::get('/homeCliente', [ClienteController::class, 'index'])->middleware('role:cliente')->name('homeCliente');
     Route::post('/store/{store}/unfavorite', [FavoriteController::class, 'unfavorite'])->middleware('role:cliente')->name('store.unfavorite');
     Route::post('/store/{store}/favorite', [FavoriteController::class, 'favorite'])->middleware('role:cliente')->name('store.favorite');  

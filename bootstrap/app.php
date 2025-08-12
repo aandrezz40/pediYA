@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'tendero.status' => \App\Http\Middleware\CheckTenderoStatus::class,
             'tendero.store.registration' => \App\Http\Middleware\CheckTenderoStoreRegistration::class,
             'tendero.store.status' => \App\Http\Middleware\CheckTenderoStoreStatus::class,
+            'active' => \App\Http\Middleware\CheckUserIsActive::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

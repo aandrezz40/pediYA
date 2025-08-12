@@ -142,7 +142,7 @@
         </article>
         <article class="cont-total">
             <h3>Total:</h3>
-            <p>${{ number_format($totalOrdersAmount, 0) }}</p>
+                <p id='total_carrito'>${{ number_format($totalOrdersAmount, 0) }}</p>
         </article>
     </section>
 </article>

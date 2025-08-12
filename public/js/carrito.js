@@ -35,6 +35,21 @@ function inicializarEventosCarrito() {
     const cerrarCarrito    = document.getElementById('cerrarCarrito');
     const overlayCarrito   = document.getElementById('overlayCarrito');
 
+    function actualizarTotalEnTienda() {
+        let total = 0;
+    
+        // Selecciona todos los subtotales y suma
+        document.querySelectorAll('.subtotal').forEach(function(el) {
+            total += parseFloat(el.textContent) || 0;
+        });
+    
+        // Mostrar el total con formato de moneda
+        document.getElementById('totalEnTienda').textContent = total.toLocaleString('es-CO', {
+            style: 'currency',
+            currency: 'COP'
+        });
+    }
+
     function resetAcordiones() {
         document.querySelectorAll('.card-carrito').forEach(card => {
             card.classList.remove('con-altura-minima');
@@ -205,8 +220,31 @@ function inicializarEventosCarrito() {
                     },
                     body: JSON.stringify({ quantity })
                 });
-
                 const data = await response.json();
+                const spanSubtotal = document.getElementById(`subtotal-${data.id_item}`);
+                let totalElement = document.getElementById(`totalTienda-${data.id_item}`);
+                let totalActual = parseFloat(totalElement.textContent) || 0;
+
+                // 3️⃣ Calcular el nuevo valor sumando precio * cantidad
+                let suma = parseFloat(data.precio) * parseInt(data.cantidad);
+                let nuevoTotal = totalActual + suma;
+
+                // 4️⃣ Asignar el nuevo valor al span
+                totalElement.textContent = parseInt(totalElement.textContent) + 1000; // Si quieres 2 decimales
+                if (spanSubtotal) {
+                    spanSubtotal.textContent = data.nuevo_subtotal;
+                }
+                let total = 0;
+
+                // Buscar todos los elementos con clase "spanSubTotal"
+                document.querySelectorAll('.spanSubTotal').forEach(el => {
+                    let valor = parseFloat(el.textContent) || 0;
+                    total += valor;
+                    console.log('hyola');
+                });
+            
+                // Actualizar el total en el carrito
+                document.getElementById('total_carrito').textContent = `$${total.toLocaleString()}`;
 
             } catch (error) {
                 console.error('Error:', error);

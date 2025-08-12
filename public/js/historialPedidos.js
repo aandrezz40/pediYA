@@ -2,7 +2,7 @@ const cardsPedido = document.querySelectorAll(".cont-card-pedido");
 
 // Definición centralizada de colores y textos por estado
 const estadoConfig = {
-    "Confirmado":   { text: "En proceso", color: "#1e40af", showBtn: false }, // Azul fuerte
+    "Confirmado":   { text: "Confirmado", color: "#1e40af", showBtn: false }, // Azul fuerte
     "En proceso":   { text: "En proceso", color: "#1e40af", showBtn: false },
     "Entregado":    { color: "#22c55e", showBtn: true },   // Verde
     "Cancelado":    { color: "#ef4444", showBtn: false },  // Rojo

@@ -656,6 +656,7 @@ class TenderoController extends Controller
             'name' => $request->store_name,
             'delivery_contact_phone' => $request->delivery_contact_phone,
             'address_street' => $request->address_line_1,
+            'address_neighborhood' => $request->address_neighborhood,
             'description' => $request->description,
         ]);
 
@@ -684,8 +685,7 @@ class TenderoController extends Controller
         }
 
         // Actualizar horarios
-        $schedule = $this->processScheduleFromForm($request);
-        $store->update(['schedule' => $schedule]);
+
 
         // Sincronizar métodos de pago
         $store->paymentMethods()->sync($request->payment_methods);

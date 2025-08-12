@@ -7,7 +7,7 @@
     <!-- BANNER DETALLES DE LA TIENDA -->
     <section class="cont-baner-detalles-tienda">
         <article class="cont-img-tienda-detalle">
-            <img class="img-tienda" src="{{ asset('img/slider-3.jpg') }}" alt="">
+        <img id="imgPreviewVista" src="{{asset('storage/'.$store->logo_path)}}" alt="Imagen de la tienda">
         </article>
         <article class="cont-info">
             <h2>{{ $store->name }}</h2>

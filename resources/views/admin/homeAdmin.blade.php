@@ -29,12 +29,12 @@
             <section class="section-principal-dashboard-admin">
                 <h2 class="titulo-section-dashboard-admin">Panel administrativo</h2>
                 <article class="container-opciones-dashboard">
-                    <section class="opcion-dashboard">
+                    <section class="opcion-dashboard" id="opcionDashboardTiendas">
                         <img src="{{ asset('img/logo-v1.1.png') }}" alt="">
                         <h3>Tiendas</h3>
                         <p>Administra y gestiona todas las tiendas registradas en la plataforma</p>
                     </section>
-                    <section class="opcion-dashboard">
+                    <section class="opcion-dashboard" id="opcionDashboardUsuarios">
                         <img src="{{ asset('img/users.svg') }}" alt="">
                         <h3>Usuarios</h3>
                         <p>Gestión de usuarios - Clientes y Tenderos de la plataforma</p>

@@ -87,6 +87,10 @@ const navDashboard = document.querySelector('.nav-section-dashboard');
 const navTiendas = document.querySelector('.nav-section-tiendas');
 const navUsuarios = document.querySelector('.nav-section-usuarios');
 
+// Opciones del dashboard (tarjetas)
+const opcionDashboardTiendas = document.querySelector('#opcionDashboardTiendas');
+const opcionDashboardUsuarios = document.querySelector('#opcionDashboardUsuarios');
+
 const contDashboard = document.querySelector('.section-principal-dashboard-admin');
 const contTiendas = document.querySelector('.section-gestion-tienda-admin');
 const contUsuarios = document.querySelector('.section-gestion-usuarios-admin');
@@ -123,6 +127,29 @@ if(navUsuarios){
     });
 }else{
     console.log('Elemento no encontrado en el DOM');
+};
+
+// Funcionalidad para las opciones del dashboard (tarjetas)
+if(opcionDashboardTiendas){
+    opcionDashboardTiendas.addEventListener('click', function () {
+        contDashboard.style.display = 'none';
+        contUsuarios.style.display = 'none';
+        contTiendas.classList.add(animation, nameAnimation1)
+        contTiendas.style.display = 'flex';
+    });
+}else{
+    console.log('Elemento opcionDashboardTiendas no encontrado en el DOM');
+};
+
+if(opcionDashboardUsuarios){
+    opcionDashboardUsuarios.addEventListener('click', function () {
+        contUsuarios.classList.add(animation, nameAnimation1)
+        contDashboard.style.display = 'none';
+        contTiendas.style.display = 'none';
+        contUsuarios.style.display = 'flex';
+    });
+}else{
+    console.log('Elemento opcionDashboardUsuarios no encontrado en el DOM');
 };
 
 // Función para cargar datos de tienda

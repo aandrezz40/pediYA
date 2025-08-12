@@ -29,7 +29,7 @@
 .cont-encabezado h2 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 .cont-encabezado p {
@@ -57,21 +57,21 @@
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 300;
 }
 
 .filtro-btn:hover {
     border-color: var(--color-primario);
-    color: #c766ea;
+    color: var(--color-primario);
 }
 
 .filtro-btn.active {
-    background: #b412f9;
+    background: var(--color-primario);
     color: white;
 }
 
 .cont-pedidos {
-    display: flex;
+    display: flex;  
     flex-direction: column;
     justify-content: center;
     width: 80%;
@@ -101,19 +101,19 @@
     padding: 1.5rem;
     border-radius: 12px;
     border-bottom: 1px solid #edf6ff;
-    background: #f3d4fd;
+    background: rgba(128, 128, 128, 0.146);
 }
 
 .pedido-info h3 {
     font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
+    font-weight: 300;
+    color: black;
     margin-bottom: 0.5rem;
 }
 
 .pedido-info .cliente {
     color: #64748b;
-    font-weight: 500;
+    font-weight: 300;
     margin-bottom: 0.25rem;
 }
 
@@ -126,13 +126,13 @@
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .estado-pending {
-    color: #92400e;
+    color: #FEA405;
 }
 
 .estado-confirmed {
@@ -140,19 +140,19 @@
 }
 
 .estado-preparing {
-    color: #92400e;
+    color: #1e40af;
 }
 
 .estado-ready {
-    color: #166534;
+    color: #2563eb;
 }
 
 .estado-delivered {
-    color: #166534;
+    color: #22c55e;
 }
 
 .estado-cancelled {
-    color: #991b1b;
+    color: #ef4444;
 }
 
 .pedido-productos {
@@ -162,8 +162,8 @@
 
 .pedido-productos h4 {
     font-size: 1rem;
-    font-weight: 600;
-    color: #374151;
+    font-weight: 300;
+    color: black;
     margin-bottom: 1rem;
 }
 
@@ -187,31 +187,31 @@
 
 .producto-nombre {
     flex: 1;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 300;
+    color: black;
 }
 
 .producto-cantidad {
     color: #6b7280;
     margin: 0 1rem;
-    font-weight: 500;
+    font-weight: 300;
 }
 
 .producto-precio {
     color: #059669;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 .pedido-notas {
     padding: 1.5rem;
     border-radius: 12px;
     border-bottom: 1px solid #f1f5f9;
-    background: #fcf8c3;
+    background: rgba(128, 128, 128, 0.146);
 }
 
 .pedido-notas h4 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 300;
     color: #374151;
     margin-bottom: 0.5rem;
 }
@@ -241,7 +241,7 @@
     border-radius: 8px;
     background: white;
     color: #374151;
-    font-weight: 500;
+    font-weight: 300;
     cursor: pointer;
     transition: border-color 0.2s ease;
 }

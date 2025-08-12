@@ -2,7 +2,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('styles')
         <link rel="stylesheet" href="{{ asset('css/tendero/homeTendero.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/tendero/principalTendero.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
@@ -197,7 +196,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn-cancelar">Cancelar</button>
-                        <button type="submit" class="btn-guardar">Crear Categoría</button>
+                        <button type="submit" class="btn-guardar">Crear</button>
                     </div>
                 </form>
             </div>

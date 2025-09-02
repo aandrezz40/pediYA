@@ -20,27 +20,27 @@ Route::get('/nosotros', function () {
     return view('sobre_nosotros');
 });
 
-    Route::get('/contacto', [ContactoController::class, 'contactanos_form'])->name('contacto');
-    Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
+Route::get('/contacto', [ContactoController::class, 'contactanos_form'])->name('contacto');
+Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
 
-    // Rutas de notificaciones
-    Route::middleware('auth')->group(function () {
-        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-        Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-        Route::patch('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
-        Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unreadCount');
-    });
+// Rutas de notificaciones
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::patch('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unreadCount');
+});
 
-    Route::get('/notificacionPedido', function () {
-        $user = Auth::user();
-    
-        return match ($user->role) {
-            'cliente' => redirect()->route('historialPedidos'),
-            'tendero' => redirect()->route('tendero.pedidos'),
-            default   => abort(403, 'Acceso no autorizado'),
-        };
-    })->middleware(['auth', 'verified'])->name('home');
+Route::get('/notificacionPedido', function () {
+    $user = Auth::user();
+
+    return match ($user->role) {
+        'cliente' => redirect()->route('historialPedidos'),
+        'tendero' => redirect()->route('tendero.pedidos'),
+        default   => abort(403, 'Acceso no autorizado'),
+    };
+})->middleware(['auth', 'verified'])->name('home');
     
 
 

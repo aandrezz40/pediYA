@@ -21,16 +21,6 @@
         <section class="container-form">
             <h2>Inicia Sesión</h2>
 
-            <!-- Mostrar errores generales -->
-            @if ($errors->any())
-                <div style="color:red; margin-bottom: 1rem;">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -102,6 +92,7 @@
     </main>
 
     <script src="{{ asset('js/register.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         // Mostrar / ocultar contraseña
@@ -114,5 +105,29 @@
             }
         }
     </script>
+    
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: `
+                        <ul style="text-align: center; list-style: none;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    `,
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: "#7400C4",
+                    width: '400px',
+                    height: '100px',
+                    heightAuto: false
+                });
+            });
+        </script>
+    @endif
+
 </body>
 </html>

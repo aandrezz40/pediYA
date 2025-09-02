@@ -20,15 +20,7 @@
 
         <section class="container-form">
             <h2>Registro</h2>
-                @if ($errors->any())
-                    <div>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li style="color:blue">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
             <form method="POST" action="{{ route('register') }}" id="formRegistro">
                 @csrf {{-- ¡IMPORTANTE! Directiva CSRF para seguridad en formularios Laravel --}}
 
@@ -79,13 +71,38 @@
             </article>
         </section>
     </main>
+    <!--
     <dialog id="modalError" class="modal-error" closedby="any">
         <div class="modal-content">
           <p id="mensajeError">Texto del error aquí</p>
           <button id="cerrarModal">Entendido</button>
         </div>
     </dialog>
+    -->
     <script src="{{ asset('js/register.js') }}"></script>
     <script src="{{ asset('js/validacionContrasena.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($errors->any())
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: `
+                    <ul style="text-align: center; list-style: none;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                `,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: "#7400C4",
+                width: '400px',
+                height: '100px',
+                heightAuto: false
+            });
+        });
+    </script>
+@endif
 </body>
 </html>

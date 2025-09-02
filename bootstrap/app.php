@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'tendero.store.status' => \App\Http\Middleware\CheckTenderoStoreStatus::class,
             'active' => \App\Http\Middleware\CheckUserIsActive::class,
         ]);
+        
+        // Agregar middleware global para establecer idioma español
+        $middleware->append(\App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

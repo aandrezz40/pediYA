@@ -286,3 +286,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     inicializarEventosCarrito(); // Primera vez
 });
+
+
+
+document.querySelectorAll('.aumentar-cantidad').forEach(aumento => {
+    aumento.addEventListener('click', async function () {
+
+        let contenedor = aumento.closest('.cont-imagen-producto');
+
+        let spanSubTotalTexto = contenedor.querySelector('.spanSubTotal').textContent.trim();
+
+        let precioTexto = contenedor.querySelector('.precioProducto').textContent.trim();
+
+        let precioItem = parseFloat(precioTexto); 
+        let precioSubTotal = parseFloat(spanSubTotalTexto); 
+
+        
+        contenedor.querySelector('.spanSubTotal').textContent = (precioItem + precioSubTotal).toFixed(2); 
+
+
+        console.log(precioItem); // Ejemplo de suma
+        console.log(precioSubTotal); // Ejemplo de suma
+    });
+});
+
+aumento.addEventListener('click', async function () {
+document.querySelectorAll('.aumentar-cantidad').forEach(aumento => {
+    aumento.addEventListener('click', async function () {
+        let contenedor = aumento.closest('.card-carrito');
+
+        let subTotalDefinitivo = 0;
+
+        let TotalTiendaTexto = contenedor.querySelector('.totalPorTienda').textContent.trim();
+        document.querySelectorAll('.spanSubTotal').forEach(subTotal => {
+            let valor = parseFloat(subTotal.textContent.trim()); 
+            subTotalDefinitivo += valor; // acumulas o asignas
+        });
+        
+    console.log(subTotalDefinitivo);
+});
+});
+});

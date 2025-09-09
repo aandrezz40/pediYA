@@ -16,7 +16,11 @@
                                     <article class="contDescripcion">
                                         <h3 class="nombreProducto">{{ $item->product_name }}</h3>
                                         <article class="cont-cantidad">
-                                            <p class="precioProducto">{{ $item->unit_price }}</p>
+                                            <div style='display:flex;'>
+                                                <p>$</p>
+                                                <p class="precioProducto">{{$item->unit_price }}</p>
+                                            </div>
+                                            
 
                                             <form class="cont-cantidad-producto" data-id="{{ $item->id }}">
                                                 @csrf
@@ -34,12 +38,14 @@
                                     </article>
                                 </section>
                                 <article class="cont-confirmar">
-                                    <p>Subtotal: <span class='spanSubTotal' id="subtotal-{{ $item->id }}">{{ $item->subtotal }}</span></p>
+                                    <div style='display:flex;'>
+                                        <p>Subtotal: $<span class='spanSubTotal' id="subtotal-{{ $item->id }}">{{ $item->subtotal }}</span></p>
+                                    </div>
                                 </article>
                             </section>
                         @endforeach
                         <article class="subtotalTienda">
-                            <p>Total en tienda: <span id="totalTienda-{{ $item->id }}">{{$order->total_amount}}</span></p>
+                            <p>Total en tienda: <span id="totalTienda-{{ $item->id }}" class="totalPorTienda">{{$order->total_amount}}</span></p>
                         </article>
                     </section>
                 </article>

@@ -111,7 +111,7 @@
             </section>
 
             <section class="sect-dato">
-                <img src="{{ asset('img/clock-solid.svg') }}" alt="">
+                <img src="{{ asset('img/clock-solid-full (1).svg') }}" alt="">
                 <article class="sect-info">
                     <h3>Horario</h3>
                     <p>{{ $store->schedule }}</p>
@@ -119,7 +119,7 @@
             </section>
 
             <section class="sect-dato">
-                <img src="{{ asset('img/credit-card-solid.svg') }}" alt="">
+                <img src="{{ asset('img/credit-card-solid-full (1).svg') }}" alt="">
                 <article class="sect-info">
                     <h3>Métodos de pago</h3>
                     <p>{{ $store->payment_methods_formatted }}</p>
@@ -129,7 +129,7 @@
 
         <article class="cont-info-adicional">
             <section class="info-adicional">
-                <img src="{{ asset('img/circle-info-solid.svg') }}" alt="">
+                <img src="{{ asset('img/info-solid-full.svg') }}" alt="">
                 <article>
                     <h3>Acerca de</h3>
                     <p>{{ $store->description }}</p>

@@ -6,7 +6,7 @@
 <header>
     <section class="bar-logo">
         <img id="icono-nav-bar" class="icono-hamburguesa" src="{{ asset('img/icono-hamburguesa.png') }}" alt="">
-        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }}">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : (auth()->user()->role === 'admin' ? route('homeAdmin') : url('/')))) : url('/') }}">
             <h1 class="nombreEmpresa">PediYÁ</h1>
         </a>
         

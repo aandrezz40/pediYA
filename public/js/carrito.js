@@ -35,6 +35,30 @@ function inicializarEventosCarrito() {
     const cerrarCarrito    = document.getElementById('cerrarCarrito');
     const overlayCarrito   = document.getElementById('overlayCarrito');
 
+    // Helpers para totales
+    function recalcularTotalTienda(cardCarrito) {
+        if (!cardCarrito) return;
+        let suma = 0;
+        cardCarrito.querySelectorAll('.spanSubTotal').forEach(span => {
+            const val = parseFloat((span.textContent || '0').replace(',', '.'));
+            if (!isNaN(val)) suma += val;
+        });
+        const totalSpan = cardCarrito.querySelector('.subtotalTienda .totalPorTienda');
+        if (totalSpan) totalSpan.textContent = suma.toFixed(2);
+    }
+
+    function recalcularTotalCarrito() {
+        let total = 0;
+        document.querySelectorAll('.totalPorTienda').forEach(span => {
+            const val = parseFloat((span.textContent || '0').replace(',', '.'));
+            if (!isNaN(val)) total += val;
+        });
+        const totalCarrito = document.getElementById('total_carrito');
+        if (totalCarrito) {
+            totalCarrito.textContent = `$${total.toLocaleString('es-CO')}`;
+        }
+    }
+
     function actualizarTotalEnTienda() {
         let total = 0;
     
@@ -115,10 +139,11 @@ function inicializarEventosCarrito() {
         const aumentarBtn = form.querySelector('.aumentar-cantidad');
         const disminuirBtn = form.querySelector('.disminuir-cantidad');
         const cantidadSpan = form.querySelector('.cantidad-producto');
+        const cantidadInput = form.querySelector('input[name="quantity"]');
         let cantidadActual = parseInt(cantidadSpan.textContent) || 0;
 
         let cantidad = parseInt(cantidadSpan.textContent) || 0;
-        confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+        confirmarBtn.style.display = (cantidad !== cantidadActual) ? 'inline-block' : 'none';
 
         form.addEventListener('submit', e => {
             if (e.submitter === aumentarBtn || e.submitter === disminuirBtn) {
@@ -130,7 +155,22 @@ function inicializarEventosCarrito() {
             e.preventDefault();
             cantidad++;
             cantidadSpan.textContent = cantidad;
-            confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+            if (cantidadInput) cantidadInput.value = cantidad;
+            confirmarBtn.style.display = (cantidad !== cantidadActual) ? 'inline-block' : 'none';
+
+            // Recalcular subtotal del ítem
+            const contenedor = form.closest('.cont-imagen-producto');
+            const precioTexto = contenedor?.querySelector('.precioProducto')?.textContent?.trim() || '0';
+            const precio = parseFloat(precioTexto);
+            const subtotalSpan = contenedor?.querySelector('.spanSubTotal');
+            if (!isNaN(precio) && subtotalSpan) {
+                const nuevoSubtotal = (precio * cantidad).toFixed(2);
+                subtotalSpan.textContent = nuevoSubtotal;
+            }
+
+            const card = form.closest('.card-carrito');
+            recalcularTotalTienda(card);
+            recalcularTotalCarrito();
         });
 
         disminuirBtn.addEventListener('click', e => {
@@ -138,7 +178,22 @@ function inicializarEventosCarrito() {
             if (cantidad > 0) {
                 cantidad--;
                 cantidadSpan.textContent = cantidad;
-                confirmarBtn.style.display = cantidad > 0 && cantidad != cantidadActual ? 'inline-block' : 'none';
+                if (cantidadInput) cantidadInput.value = cantidad;
+                confirmarBtn.style.display = (cantidad !== cantidadActual) ? 'inline-block' : 'none';
+
+                // Recalcular subtotal del ítem
+                const contenedor = form.closest('.cont-imagen-producto');
+                const precioTexto = contenedor?.querySelector('.precioProducto')?.textContent?.trim() || '0';
+                const precio = parseFloat(precioTexto);
+                const subtotalSpan = contenedor?.querySelector('.spanSubTotal');
+                if (!isNaN(precio) && subtotalSpan) {
+                    const nuevoSubtotal = (precio * cantidad).toFixed(2);
+                    subtotalSpan.textContent = nuevoSubtotal;
+                }
+
+                const card = form.closest('.card-carrito');
+                recalcularTotalTienda(card);
+                recalcularTotalCarrito();
             }
         });
     });
@@ -221,31 +276,37 @@ function inicializarEventosCarrito() {
                     body: JSON.stringify({ quantity })
                 });
                 const data = await response.json();
-                const spanSubtotal = document.getElementById(`subtotal-${data.id_item}`);
-                let totalElement = document.getElementById(`totalTienda-${data.id_item}`);
-                let totalActual = parseFloat(totalElement.textContent) || 0;
+                const card = form.closest('.card-carrito');
+                const itemContainer = form.closest('.cont-imagen-producto');
 
-                // 3️⃣ Calcular el nuevo valor sumando precio * cantidad
-                let suma = parseFloat(data.precio) * parseInt(data.cantidad);
-                let nuevoTotal = totalActual + suma;
+                if (quantity === 0) {
+                    // Eliminar el producto del DOM
+                    itemContainer?.remove();
 
-                // 4️⃣ Asignar el nuevo valor al span
-                totalElement.textContent = parseInt(totalElement.textContent) + 1000; // Si quieres 2 decimales
-                if (spanSubtotal) {
-                    spanSubtotal.textContent = data.nuevo_subtotal;
+                    // Si la orden queda sin productos, eliminar la tarjeta completa
+                    const restantes = card?.querySelectorAll('.cont-imagen-producto').length || 0;
+                    if (restantes === 0 && card) {
+                        card.remove();
+                    }
+                } else {
+                    // Actualizar subtotal del ítem si persiste
+                    const spanSubtotal = document.getElementById(`subtotal-${data.id_item}`);
+                    if (spanSubtotal && data.nuevo_subtotal !== undefined) {
+                        spanSubtotal.textContent = parseFloat(data.nuevo_subtotal).toFixed(2);
+                    }
                 }
-                let total = 0;
 
-                // Buscar todos los elementos con clase "spanSubTotal"
-                document.querySelectorAll('.spanSubTotal').forEach(el => {
-                    let valor = parseFloat(el.textContent) || 0;
-                    total += valor;
-                    console.log('hyola');
-                });
-            
-                // Actualizar el total en el carrito
-                document.getElementById('total_carrito').textContent = `$${total.toLocaleString()}`;
+                // Recalcular totales y, si no quedan órdenes, mostrar vacío
+                recalcularTotalTienda(card);
+                recalcularTotalCarrito();
 
+                const hayTarjetas = document.querySelectorAll('.card-carrito').length;
+                if (hayTarjetas === 0) {
+                    const contenedor = document.getElementById('contenedorCarritoInterno');
+                    if (contenedor) contenedor.innerHTML = '<p class="mensaje-vacio">No hay productos en el carrito</p>';
+                    const totalTexto = document.getElementById('total_carrito');
+                    if (totalTexto) totalTexto.textContent = '$0';
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -289,41 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-document.querySelectorAll('.aumentar-cantidad').forEach(aumento => {
-    aumento.addEventListener('click', async function () {
-
-        let contenedor = aumento.closest('.cont-imagen-producto');
-
-        let spanSubTotalTexto = contenedor.querySelector('.spanSubTotal').textContent.trim();
-
-        let precioTexto = contenedor.querySelector('.precioProducto').textContent.trim();
-
-        let precioItem = parseFloat(precioTexto); 
-        let precioSubTotal = parseFloat(spanSubTotalTexto); 
-
-        
-        contenedor.querySelector('.spanSubTotal').textContent = (precioItem + precioSubTotal).toFixed(2); 
 
 
-        console.log(precioItem); // Ejemplo de suma
-        console.log(precioSubTotal); // Ejemplo de suma
-    });
-});
+// Eliminadas funciones duplicadas no usadas para evitar eventos múltiples
 
-aumento.addEventListener('click', async function () {
-document.querySelectorAll('.aumentar-cantidad').forEach(aumento => {
-    aumento.addEventListener('click', async function () {
-        let contenedor = aumento.closest('.card-carrito');
 
-        let subTotalDefinitivo = 0;
-
-        let TotalTiendaTexto = contenedor.querySelector('.totalPorTienda').textContent.trim();
-        document.querySelectorAll('.spanSubTotal').forEach(subTotal => {
-            let valor = parseFloat(subTotal.textContent.trim()); 
-            subTotalDefinitivo += valor; // acumulas o asignas
-        });
-        
-    console.log(subTotalDefinitivo);
-});
-});
-});

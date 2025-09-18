@@ -150,7 +150,9 @@ body{
 }
 
 .checkbox:checked + .checkmark:before {
-    transform: translateX(30px);
+    transform: translateX(30px) translateY(-10px);
+;
+
 }
 
 /* ========================================

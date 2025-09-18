@@ -119,9 +119,10 @@ body{
     position: absolute;
     cursor: pointer;
     width: 50px;
-    top: 0;
+    height: 24px;
+    top: 50%;
     right: 20px;
-    bottom: 0;
+    transform: translateY(-50%);
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
@@ -132,9 +133,9 @@ body{
     content: "";
     height: 20px;
     width: 20px;
-    left: 0;
-    bottom: 0px;
-    top: 0;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: white;
     transition: .4s;
     border-radius: 50%;
@@ -606,6 +607,8 @@ body{
 }
 
 .form-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
     background-position: right 12px center;
@@ -949,7 +952,10 @@ body{
 .cont-acciones-producto-tendero .btn-eliminar-producto:hover {
     background-color: #c82333;
 }
-
+.checkboxEstadoTienda p{
+    width: 50%;
+    text-align: center;
+}
 /* ========================================
    ANIMACIONES
    ======================================== */
@@ -1011,6 +1017,37 @@ body{
 /* ========================================
    RESPONSIVE DESIGN
    ======================================== */
+
+/* Medium screens (tablets and small desktops) */
+@media (max-width: 1024px) {
+    .cont-check-estado-tienda {
+        width: 35%;
+    }
+
+    .checkmark {
+        width: 48px;
+        height: 23px;
+        right: 18px;
+    }
+
+    .checkmark:before {
+        height: 19px;
+        width: 19px;
+    }
+
+    .checkbox:checked + .checkmark:before {
+        transform: translateY(-50%) translateX(27px);
+    }
+    .checkboxEstadoTienda p{
+        width: 100%;
+        text-align: center;
+    }
+    #mensajeEstadoTienda{
+        font-size: .8em;
+        width: 50%;
+    }
+}
+
 @media (max-width: 768px) {
     /* Encabezado */
     .cont-encabezado {
@@ -1125,6 +1162,29 @@ body{
     .disabled-store-status{
         width: 100%;
     }
+
+    /* Checkmark responsive adjustments for tablets */
+    .checkmark {
+        width: 45px;
+        height: 22px;
+        right: 15px;
+    }
+
+    .checkmark:before {
+        height: 18px;
+        width: 18px;
+    }
+
+    .checkbox:checked + .checkmark:before {
+        transform: translateY(-50%) translateX(25px);
+    }
+
+    .cont-titulo-encabezado-tendero{
+        text-align: center;
+        font-size: .8em;
+    }
+
+
 }
 
 @media (max-width: 480px) {
@@ -1151,5 +1211,70 @@ body{
     
     .disabled-store-status{
         display: none;
+    }
+
+    /* Checkmark responsive adjustments for mobile */
+    .cont-check-estado-tienda {
+        width: 60%;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-end;
+    }
+
+    .checkmark {
+        width: 40px;
+        height: 20px;
+        right: 10px;
+        position: relative;
+        top: auto;
+        transform: none;
+    }
+
+    .checkmark:before {
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .checkbox:checked + .checkmark:before {
+        transform: translateY(-50%) translateX(20px);
+    }
+
+    /* Adjust container for better mobile layout */
+    .cont-check-estado-tienda label {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+}
+
+/* Extra small screens (very small mobile devices) */
+@media (max-width: 360px) {
+    .cont-check-estado-tienda {
+        width: 70%;
+    }
+
+    .checkmark {
+        width: 35px;
+        height: 18px;
+        right: 5px;
+    }
+
+    .checkmark:before {
+        height: 14px;
+        width: 14px;
+    }
+
+    .checkbox:checked + .checkmark:before {
+        transform: translateY(-50%) translateX(17px);
+    }
+
+    /* Make the toggle more touch-friendly on very small screens */
+    .checkmark {
+        min-height: 44px;
+        min-width: 44px;
+        border-radius: 22px;
     }
 } 

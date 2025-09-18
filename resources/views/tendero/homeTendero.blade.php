@@ -52,7 +52,7 @@
             </article>
             <article class="cont-check-estado-tienda">
                 @if($store->is_active && $store->status === 'approved')
-                    <label for="checkboxEstadoTienda">
+                    <label for="checkboxEstadoTienda" class="checkboxEstadoTienda">
                         <p id="mensajeEstadoTienda">
                             Tu tienda está actualmente {{ $store->is_open ? 'abierta' : 'cerrada' }}
                         </p>

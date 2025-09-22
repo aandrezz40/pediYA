@@ -82,6 +82,38 @@
     <script src="{{ asset('js/register.js') }}"></script>
     <script src="{{ asset('js/validacionContrasena.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('formRegistro');
+            const phoneInput = document.getElementById('numero_telefono');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener el valor del número de teléfono y limpiar espacios
+                const phoneNumber = phoneInput.value.trim();
+                
+                // Validar que sea exactamente 10 dígitos
+                if (!/^\d{10}$/.test(phoneNumber)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en el número de teléfono',
+                        text: 'El número de teléfono debe tener exactamente 10 dígitos',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: "#7400C4",
+                        width: '400px',
+                        heightAuto: false
+
+                    });
+                    return false;
+                }
+                
+                // Si la validación es exitosa, enviar el formulario
+                form.submit();
+            });
+        });
+    </script>
     @if ($errors->any())
     <script>
         document.addEventListener("DOMContentLoaded", function () {

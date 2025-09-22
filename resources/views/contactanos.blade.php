@@ -76,7 +76,7 @@
         <section class="cont-info">
             <article>
                 <img src="{{ asset('img/envelope-solid.svg') }}" alt="Icono de correo">
-                <p>aandrezz40@gmail.com</p>
+                <p>ariasmejiasergio13@gmail.com</p>
             </article>
 
             <article>
@@ -90,7 +90,7 @@
             </article>
         </section>
 
-        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }} class="img">
+        <a href="{{ auth()->check() ? (auth()->user()->role === 'cliente' ? route('homeCliente') : (auth()->user()->role === 'tendero' ? route('homeTendero') : url('/'))) : url('/') }}" class="img">
             <img src="{{ asset('img/home.svg') }}" alt="Inicio">
         </a>
     </main>

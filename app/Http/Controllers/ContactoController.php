@@ -47,7 +47,7 @@ class ContactoController extends Controller{
 
             // Enviar el correo
             Mail::raw($cuerpo, function ($message) use ($datos) {
-                $message->to('aandrezz40@gmail.com')
+                $message->to('ariasmejiasergio13@gmail.com')
                         ->subject('Nuevo mensaje de contacto de PediYÁ - ' . $datos['categoria'])
                         ->replyTo($datos['correo'], $datos['nombre']);
             });

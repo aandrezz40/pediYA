@@ -23,7 +23,6 @@
     font-weight: 300;
     scrollbar-width: thin;
     scrollbar-color: #888 transparent;
-
 }
 html{
     height: 100vh;
@@ -38,30 +37,34 @@ body{
     overflow-x: hidden;
 }
 .container-body-dashboard-admin{
-    width: 90vw;
-    height: 90vh;
+    width: 95vw;
+    height: 95vh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap:20px;
+    gap: 20px;
     border-radius: 10px;
 }
 .nav-bar-lateral-dashboard{
     height: 90%;
-    width: 15%;
+    width: 250px;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 20px 10px;
     gap: 50px;
+    position: relative;
+    z-index: 1000;
 }
 .nombre-empresa-dashboard-admin{
     color: var(--color-primario);
     font-size: 2.8em;
+    text-align: center;
 }
 .list-opciones-nav-bar-admin{
     width: 100%;
@@ -74,18 +77,25 @@ body{
 .opcion-nav-bar-admin{
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     list-style: none;
-    gap: 20px;
+    gap: 15px;
     cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
-
 .opcion-nav-bar-admin img{
     width: var(--tamaño-icono4);
+    flex-shrink: 0;
+}
+.opcion-nav-bar-admin p{
+    font-size: 1.1em;
 }
 .opcion-nav-bar-admin:hover{
     color: var(--color-primario);
+    background-color: rgba(116, 0, 196, 0.1);
 }
 .container-cerrar-sesion{
     width: 100%;
@@ -97,7 +107,6 @@ body{
     background-color: rgb(236, 236, 236);
     border-radius: 10px;
     padding: 10px 5px;
-
 }
 .container-cerrar-sesion p{
     font-size: .9em;
@@ -106,11 +115,10 @@ body{
     text-decoration: none;
     color: red;
     font-size: .8em;
-
 }
 .main-dashboard-admin{
     height: 90%;
-    width: 80%;
+    width: calc(100% - 270px);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -118,8 +126,8 @@ body{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
     border-radius: 10px;
     position: relative;
+    overflow: hidden;
 }
-
 .section-principal-dashboard-admin{
     height: 100%;
     width: 100%;
@@ -127,14 +135,13 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 100px;
+    gap: 80px;
+    padding: 20px;
 }
 .titulo-section-dashboard-admin{
     font-size: 3em;
     color: var(--color-primario);
-}
-.opcion-dashboard img{
-    width: 100px;
+    text-align: center;
 }
 .container-opciones-dashboard{
     display: flex;
@@ -142,9 +149,11 @@ body{
     justify-content: center;
     align-items: center;
     gap: 50px;
+    flex-wrap: wrap;
 }
 .opcion-dashboard{
     width: 300px;
+    min-width: 250px;
     height: 200px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
     border-radius: 30px;
@@ -152,14 +161,27 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
+    padding: 20px;
     text-align: center;
-    gap: 10px;
+    gap: 15px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.opcion-dashboard:hover{
+    transform: translateY(-5px);
+}
+.opcion-dashboard img{
+    width: 100px;
+    height: auto;
+}
+.opcion-dashboard h3{
+    color: var(--color-primario);
+    font-size: 1.5em;
 }
 .opcion-dashboard p{
-    font-size: .8em;
+    font-size: .9em;
     color: var(--color-text3);
+    line-height: 1.4;
 }
 
 /*SECCION TIENDAS*/
@@ -170,55 +192,74 @@ body{
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    overflow-y: auto;
 }
 .titulo-section-gestion-tienda-admin{
     font-size: 2.5em;
+    color: var(--color-primario);
 }
 .enunciado-section{
     color: var(--color-text3);
+    font-size: 1.1em;
 }
 .container-table-tiendas-admin{
     width: 100%;
-    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 .titulo-tabla-admin{
-    padding: 10px;
+    padding: 15px;
     color: white;
     background-color: var(--color-primario);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    font-size: 1.3em;
+    text-align: center;
 }
 .tabla-tiendas-admin{
     width: 100%;
-    overflow-y:auto;
+    min-width: 800px;
     border-collapse: collapse;
 }
 .tabla-tiendas-admin thead{
     background-color: whitesmoke;
 }
+.tabla-tiendas-admin thead th{
+    font-weight: bold;
+    color: var(--color-primario);
+}
 .nombre-tienda{
     color: var(--color-primario);
+    font-weight: bold;
 }
 .tabla-tiendas-admin th,
 .tabla-tiendas-admin td {
-  padding: 12px 16px;
-  vertical-align: top;
-}
-.tabla-tiendas-admin td{
-    text-align: center;
+    padding: 12px 16px;
     vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.tabla-tiendas-admin th{
+    background-color: #f8f9fa;
+}
+.tabla-tiendas-admin tbody tr:hover{
+    background-color: #f5f5f5;
 }
 .btns-acciones-gestion-tienda-admin{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px   ;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 .btns-acciones-gestion-tienda-admin button{
-    padding: 10px 15px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: scale 300ms ease-in-out;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    min-width: 60px;
 }
 .btn-info-tienda{
     background-color: rgb(82, 160, 223);
@@ -234,7 +275,6 @@ body{
     background-color: white;
     border: 1px solid var(--color-sexto);
     color: var(--color-sexto);
-
 }
 .btn-aprobar-tienda{
     background-color: white;
@@ -247,75 +287,100 @@ body{
     color: var(--color-sexto);
 }
 .btns-acciones-gestion-tienda-admin button:hover{
-    scale: 1.05;
+    transform: scale(1.05);
 }
+
 /*MODAL DETALLES DE TIENDA*/
 .overlay-section-detalle-tienda-admin{
     position: absolute;
     width: 100%;
     height: 100%;
     backdrop-filter: blur(3px);
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
 }
 .cont-detalles-tienda-admin{
-    width: 80%;
+    width: 90%;
+    max-width: 1000px;
     height: auto;
+    max-height: 90vh;
     background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    margin: 20px;
 }
 .encabezado-info-tienda-admin{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom:  .5px solid var(--color-borde-claro);
-    padding: 10px 0px;
-
+    border-bottom: 2px solid var(--color-borde-claro);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 .encabezado-info-tienda-admin img{
     width: var(--tamaño-icono3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.encabezado-info-tienda-admin img:hover{
+    transform: rotate(90deg);
+}
+.cont-titulo-encabezado h2{
+    color: var(--color-primario);
+    font-size: 1.8em;
 }
 .cont-info-tienda-admin{
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    padding-top: 20px;
-    gap:10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    padding-top: 10px;
 }
 .card-info-tienda-admin{
-    border: .5px solid rgb(214, 214, 214);
-    padding: 5px 10px;
+    border: 1px solid rgb(214, 214, 214);
+    padding: 15px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #fafafa;
+    transition: box-shadow 0.3s ease;
+}
+.card-info-tienda-admin:hover{
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 .titulo-card-info-tienda-admin{
-    font-size: 1em;
+    font-size: 1.2em;
     color: var(--color-primario);
+    margin-bottom: 10px;
 }
 .descripcion-card-tienda-admin{
-    font-size: .8em;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 .descripcion-card-tienda-admin p{
     color: var(--color-text3);
+    margin-bottom: 5px;
 }
 .descripcion-card-tienda-admin span{
     color: black;
+    font-weight: 500;
 }
+
 /* SECCION USUARIOS */
 .section-gestion-usuarios-admin{
     height: 100%;
@@ -324,59 +389,61 @@ body{
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    overflow-y: auto;
 }
 .titulo-section-gestion-usuarios-admin{
     font-size: 2.5em;
-}
-.enunciado-section{
-    color: var(--color-text3);
+    color: var(--color-primario);
 }
 .container-table-usuarios-admin{
     width: 100%;
-    overflow-y: auto;
-
-}
-.titulo-tabla-admin{
-    padding: 10px;
-    color: white;
-    background-color: var(--color-primario);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 .tabla-usuarios-admin{
     width: 100%;
-    overflow-y: auto;
+    min-width: 700px;
     border-collapse: collapse;
 }
 .tabla-usuarios-admin thead{
     background-color: whitesmoke;
 }
-.nombre-tienda{
+.tabla-usuarios-admin thead th{
+    font-weight: bold;
     color: var(--color-primario);
 }
 .tabla-usuarios-admin th,
 .tabla-usuarios-admin td {
-  padding: 12px 16px;
-  vertical-align: top;
-}
-.tabla-usuarios-admin td{
-    text-align: center;
+    padding: 12px 16px;
     vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.tabla-usuarios-admin th{
+    background-color: #f8f9fa;
+}
+.tabla-usuarios-admin tbody tr:hover{
+    background-color: #f5f5f5;
 }
 .rol-usuarios{
     color: var(--color-primario);
+    font-weight: bold;
 }
 .btns-acciones-gestion-usuarios-admin{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px   ;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 .btns-acciones-gestion-usuarios-admin button{
-    padding: 10px 15px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: scale 300ms ease-in-out;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    min-width: 60px;
 }
 .btn-info-usuarios{
     background-color: rgb(82, 160, 223);
@@ -392,7 +459,6 @@ body{
     background-color: white;
     border: 1px solid var(--color-sexto);
     color: var(--color-sexto);
-
 }
 .btn-aprobar-usuarios{
     background-color: white;
@@ -405,74 +471,94 @@ body{
     color: white;
 }
 .btns-acciones-gestion-usuarios-admin button:hover{
-    scale: 1.05;
+    transform: scale(1.05);
 }
+
 /* MODAL DETALLES DEL USUARIO */
 .overlay-section-detalle-usuario-admin{
     position: absolute;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(2px);
-    background-color: transparent;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
 }
 .cont-detalles-usuario-admin{
-    width: 80%;
+    width: 90%;
+    max-width: 1000px;
     height: auto;
+    max-height: 90vh;
     background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    margin: 20px;
 }
 .encabezado-info-usuario-admin{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom:  .5px solid var(--color-borde-claro);
-    padding: 10px 0px;
-
+    border-bottom: 2px solid var(--color-borde-claro);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 .encabezado-info-usuario-admin img{
     width: var(--tamaño-icono3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.encabezado-info-usuario-admin img:hover{
+    transform: rotate(90deg);
 }
 .cont-info-usuario-admin{
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    padding-top: 20px;
-    gap:10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    padding-top: 10px;
 }
 .card-info-usuario-admin{
-    border: .5px solid rgb(214, 214, 214);
-    padding: 5px 10px;
+    border: 1px solid rgb(214, 214, 214);
+    padding: 15px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #fafafa;
+    transition: box-shadow 0.3s ease;
+}
+.card-info-usuario-admin:hover{
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 .titulo-card-info-usuario-admin{
-    font-size: 1em;
+    font-size: 1.2em;
     color: var(--color-primario);
+    margin-bottom: 10px;
 }
 .descripcion-card-usuario-admin{
-    font-size: .8em;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 .descripcion-card-usuario-admin p{
     color: var(--color-text3);
+    margin-bottom: 5px;
 }
 .descripcion-card-usuario-admin span{
     color: black;
+    font-weight: 500;
 }
 
 /* Estilos para estados de tienda */
@@ -481,4 +567,323 @@ body{
 .aprobacion-detalles-tienda-admin {
     font-weight: bold;
     color: var(--color-text2);
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE DESIGN */
+
+/* Tablets grandes y laptops pequeñas */
+@media screen and (max-width: 1200px) {
+    .container-body-dashboard-admin {
+        width: 98vw;
+        height: 98vh;
+        gap: 15px;
+    }
+    
+    .nav-bar-lateral-dashboard {
+        width: 220px;
+        min-width: 180px;
+    }
+    
+    .main-dashboard-admin {
+        width: calc(100% - 240px);
+    }
+    
+    .titulo-section-dashboard-admin {
+        font-size: 2.5em;
+    }
+    
+    .opcion-dashboard {
+        width: 280px;
+        min-width: 220px;
+    }
+}
+
+/* Tablets */
+@media screen and (max-width: 1024px) {
+    .container-body-dashboard-admin {
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        gap: 0;
+        border-radius: 0;
+    }
+    
+    .nav-bar-lateral-dashboard {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 20px;
+        gap: 20px;
+        border-radius: 0;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nombre-empresa-dashboard-admin {
+        font-size: 2em;
+        margin-right: auto;
+    }
+    
+    .list-opciones-nav-bar-admin {
+        flex-direction: row;
+        gap: 30px;
+        margin-left: auto;
+    }
+    
+    .opcion-nav-bar-admin {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+        padding: 5px;
+        min-width: 60px;
+    }
+    
+    .opcion-nav-bar-admin p {
+        font-size: 0.9em;
+    }
+    
+    .opcion-nav-bar-admin img {
+        width: 30px;
+    }
+    
+    .main-dashboard-admin {
+        width: 100%;
+        height: calc(100vh - 120px);
+        border-radius: 0;
+    }
+    
+    .titulo-section-dashboard-admin {
+        font-size: 2.2em;
+    }
+    
+    .container-opciones-dashboard {
+        gap: 30px;
+    }
+    
+    .opcion-dashboard {
+        width: 260px;
+        min-width: 200px;
+        height: 180px;
+    }
+    
+    .titulo-section-gestion-tienda-admin,
+    .titulo-section-gestion-usuarios-admin {
+        font-size: 2.2em;
+    }
+}
+
+/* Móviles grandes */
+@media screen and (max-width: 768px) {
+    .nav-bar-lateral-dashboard {
+        padding: 10px 15px;
+    }
+    
+    .nombre-empresa-dashboard-admin {
+        font-size: 1.8em;
+    }
+    
+    .list-opciones-nav-bar-admin {
+        gap: 20px;
+    }
+    
+    .opcion-nav-bar-admin p {
+        font-size: 0.8em;
+    }
+    
+    .titulo-section-dashboard-admin {
+        font-size: 2em;
+    }
+    
+    .container-opciones-dashboard {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .opcion-dashboard {
+        width: 90%;
+        max-width: 300px;
+        height: 160px;
+    }
+    .opcion-dashboard img{
+        width: 50px;
+
+    }
+    .opcion-dashboard p{
+        font-size: .7em;
+    }
+    .titulo-section-gestion-tienda-admin,
+    .titulo-section-gestion-usuarios-admin {
+        font-size: 1.8em;
+    }
+    
+    .container-table-tiendas-admin,
+    .container-table-usuarios-admin {
+        font-size: 0.9em;
+    }
+    
+    .tabla-tiendas-admin,
+    .tabla-usuarios-admin {
+        min-width: 600px;
+    }
+    
+    .btns-acciones-gestion-tienda-admin button,
+    .btns-acciones-gestion-usuarios-admin button {
+        padding: 6px 10px;
+        font-size: 0.8em;
+        min-width: 50px;
+    }
+    
+    .cont-detalles-tienda-admin,
+    .cont-detalles-usuario-admin {
+        width: 95%;
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .cont-info-tienda-admin,
+    .cont-info-usuario-admin {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .encabezado-info-tienda-admin h2,
+    .encabezado-info-usuario-admin h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Móviles pequeños */
+@media screen and (max-width: 480px) {
+    .nav-bar-lateral-dashboard {
+        padding: 8px 10px;
+        overflow-x: auto;
+    }
+    
+    .nombre-empresa-dashboard-admin {
+        font-size: 1.5em;
+    }
+    
+    .list-opciones-nav-bar-admin {
+        gap: 15px;
+        min-width: 200px;
+    }
+    
+    .opcion-nav-bar-admin {
+        min-width: 50px;
+    }
+    
+    .opcion-nav-bar-admin p {
+        font-size: 0.7em;
+    }
+    
+    .opcion-nav-bar-admin img {
+        width: 24px;
+    }
+    
+    .titulo-section-dashboard-admin {
+        font-size: 1.8em;
+    }
+    
+    .section-principal-dashboard-admin {
+        gap: 40px;
+        padding: 15px;
+    }
+    
+    .opcion-dashboard {
+        width: 95%;
+        height: 140px;
+        padding: 15px;
+    }
+    
+    .opcion-dashboard img {
+        width: 80px;
+    }
+    
+    .opcion-dashboard h3 {
+        font-size: 1.3em;
+    }
+    
+    .opcion-dashboard p {
+        font-size: 0.8em;
+    }
+    
+    .titulo-section-gestion-tienda-admin,
+    .titulo-section-gestion-usuarios-admin {
+        font-size: 1.6em;
+    }
+    
+    .section-gestion-tienda-admin,
+    .section-gestion-usuarios-admin {
+        padding: 15px;
+    }
+    
+    .tabla-tiendas-admin,
+    .tabla-usuarios-admin {
+        min-width: 500px;
+        font-size: 0.8em;
+    }
+    
+    .tabla-tiendas-admin th,
+    .tabla-tiendas-admin td,
+    .tabla-usuarios-admin th,
+    .tabla-usuarios-admin td {
+        padding: 8px 12px;
+    }
+    
+    .titulo-tabla-admin {
+        font-size: 1.1em;
+        padding: 12px;
+    }
+    
+    .cont-detalles-tienda-admin,
+    .cont-detalles-usuario-admin {
+        width: 98%;
+        padding: 12px;
+        margin: 5px;
+    }
+    
+    .encabezado-info-tienda-admin h2,
+    .encabezado-info-usuario-admin h2 {
+        font-size: 1.3em;
+    }
+    
+    .card-info-tienda-admin,
+    .card-info-usuario-admin {
+        padding: 12px;
+    }
+    
+    .titulo-card-info-tienda-admin,
+    .titulo-card-info-usuario-admin {
+        font-size: 1.1em;
+    }
+    
+    .descripcion-card-tienda-admin,
+    .descripcion-card-usuario-admin {
+        font-size: 0.85em;
+    }
+}
+
+/* Móviles muy pequeños */
+@media screen and (max-width: 320px) {
+    .nombre-empresa-dashboard-admin {
+        font-size: 1.3em;
+    }
+    
+    .titulo-section-dashboard-admin {
+        font-size: 1.5em;
+    }
+    
+    .opcion-dashboard h3 {
+        font-size: 1.2em;
+    }
+    
+    .titulo-section-gestion-tienda-admin,
+    .titulo-section-gestion-usuarios-admin {
+        font-size: 1.4em;
+    }
+    
+    .tabla-tiendas-admin,
+    .tabla-usuarios-admin {
+        font-size: 0.7em;
+    }
 }

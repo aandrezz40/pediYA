@@ -638,6 +638,11 @@ body{
     width: 100%;
     gap: 10px;
 }
+.selectBarrios{
+    width: 100%;
+    border-radius: 5px;
+    padding: 3px;
+}
 /*CONTENEDOR FORMULARIO DE HORARIOS*/
 .cont-formulario-horarios{
     display: none;

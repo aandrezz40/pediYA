@@ -231,7 +231,7 @@ header{
     top:0;
     width: 100vw;
     background-color: #00000091;
-    z-index: 10;
+    z-index: 9999999;
     backdrop-filter: blur(2px);
     opacity: 0;
     transform: translateX(-100%); 
